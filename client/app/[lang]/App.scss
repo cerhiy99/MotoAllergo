@@ -1,0 +1,29 @@
+body {
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+main {
+  min-height: 50vh;
+}
+
+footer {
+  width: 100%;
+  position: relative;
+  bottom: 0;
+}
+@mixin responsive-width {
+  margin: 0 auto;
+  @media (min-width: 1024px) {
+    width: 85%;
+  }
+
+  @media (max-width: 1023px) and (min-width: 768px) {
+    width: 90%;
+  }
+
+  @media (max-width: 767px) {
+    width: 95%;
+  }
+}
