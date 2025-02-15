@@ -5,9 +5,15 @@ const nextConfig = {
   // Приклад: відключення автоматичного підбору Webpack
   webpack5: false,
   images: {
-    domains: ["localhost"],
+    domains: ['localhost'],
   },
-
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
+    return config;
+  },
   // інші налаштування...
 };
 
