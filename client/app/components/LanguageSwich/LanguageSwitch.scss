@@ -1,0 +1,38 @@
+.language-switch {
+    position: relative;
+    width: 125px;
+    height: 40px;
+    background-color: rgba(53, 133, 173, 0.4);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+
+    .toggle {
+        position: absolute;
+        width: 65px;
+        height: 40px;
+        background: #3585AD;
+        border-radius:20px;
+        transition: 0.3s;
+    }
+
+    .toggle.right {
+        left: 60px;
+    }
+
+    .label {
+        flex: 1;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        transition: 0.5s;
+    }
+
+    .label.active {
+        color: white;
+    }
+}
