@@ -134,6 +134,10 @@
             align-items: center;
             gap: 20px;
 
+            .phone {
+                display: flex;
+                align-items: center;
+            }
         }
     }
 }

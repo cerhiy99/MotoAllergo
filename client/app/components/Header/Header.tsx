@@ -93,14 +93,14 @@ const Header = (props: Props) => {
               <Image
                 width={18}
                 height={18}
-                src="/icons/heart.svg"
-                alt="Избранное"
+                src="/icons/favorite.svg"
+                alt="Favorite"
               />
               <Image
                 width={18}
                 height={18}
-                src="/icons/cart.svg"
-                alt="Корзина"
+                src="/icons/basket.svg"
+                alt="Basket"
               />
             </div>
           </div>
