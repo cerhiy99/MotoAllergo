@@ -1,0 +1,161 @@
+.headerContainer {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding: 0 24px;
+
+
+  .topRow {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgba(53, 133, 173, 0.05);
+    padding: 8px 24px;
+    gap: 12px;
+  }
+
+  .contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #899198;
+    }
+  }
+
+  .socials {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .callBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    padding: 13px 21px;
+    border: none;
+    border-radius: 21px;
+    background: #0E4ED2;
+    font-weight: 700;
+    font-size: 14px;
+    color: #fff;
+    width: auto; 
+    min-width: 150px; 
+    white-space: nowrap;
+    transition: .3s;
+    &:hover {
+      background-color: #4678de;
+      cursor: pointer;
+    }
+  }
+
+  .middleRow {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 11px 0;
+    gap: 16px;
+
+    .searchContainer {
+      display: flex;
+      flex: 1;
+      min-width: 200px;
+      max-width: 100%;
+      position: relative;
+    }
+
+    .searchInput {
+      flex: 1;
+      min-width: 100px;
+      width: 50vw;
+      height: 5.6vh;
+      padding: 0 12px;
+      font-size: 13px;
+      border: 0.5px solid #3585ad;
+      border-radius: 12px;
+      outline: none;
+      padding-right: 110px;
+      &::placeholder {
+        color: #899198;
+      }
+    }
+
+    .searchButton {
+      width: 5.8vw;
+      height: 5.6vh;
+      background-color: #0E4ED2;
+      border: none;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  .navRow {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(53, 133, 173, 0.7);
+    border-bottom: 1px solid rgba(53, 133, 173, 0.7);
+    padding: 11px 24px;
+    gap: 12px;
+
+    .leftNav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .rightNav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    a {
+      text-decoration: none;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      font-size: 14px;
+      color: #000;
+      white-space: nowrap;
+      &:hover {
+        color: #144B7A;
+      }
+    }
+  }
+}

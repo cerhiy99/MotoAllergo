@@ -1,107 +1,84 @@
+"use client";
+
 import { Locale } from '@/i18n.config';
 import React from 'react';
-import './Header.scss';
+import styles from "./Header.module.scss";  
 import Image from 'next/image';
 import Link from 'next/link';
 import Icon from '../Icon/Icon';
-import LanguageSwitch from '../LanguageSwich/LanguageSwitch';
+import LanguageSwitch from '../LanguageSwitch/LanguageSwitch';
 
 type Props = {
   lang: Locale;
 };
 
-const Header = (props: Props) => {
+const Header: React.FC<Props> = ({ lang }) => {
   return (
-    <header className="header">
-      <div className="header-container">
-        <div className="topRow">
-          <div className="contacts">
+    <header className={styles.header}>
+      <div className={styles.headerContainer}>
+        {/* Top row */}
+        <div className={styles.topRow}>
+          <div className={styles.contacts}>
             <ul>
               <li>
-                <Icon src="/icons/area.svg" alt="Area" size={18} />
-                <p>м. Львів, вул. Жовковська, 20</p>
+                <Icon src="/icons/area.svg" alt="Location" size={18} />
+                <span>м. Львів, вул. Жовківська, 20</span>
               </li>
               <li>
                 <Icon src="/icons/clock.svg" alt="Clock" size={18} />
-                <p>8:00 - 22:00 Пн - Нд</p>
+                <span>8:00 - 22:00 Пн - Нд</span>
               </li>
               <li>
                 <Icon src="/icons/phone.svg" alt="Phone" size={18} />
-                <p>+38(093)-369-99-68</p>
+                <span>+38(093)-369-99-68</span>
               </li>
             </ul>
           </div>
-          <div className="socials">
-            <Link href="#">
-              <Icon src="/icons/viber.svg" alt="Viber" size={18} />
-            </Link>
-            <Link href="#">
-              <Icon src="/icons/telegram.svg" alt="Telegram" size={18} />
-            </Link>
-            <Link href="#">
-              <Icon src="/icons/whatsapp.svg" alt="Whatsapp" size={18} />
-            </Link>
-            <Link href="#">
-              <Icon src="/icons/facebook.svg" alt="Facebook" size={18} />
-            </Link>
-            <Link href="#">
-              <Icon src="/icons/instagram.svg" alt="Instagram" size={18} />
-            </Link>
+          <div className={styles.socials}>
+            {["viber", "telegram", "whatsapp", "facebook", "instagram"].map((name) => (
+              <Link key={name} href="#">
+                <Icon src={`/icons/${name}.svg`} alt={name} size={18} />
+              </Link>
+            ))}
           </div>
-          <button className="callBtn">
+          <button className={styles.callBtn}>
             <Icon src="/icons/bell.svg" alt="Bell" size={16} />
             Замовити дзвінок
           </button>
         </div>
 
-        <div className="middleRow">
+        {/* Middle row */}
+        <div className={styles.middleRow}>
           <Link href="#">
-            <Image src="/icons/logo.svg" alt="Logo" width={300} height={40} />
+            <Image src="/icons/logo.svg" alt="Logo" width={250} height={40} />
           </Link>
-          <div className="search-container">
-            <input
-              type="text"
-              placeholder="Пошук..."
-              className="search-input"
-            />
-            <button className="search-button">
+          <div className={styles.searchContainer}>
+            <input type="text" placeholder="Пошук..." className={styles.searchInput} />
+            <button className={styles.searchButton}>
               <Icon src="/icons/search.svg" alt="Search" size={20} />
             </button>
           </div>
         </div>
 
-        <div className="navRow">
-          <nav className="leftNav">
-            <Link href="#">Про нас</Link>
-            <Link href="#">Каталог</Link>
-            <Link href="#">Оплата і доставка</Link>
-            <Link href="#">Гарантія</Link>
-            <Link href="#">Новини</Link>
-            <Link href="#">Партнерство</Link>
-            <Link href="#">Контакти</Link>
+        {/* Bottom row + nav */}
+        <div className={styles.navRow}>
+          <nav className={styles.leftNav}>
+            {["Про нас", "Каталог", "Оплата і доставка", "Гарантія", "Новини", "Партнерство", "Контакти"].map((item) => (
+              <Link key={item} href="#">{item}</Link>
+            ))}
           </nav>
-          <div className="rightNav">
-            <div className="phone">
+          <div className={styles.rightNav}>
+            <div className={styles.phone}>
               <Link href="#">
                 <Icon src="/icons/phone.svg" alt="Phone" size={18} />
               </Link>
-
-              <p>+380 98 519 3009</p>
+              <span>+380 98 519 3009</span>
             </div>
             <LanguageSwitch />
-            <div className="icons">
-              <Image
-                width={18}
-                height={18}
-                src="/icons/favorite.svg"
-                alt="Favorite"
-              />
-              <Image
-                width={18}
-                height={18}
-                src="/icons/basket.svg"
-                alt="Basket"
-              />
+            <div className={styles.icons}>
+              {["favorite", "basket"].map((icon) => (
+                <Image key={icon} width={18} height={18} src={`/icons/${icon}.svg`} alt={icon} />
+              ))}
             </div>
           </div>
         </div>
