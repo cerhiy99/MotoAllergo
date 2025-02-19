@@ -5,8 +5,9 @@
   flex-direction: column;
   align-items: center;
   overflow: hidden;
-  padding: 0 24px;
-
+  padding: 0 16px;
+  background-color: #f8fafd;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 
   .topRow {
     width: 100%;
@@ -14,62 +15,61 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    background-color: rgba(53, 133, 173, 0.05);
-    padding: 8px 24px;
+    background-color: #eef4fa;
+    padding: 10px 5%;
     gap: 12px;
-  }
+    font-size: 14px;
+    color: #144b7a;
 
-  .contacts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-
-    ul {
+    .contacts {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      padding: 0;
-      margin: 0;
-      list-style: none;
+      gap: 16px;
+      font-weight: 500;
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
     }
 
-    li {
+    .socials {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .callBtn {
       display: flex;
       align-items: center;
-      gap: 8px;
-    }
-
-    p {
+      justify-content: center;
+      gap: 11px;
+      padding: 10px 20px;
+      margin-right: 30px;
+      border: none;
+      border-radius: 25px;
+      background: #0e4ed2;
+      font-weight: 700;
       font-size: 14px;
-      color: #899198;
-    }
-  }
+      color: #fff;
+      min-width: 160px;
+      white-space: nowrap;
+      transition: 0.3s;
 
-  .socials {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .callBtn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 11px;
-    padding: 13px 21px;
-    border: none;
-    border-radius: 21px;
-    background: #0E4ED2;
-    font-weight: 700;
-    font-size: 14px;
-    color: #fff;
-    width: auto; 
-    min-width: 150px; 
-    white-space: nowrap;
-    transition: .3s;
-    &:hover {
-      background-color: #4678de;
-      cursor: pointer;
+      &:hover {
+        background-color: #4678de;
+        cursor: pointer;
+      }
     }
   }
 
@@ -79,65 +79,69 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 11px 0;
+    padding: 14px 5%;
     gap: 16px;
-
+    
+    //Пошук
     .searchContainer {
       display: flex;
       flex: 1;
-      min-width: 200px;
       max-width: 100%;
       position: relative;
     }
-
+  
     .searchInput {
       flex: 1;
-      min-width: 100px;
       width: 50vw;
-      height: 5.6vh;
-      padding: 0 12px;
-      font-size: 13px;
-      border: 0.5px solid #3585ad;
-      border-radius: 12px;
+      height: 50px;
+      padding: 0 16px;
+      font-size: 16px;
+      border: 1px solid #3585ad;
+      border-radius: 25px;
       outline: none;
-      padding-right: 110px;
+      padding-right: 60px;
+      background-color: #fff;
+      margin-right: 20px;
+
       &::placeholder {
         color: #899198;
       }
     }
 
     .searchButton {
-      width: 5.8vw;
-      height: 5.6vh;
-      background-color: #0E4ED2;
+      width: 50px;
+      height: 40px;
+      background-color: #0e4ed2;
       border: none;
-      border-radius: 12px;
+      border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       position: absolute;
-      right: 5px;
+      right: 10px;
       top: 50%;
       transform: translateY(-50%);
+      margin-right: 20px;
     }
   }
-
+    //Навігація 
   .navRow {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    border-top: 1px solid rgba(53, 133, 173, 0.7);
-    border-bottom: 1px solid rgba(53, 133, 173, 0.7);
-    padding: 11px 24px;
+    border-top: 1px solid #e0e7ed;
+    border-bottom: 1px solid #e0e7ed;
+    padding: 14px 5%;
     gap: 12px;
+    background-color: #fff;
 
     .leftNav {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 16px;
     }
 
     .rightNav {
@@ -145,17 +149,50 @@
       align-items: center;
       gap: 20px;
       flex-wrap: wrap;
+
+      
     }
 
     a {
       text-decoration: none;
-      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-      font-size: 14px;
+      font-size: 15px;
       color: #000;
       white-space: nowrap;
+      font-weight: 500;
+      transition: 0.3s;
+
       &:hover {
-        color: #144B7A;
+        color: #144b7a;
       }
     }
+  }
+}
+
+// Адаптивність
+@media (max-width: 768px) {
+  .topRow {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .socials {
+    order: 2;
+    margin-top: 10px;
+  }
+
+  .callBtn {
+    order: 1;
+  }
+
+  .middleRow {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .navRow {
+    flex-direction: column;
+    gap: 10px;
   }
 }

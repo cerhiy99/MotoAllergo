@@ -3,10 +3,23 @@
 import { Locale } from '@/i18n.config';
 import React from 'react';
 import styles from "./Header.module.scss";  
-import Image from 'next/image';
 import Link from 'next/link';
-import Icon from '../Icon/Icon';
 import LanguageSwitch from '../LanguageSwitch/LanguageSwitch';
+
+// Імпорт SVG-іконок
+import AreaSVG from '../asset/area.svg';
+import BasketSVG from '../asset/basket.svg';
+import BellSVG from '../asset/bell.svg';
+import ClockSVG from '../asset/clock.svg';
+import FacebookSVG from '../asset/facebook.svg';
+import FavoriteSVG from '../asset/favorite.svg';
+import InstSVG from '../asset/inst.svg';
+import LogoSVG from '../asset/logo.svg';
+import PhoneSVG from '../asset/phone.svg';
+import SearchSVG from '../asset/search.svg';
+import TelegramSVG from '../asset/telegram.svg';
+import ViberSVG from '../asset/viber.svg';
+import WhatsappSVG from '../asset/whatsapp.svg';
 
 type Props = {
   lang: Locale;
@@ -16,51 +29,52 @@ const Header: React.FC<Props> = ({ lang }) => {
   return (
     <header className={styles.header}>
       <div className={styles.headerContainer}>
-        {/* Top row */}
+        
+        {/* Верхній рядок */}
         <div className={styles.topRow}>
           <div className={styles.contacts}>
             <ul>
               <li>
-                <Icon src="/icons/area.svg" alt="Location" size={18} />
+                <AreaSVG />
                 <span>м. Львів, вул. Жовківська, 20</span>
               </li>
               <li>
-                <Icon src="/icons/clock.svg" alt="Clock" size={18} />
+                <ClockSVG />
                 <span>8:00 - 22:00 Пн - Нд</span>
               </li>
               <li>
-                <Icon src="/icons/phone.svg" alt="Phone" size={18} />
+                <PhoneSVG />
                 <span>+38(093)-369-99-68</span>
               </li>
             </ul>
           </div>
           <div className={styles.socials}>
-            {["viber", "telegram", "whatsapp", "facebook", "instagram"].map((name) => (
-              <Link key={name} href="#">
-                <Icon src={`/icons/${name}.svg`} alt={name} size={18} />
-              </Link>
-            ))}
+            <Link href="#"><ViberSVG /></Link>
+            <Link href="#"><TelegramSVG /></Link>
+            <Link href="#"><WhatsappSVG /></Link>
+            <Link href="#"><FacebookSVG /></Link>
+            <Link href="#"><InstSVG /></Link>
           </div>
           <button className={styles.callBtn}>
-            <Icon src="/icons/bell.svg" alt="Bell" size={16} />
+            <BellSVG />
             Замовити дзвінок
           </button>
         </div>
 
-        {/* Middle row */}
+        {/* Середній рядок */}
         <div className={styles.middleRow}>
           <Link href="#">
-            <Image src="/icons/logo.svg" alt="Logo" width={250} height={40} />
+            <LogoSVG />
           </Link>
           <div className={styles.searchContainer}>
             <input type="text" placeholder="Пошук..." className={styles.searchInput} />
             <button className={styles.searchButton}>
-              <Icon src="/icons/search.svg" alt="Search" size={20} />
+              <SearchSVG />
             </button>
           </div>
         </div>
 
-        {/* Bottom row + nav */}
+        {/* Нижній рядок + навігація */}
         <div className={styles.navRow}>
           <nav className={styles.leftNav}>
             {["Про нас", "Каталог", "Оплата і доставка", "Гарантія", "Новини", "Партнерство", "Контакти"].map((item) => (
@@ -69,16 +83,13 @@ const Header: React.FC<Props> = ({ lang }) => {
           </nav>
           <div className={styles.rightNav}>
             <div className={styles.phone}>
-              <Link href="#">
-                <Icon src="/icons/phone.svg" alt="Phone" size={18} />
-              </Link>
+              <Link href="#"><PhoneSVG /></Link>
               <span>+380 98 519 3009</span>
             </div>
             <LanguageSwitch />
             <div className={styles.icons}>
-              {["favorite", "basket"].map((icon) => (
-                <Image key={icon} width={18} height={18} src={`/icons/${icon}.svg`} alt={icon} />
-              ))}
+                <FavoriteSVG />
+                <BasketSVG />
             </div>
           </div>
         </div>

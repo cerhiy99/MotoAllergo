@@ -1,0 +1,134 @@
+.footer {
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+  border-top: 30px solid #273C66;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    
+    // Відступи контейнера
+    padding-left: calc(55% / 3);  
+    padding-right: calc(15% / 3); 
+
+    // Основне тіло колон
+    .column {
+      flex: 1;
+      border-right: 1px solid gray;
+      border-left: 1px solid gray;
+      padding: 40px 20px; 
+
+      h4 {
+        color: #273C66;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          margin-bottom: 8px;
+          cursor: pointer;
+          color: #333;
+          transition: color 0.3s;
+
+          &:hover {
+            color: #0056b3;
+          }
+        }
+      }
+
+      p {
+        font-size: 14px;
+        color: #555;
+      }
+
+      input[type="email"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+
+      .checkbox {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        input {
+          margin-right: 5px;
+          transform: scale(1.5);
+          
+        }
+
+        label {
+          font-size: 13px;
+          margin-left: 10px;
+          color: #273C66;
+        }
+      }
+      .Regul {
+        display: block;
+        margin-bottom: 10px;
+        color: #273C66;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 13px;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      }
+
+      .subscribeButton {
+        width: 100%;
+        background-color: #273C66;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background 0.3s;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 4.5vw;
+    font-size: 14px;
+    color: #555; 
+    border-top: 1px solid #ddd;
+
+    a{
+      text-decoration: none;
+      color: #333;
+      cursor: pointer;
+    }
+    b{
+      margin-right: 30px;
+    }
+  }
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .column {
+    border: none;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+  }
+}
+}
