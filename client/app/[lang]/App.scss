@@ -3,8 +3,8 @@ body {
   margin: 0;
   overflow-x: hidden;
   font-family: var(--font-roboto), sans-serif;
+  box-sizing: border-box;
 }
-
 main {
   min-height: 50vh;
 }
