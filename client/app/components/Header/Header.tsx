@@ -1,16 +1,33 @@
+'use client';
+
 import { Locale } from '@/i18n.config';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 import './Header.scss';
-import Image from 'next/image';
 import Link from 'next/link';
-import Icon from '../Icon/Icon';
 import LanguageSwitch from '../LanguageSwich/LanguageSwitch';
+import Logo from '../../assets/icons/logo.svg';
+import Area from '../../assets/icons/area.svg';
+import Clock from '../../assets/icons/clock.svg';
+import Phone from '../../assets/icons/phone.svg';
+import Viber from '../../assets/icons/viber.svg';
+import Telegram from '../../assets/icons/telegram.svg';
+import Whatsapp from '../../assets/icons/whatsapp.svg';
+import Facebook from '../../assets/icons/facebook.svg';
+import Instagram from '../../assets/icons/inst.svg';
+import Bell from '../../assets/icons/bell.svg';
+import Search from '../../assets/icons/search.svg';
+import Favorite from '../../assets/icons/favorite.svg';
+import Basket from '../../assets/icons/basket.svg';
 
 type Props = {
   lang: Locale;
+  dictionary: any;
 };
 
-const Header = (props: Props) => {
+const Header = ({ lang, dictionary }: Props) => {
+  const pathname = usePathname();
+
   return (
     <header className="header">
       <div className="header-container">
@@ -18,45 +35,45 @@ const Header = (props: Props) => {
           <div className="contacts">
             <ul>
               <li>
-                <Icon src="/icons/area.svg" alt="Area" size={18} />
+                <Area />
                 <p>м. Львів, вул. Жовковська, 20</p>
               </li>
               <li>
-                <Icon src="/icons/clock.svg" alt="Clock" size={18} />
+                <Clock />
                 <p>8:00 - 22:00 Пн - Нд</p>
               </li>
               <li>
-                <Icon src="/icons/phone.svg" alt="Phone" size={18} />
-                <p>+38(093)-369-99-68</p>
+                <Phone />
+                <Link href={'tel:+38(093)-369-99-68'}>+38(093)-369-99-68</Link>
               </li>
             </ul>
           </div>
           <div className="socials">
             <Link href="#">
-              <Icon src="/icons/viber.svg" alt="Viber" size={18} />
+              <Viber />
             </Link>
             <Link href="#">
-              <Icon src="/icons/telegram.svg" alt="Telegram" size={18} />
+              <Telegram />
             </Link>
             <Link href="#">
-              <Icon src="/icons/whatsapp.svg" alt="Whatsapp" size={18} />
+              <Whatsapp />
             </Link>
             <Link href="#">
-              <Icon src="/icons/facebook.svg" alt="Facebook" size={18} />
+              <Facebook />
             </Link>
             <Link href="#">
-              <Icon src="/icons/instagram.svg" alt="Instagram" size={18} />
+              <Instagram />
             </Link>
           </div>
           <button className="callBtn">
-            <Icon src="/icons/bell.svg" alt="Bell" size={16} />
-            Замовити дзвінок
+            <Bell />
+            {dictionary.callBtn}
           </button>
         </div>
 
         <div className="middleRow">
-          <Link href="#">
-            <Image src="/icons/logo.svg" alt="Logo" width={300} height={40} />
+          <Link href={`/${lang}`}>
+            <Logo width={300} height={40} />
           </Link>
           <div className="search-container">
             <input
@@ -65,43 +82,40 @@ const Header = (props: Props) => {
               className="search-input"
             />
             <button className="search-button">
-              <Icon src="/icons/search.svg" alt="Search" size={20} />
+              <Search />
             </button>
           </div>
         </div>
 
         <div className="navRow">
           <nav className="leftNav">
-            <Link href="#">Про нас</Link>
-            <Link href="#">Каталог</Link>
-            <Link href="#">Оплата і доставка</Link>
-            <Link href="#">Гарантія</Link>
-            <Link href="#">Новини</Link>
-            <Link href="#">Партнерство</Link>
-            <Link href="#">Контакти</Link>
+            {[
+              { path: 'about-us', label: 'Про нас' },
+              { path: 'catalog', label: 'Каталог' },
+              { path: 'delivery', label: 'Оплата і доставка' },
+              { path: 'warranty', label: 'Гарантія' },
+              { path: 'news', label: 'Новини' },
+              { path: 'partnership', label: 'Партнерство' },
+              { path: 'contacts', label: 'Контакти' },
+            ].map(({ path, label }) => (
+              <Link
+                key={path}
+                href={`/${lang}/${path}`}
+                className={pathname === `/${lang}/${path}` ? 'current' : ''}
+              >
+                {label}
+              </Link>
+            ))}
           </nav>
           <div className="rightNav">
             <div className="phone">
-              <Link href="#">
-                <Icon src="/icons/phone.svg" alt="Phone" size={18} />
-              </Link>
-
-              <p>+380 98 519 3009</p>
+              <Phone />
+              <Link href={'tel:+380985193009'}>+(380) 98 519 3009</Link>
             </div>
             <LanguageSwitch />
             <div className="icons">
-              <Image
-                width={18}
-                height={18}
-                src="/icons/favorite.svg"
-                alt="Favorite"
-              />
-              <Image
-                width={18}
-                height={18}
-                src="/icons/basket.svg"
-                alt="Basket"
-              />
+              <Favorite width={27} height={25} />
+              <Basket />
             </div>
           </div>
         </div>

@@ -11,9 +11,8 @@ export default function LanguageSwitch() {
       className="language-switch"
       onClick={() => setLanguage(language === 'UA' ? 'RU' : 'UA')}
     >
-      <div className={`toggle ${language === 'RU' ? 'right' : 'left'}`}></div>
-      <span className={`label ${language === 'UA' ? 'active' : ''}`}>UA</span>
-      <span className={`label ${language === 'RU' ? 'active' : ''}`}>RU</span>
+      <span className="label">RU</span>
+      <div className={`toggle ${language === 'UA' ? 'left' : 'right'}`}>UA</div>
     </div>
   );
 }

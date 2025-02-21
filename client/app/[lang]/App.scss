@@ -2,6 +2,7 @@ body {
   min-height: 100vh;
   margin: 0;
   overflow-x: hidden;
+  font-family: var(--font-roboto), sans-serif;
 }
 
 main {
@@ -13,6 +14,12 @@ footer {
   position: relative;
   bottom: 0;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 @mixin responsive-width {
   margin: 0 auto;
   @media (min-width: 1024px) {

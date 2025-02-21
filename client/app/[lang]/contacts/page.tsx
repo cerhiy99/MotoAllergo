@@ -13,7 +13,7 @@ const page = async ({ params: { lang } }: Props) => {
   const { contact } = await getDictionary(lang);
   return (
     <div className="contacts-container">
-      <Link href={`/${lang}/cookies`}></Link>
+      <Link href={`/${lang}/cookies`}>Contacts Page</Link>
     </div>
   );
 };
