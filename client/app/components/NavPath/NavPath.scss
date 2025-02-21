@@ -1,0 +1,24 @@
+.nav-path {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    color: #6c757d;
+
+    .navpath-link,
+    .navpath-item,
+    .navpath-active {
+        text-decoration: none;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 2;
+    }
+
+    .navpath-separator {
+        margin-right: 6px;
+    }
+
+    .navpath-active {
+        color: #006fe4;
+    }
+}

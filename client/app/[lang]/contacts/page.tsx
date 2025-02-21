@@ -4,6 +4,7 @@ import React from 'react';
 import './Contact.scss';
 import Link from 'next/link';
 import Map from '@/app/components/Map/Map';
+import NavPath from '@/app/components/NavPath/NavPath';
 //import Svg from '../../assest/Contact/';
 
 type Props = {
@@ -16,6 +17,7 @@ const page = async ({ params: { lang } }: Props) => {
     <div className="contacts-container">
       {/* <Link href={`/${lang}/cookies`}>Contacts Page</Link> */}
       <Map />
+      <NavPath />
     </div>
   );
 };
