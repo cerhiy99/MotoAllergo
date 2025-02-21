@@ -3,7 +3,7 @@
     width: 1240px;
     padding-bottom: 20px;
 
-a {
+    a {
         text-decoration: none;
         color: inherit;
     }
@@ -36,9 +36,80 @@ a {
         gap: 10px;
     }
 
-    .divider {
-        width: 372px;
+    .contacts-divider-info {
+        width: 430px;
         height: 1px;
         background-color: rgba(129, 129, 129, 0.2);
+    }
+
+    .info-contacts {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin: 47px 0 25px;
+    }
+
+    .info-contacts-text {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        p {
+
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #3f3f3f;
+            margin: 0;
+                padding: 0;
+
+            span {
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 1.6;
+                color: #333;
+            }
+        }
+    }
+
+    .socials {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 36px;
+    }
+
+    .info-divider {
+        background-color:  #ebebeb;
+        width: 556px;
+        height: 1px;
+        margin-bottom: 36px;
+    }
+
+    .info-text {
+        display: flex;
+            align-items: flex-start;
+            gap: 20px;
+    }
+
+    .info-text-content {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        span {
+            font-weight: 600;
+                font-size: 14px;
+                line-height: 1.6;
+                color: #333;
+        }
+
+        p {
+            font-weight: 400;
+                font-size: 14px;
+                line-height: 1.28571;
+                color: #3f3f3f;
+            padding: 0;
+            margin: 0;
+        }
     }
 }
