@@ -1,7 +1,9 @@
+@import '../../mixins/color.scss';
 .footer {
-  background-color: #f8f9fa;
+  @include color();
+  background-color: var(--once-white);
   font-family: Arial, sans-serif;
-  border-top: 30px solid #273C66;
+  border-top: 30px solid var(--dark-blue);//color #27...
 
   .container {
     display: flex;
@@ -16,12 +18,12 @@
     // Основне тіло колон
     .column {
       flex: 1;
-      border-right: 1px solid gray;
-      border-left: 1px solid gray;
+      border-right: 1px solid var(--real-gray);
+      border-left: 1px solid var(--real-gray);
       padding: 40px 20px; 
 
       h4 {
-        color: #273C66;
+        color: var(--dark-blue);
         font-size: 18px;
         font-weight: bold;
         margin-bottom: 15px;
@@ -34,24 +36,24 @@
         li {
           margin-bottom: 8px;
           cursor: pointer;
-          color: #333;
+          color: var(--dark-gray);
           transition: color 0.3s;
 
           &:hover {
-            color: #0056b3;
+            color: var(--soft-blue);
           }
         }
       }
 
       p {
         font-size: 14px;
-        color: #555;
+        color: var(--gray);
       }
 
       input[type="email"] {
         width: 100%;
         padding: 8px;
-        border: 1px solid #ccc;
+        border: 1px solid var(--soft-white);
         border-radius: 5px;
         margin-bottom: 10px;
       }
@@ -70,23 +72,23 @@
         label {
           font-size: 13px;
           margin-left: 10px;
-          color: #273C66;
+          color: var(--dark-blue);
         }
       }
       .Regul {
         display: block;
         margin-bottom: 10px;
-        color: #273C66;
+        color: var(--dark-blue);
         text-decoration: underline;
         cursor: pointer;
         font-size: 13px;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        
       }
 
       .subscribeButton {
         width: 100%;
-        background-color: #273C66;
-        color: white;
+        background-color: var(--dark-blue);
+        color: var(--white);
         border: none;
         padding: 10px;
         border-radius: 20px;
@@ -94,23 +96,24 @@
         transition: background 0.3s;
 
         &:hover {
-          background-color: #0056b3;
+          background-color: var(--soft-blue);
         }
       }
     }
   }
 
   .bottom {
+    font-family: Roboto;//Roboto - Font (Vs-basic font)
     display: flex;
     justify-content: space-between;
     padding: 0 4.5vw;
     font-size: 14px;
-    color: #555; 
-    border-top: 1px solid #ddd;
+    color: var(--gray);
+    border-top: 1px solid var(--white);
 
     a{
       text-decoration: none;
-      color: #333;
+      color: var(--dark-gray);
       cursor: pointer;
     }
     b{
