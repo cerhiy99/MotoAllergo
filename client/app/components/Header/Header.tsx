@@ -3,123 +3,111 @@
 import { Locale } from '@/i18n.config';
 import { usePathname } from 'next/navigation';
 import React from 'react';
-import './Header.scss';
+import Image from 'next/image';
 import Link from 'next/link';
+import styles from './Header.module.css';
 import LanguageSwitch from '../LanguageSwich/LanguageSwitch';
 import Logo from '../../assets/icons/logo.svg';
-import Area from '../../assets/icons/area.svg';
-import Clock from '../../assets/icons/clock.svg';
-import Phone from '../../assets/icons/phone.svg';
 import Viber from '../../assets/icons/viber.svg';
 import Telegram from '../../assets/icons/telegram.svg';
 import Whatsapp from '../../assets/icons/whatsapp.svg';
 import Facebook from '../../assets/icons/facebook.svg';
 import Instagram from '../../assets/icons/inst.svg';
-import Bell from '../../assets/icons/bell.svg';
-import Search from '../../assets/icons/search.svg';
-import Favorite from '../../assets/icons/favorite.svg';
-import Basket from '../../assets/icons/basket.svg';
+import Heart from '../../assets/icons/heart.svg';
+import Cart from '../../assets/icons/cart.svg';
+import { useState } from 'react';
 
-type Props = {
-  lang: Locale;
-  dictionary: any;
-};
-
-const Header = ({ lang, dictionary }: Props) => {
-  const pathname = usePathname();
-
+const Header: React.FC = () => {
+  const [isUa, setIsUa] = useState(true);
+  const toggleLanguage = () => setIsUa(!isUa);
   return (
-    <header className="header">
-      <div className="header-container">
-        <div className="topRow">
-          <div className="contacts">
-            <ul>
-              <li>
-                <Area />
-                <p>м. Львів, вул. Жовковська, 20</p>
-              </li>
-              <li>
-                <Clock />
-                <p>8:00 - 22:00 Пн - Нд</p>
-              </li>
-              <li>
-                <Phone />
-                <Link href={'tel:+38(093)-369-99-68'}>+38(093)-369-99-68</Link>
-              </li>
-            </ul>
+    <header className={styles.header}>
+        <div className={styles.topBar}>
+          <div className={styles.contactInfo}>
+            <span className={styles.location}><i className="fa-solid fa-location-dot"></i>
+            м.Львів, вул. Жовківська, 20</span>
+            <span className={styles.workHours}><i className="fa-solid fa-clock"></i>
+            8:00 - 22:00 Пн - Нд</span>
+            <a href="tel:+380933699968" className={styles.phone}>
+              <i className="fa-solid fa-phone-volume"></i>
+              +38(093)-369-99-68
+            </a>
           </div>
-          <div className="socials">
-            <Link href="#">
-              <Viber />
-            </Link>
-            <Link href="#">
-              <Telegram />
-            </Link>
-            <Link href="#">
-              <Whatsapp />
-            </Link>
-            <Link href="#">
-              <Facebook />
-            </Link>
-            <Link href="#">
-              <Instagram />
-            </Link>
-          </div>
-          <button className="callBtn">
-            <Bell />
-            {dictionary.callBtn}
-          </button>
-        </div>
-
-        <div className="middleRow">
-          <Link href={`/${lang}`}>
-            <Logo width={300} height={40} />
-          </Link>
-          <div className="search-container">
-            <input
-              type="text"
-              placeholder="Пошук..."
-              className="search-input"
-            />
-            <button className="search-button">
-              <Search />
-            </button>
+          <div className={styles.socialWrapper}>
+            <div className={styles.socialIcons}>  
+              <a href="https://viber.com" target="_blank" aria-label="Viber">
+                <Viber />
+              </a>
+              <a href="https://t.me" target="_blank" aria-label="Telegram">
+                <Telegram />
+              </a>
+              <a href="https://whatsapp.com" target="_blank" aria-label="WhatsApp">
+                <Whatsapp />
+              </a>
+              <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+                <Facebook />
+              </a>
+              <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+                <Instagram />
+              </a>
+            </div>
+            <button className={styles.callButton}><i className="fa-regular fa-bell"></i>Замовити дзвінок</button>
           </div>
         </div>
-
-        <div className="navRow">
-          <nav className="leftNav">
-            {[
-              { path: 'about-us', label: 'Про нас' },
-              { path: 'catalog', label: 'Каталог' },
-              { path: 'delivery', label: 'Оплата і доставка' },
-              { path: 'warranty', label: 'Гарантія' },
-              { path: 'news', label: 'Новини' },
-              { path: 'partnership', label: 'Партнерство' },
-              { path: 'contacts', label: 'Контакти' },
-            ].map(({ path, label }) => (
-              <Link
-                key={path}
-                href={`/${lang}/${path}`}
-                className={pathname === `/${lang}/${path}` ? 'current' : ''}
+        <div className={styles.mainHeader}>
+          <div className={styles.logo}>
+            <Logo src="logotype-desktop.svg"
+              alt="Logotype"
+            
+              layout="fill" />
+          </div>
+            <form className={styles.searchForm}>
+              <input
+                type="text"
+                placeholder="МОТОРЧИК ПОВІТРОДУВКИ ОБІГРІВАЧА КОНДИЦІОНЕРА КОНДИЦИОНЕРА VW AUDI SKODA SEAT КОМПЛЕКТ"
+                className={styles.searchInput}
+              />
+              <button type="submit" className={styles.searchButton}>
+                <i className="fas fa-search"></i>
+              </button>
+            </form>
+        </div>
+        <nav className={styles.nav}>
+          <ul className={styles.navList}>
+            <li><Link href="/about">Про нас</Link></li>
+            <li><Link href="/catalog">Каталог</Link></li>
+            <li><Link href="/delivery">Оплата та доставка</Link></li>
+            <li><Link href="/guarantees">Гарантії</Link></li>
+            <li><Link href="/news">Новини</Link></li>
+            <li><Link href="/partners">Партнерство</Link></li>
+            <li><Link href="/contacts">Контакти</Link></li>
+          </ul>
+            <div className={styles.TelWrapper}>
+              <a href="tel:+380985193009" className={styles.phone}>
+              <i className="fa-solid fa-phone-volume"></i>
+              +(380) 98 519 3009
+              </a>
+            </div>
+            <div className={styles.rightSectionButton}>
+              <button
+                className={`${styles.languageToggle} ${isUa ? styles.uaActive : styles.ruActive}`}
+                onClick={toggleLanguage}
+                aria-label="Toggle language"
               >
-                {label}
+                <span className={styles.languageText}>UA</span>
+                <span className={styles.languageText}>RU</span>
+              </button>
+            </div>
+            <div className={styles.cartIcons}>
+              <Link href="/favorites" aria-label="Favorites">
+                <Heart/>
               </Link>
-            ))}
-          </nav>
-          <div className="rightNav">
-            <div className="phone">
-              <Phone />
-              <Link href={'tel:+380985193009'}>+(380) 98 519 3009</Link>
+              <Link href="/cart" aria-label="Cart">
+                <Cart/>
+              </Link>
             </div>
-            <LanguageSwitch />
-            <div className="icons">
-              <Favorite width={27} height={25} />
-              <Basket />
-            </div>
-          </div>
-        </div>
-      </div>
+        </nav>
+      
     </header>
   );
 };

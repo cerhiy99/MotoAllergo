@@ -3,7 +3,7 @@ import { Locale, i18n } from '@/i18n.config';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 
-import { Roboto, Montserrat } from 'next/font/google';
+import { Roboto, Montserrat} from 'next/font/google';
 import { getDictionary } from '@/lib/dictionary';
 
 const roboto = Roboto({
@@ -41,6 +41,9 @@ export default async function RootLayout({
       lang={params.lang}
       className={`${roboto.variable} ${montserrat.variable}`}
     >
+      <head>
+        <script src="https://kit.fontawesome.com/44ddc9fabc.js" crossOrigin="anonymous" async />
+      </head>
       <body>
         <header>
           <Header lang={params.lang} dictionary={dictionary.header} />

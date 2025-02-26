@@ -1,0 +1,91 @@
+.howWeWork {
+  margin: 0 auto;
+  width: 100%;
+  margin-top: 80px;
+  padding: 0px 100px 45px;
+  border-bottom: 1px solid #0E4ED2;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+  margin-bottom: 50px;
+  text-align: left;
+}
+.title span{
+  background-color: #0E4ED2;
+  color: #fff;
+  padding: 0 3px;
+}
+.steps {
+  display: grid;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.firstStep,
+.secondStep {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+}
+.firstStep .step:first-child,
+.secondStep .step:last-child {
+  border-top: 1px solid #0E4ED2;
+}
+.step {
+  width: 50%;
+  display: flex;
+  gap: 15px;
+  text-align: center;
+  position: relative;
+  border-top: 1px solid #FF5C05;
+  padding-top:35px;
+}
+
+.stepNumber {
+  padding-top: 35px;
+  font-size: 95px;
+  font-weight: bold;
+  color: #333;
+}
+
+.step p:first-of-type {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.step p:last-of-type {
+  font-size: 14px;
+  color: #666;
+}
+
+.step::after {
+  content: '';
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: absolute;
+  top: -15px;
+  z-index: 1;
+}
+
+.step::after {
+  right: -15px;
+  background-color: #FF5C05;
+}
+
+.firstStep .step:first-child::after,
+.secondStep .step:last-child::after {
+  background-color: #0E4ED2;
+}
+.stepIconTextWrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}

@@ -1,0 +1,44 @@
+.ChooseCategory {
+    width: 100%;
+    margin-top: 80px;
+    padding: 0px 100px 80px;
+    width: 100%;
+    border-bottom: 1px solid #0E4ED2;
+  }
+  
+  .title {
+    font-size: 28px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 50px;
+    text-align: left;
+  }
+  .title span{
+    background-color: #0E4ED2;
+    color: #fff;
+    padding: 0 3px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap: 10px;
+  }
+  
+  .categoryItem {
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .imageWrapper {
+    overflow: hidden;
+  }
+  
+  .categoryName {
+    font-size: 14px;
+    color: #333;
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+  }

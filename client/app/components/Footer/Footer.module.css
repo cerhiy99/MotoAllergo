@@ -1,0 +1,179 @@
+.footer {
+    width: 100%;
+  }
+  
+  .footerWrapper {
+    display: flex;
+    align-items: center;
+    height: 510px;
+    border-bottom: 1.5px solid #273C66;
+    color: var(--footer-text-color);
+  }
+  
+  .footerList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .footerEl {
+    padding-top: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
+    height: 100%;
+  }
+  
+  .footerList > .footerEl:not(:first-child):not(:last-child) {
+    width: 25vw;
+  }
+  
+  .footerList > .footerEl:first-child {
+    width: 17vw;
+  }
+  
+  .footerList > .footerEl:last-child {
+    flex-grow: 1;
+  }
+  
+  .footerList > .footerEl:not(:first-child) {
+    border-left: 1.5px solid #273C66;
+  }
+  
+  .footerElHeader {
+    color:#273C66;
+    font-family: var(--font-roboto);
+    font-weight: 400;
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+    font-weight: 700;
+  }
+  
+  .footerElList {
+    font-family: var(--font-roboto), serif;
+    font-weight: 400;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    line-height: 23px;
+  }
+  
+  .footerElList li {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
+  
+  .inputContainer {
+    margin-top: 10px;
+  }
+  
+  .footerTextInput {
+    height: 50px;
+    width: 100%;
+    border: 1px solid #273C66;
+    border-radius: 4px;
+    padding: 0 10px;
+    font-size: 14px;
+  }
+  
+  .checkboxContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .customCheckbox {
+    width: 18px;
+    height: 18px;
+    appearance: none;
+    border: 2px solid #273C66;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .customCheckbox:checked {
+    background-color: #273C66;
+  }
+  
+  .customCheckbox:checked::after {
+
+    content: '✓';
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .checkboxLabel {
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .footerLink {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #273C66;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+  
+  .subscribeButton {
+    width: 100%;
+    background-color:#273C66;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 40px;
+    margin-top: 20px;
+  }
+  
+  .subscribeButton:hover {
+    background-color: #0056b3;
+  }
+  
+  .subscribeButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .lastBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+  }
+  
+  .lastBlockList {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 100px;
+  }
+  
+  .lastBlockEl ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+  }
+.footerLine{
+    height: 30px;
+    width: 100vw;
+    background-color: #273C66;
+}

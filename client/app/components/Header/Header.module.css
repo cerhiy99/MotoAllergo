@@ -1,0 +1,215 @@
+.header {
+  width: 100%;
+  font-family: 'Arial', sans-serif;
+}
+
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 7vw;
+  background-color: #e9ecef;
+  font-size: 12px;
+  color: #333;
+}
+
+.socialWrapper {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 40px;
+}
+
+.contactInfo {
+  display: flex;
+  gap: 20px;
+  color: #899198;
+  font-size: 14px;
+}
+
+.contactInfo a {
+  color: inherit;
+}
+
+.contactInfo i {
+  margin-right: 10px;
+  font-size: 18px;
+  color: #4BA0E8;
+}
+
+.location,
+.workHours,
+.phone {
+  color: #899198;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 10px;
+}
+
+.socialIcons a {
+  color: #333;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.callButton {
+  background-color: #0E4ED2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+  display: flex;
+  gap: 10px;
+}
+
+.mainHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 7vw;
+  background-color: #ffffff;
+  margin: 0 auto;
+
+}
+.logo{
+  position: relative;
+  width: 300px;
+  height: 40px;
+}
+
+.TelWrapper a {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: center;
+}
+
+.searchForm {
+  display: flex;
+  align-items: center;
+  width: 65%;
+}
+
+.searchInput {
+  padding: 8.5px;
+  border: 1px solid #0E4ED2;
+  border-radius: 12px 0 0 12px;
+  font-size: 14px;
+  outline: none;
+  width: 100%;
+}
+
+.searchButton {
+  background-color: #0E4ED2;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 7vw;
+  background-color: #ffffff;
+  border-top: 1px solid #0E4ED2B2;
+  border-bottom: 1px solid #0E4ED2B2;
+}
+
+.navList {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.navList li a {
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.navList li a:hover {
+  color: #007bff;
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.phone {
+  color: black;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.languageToggle {
+  background-color: #9FB8ED;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 125px;
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.languageToggle::before {
+  content: '';
+  position: absolute;
+  width: 65px;
+  height: 40px;
+  background-color: #0E4ED2;
+  border-radius: 20px;
+
+  transition: transform 0.3s ease;
+  z-index: 1;
+}
+
+.languageText {
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  position: relative;
+  z-index: 2;
+  width: 50%;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.uaActive::before {
+  transform: translateX(0);
+}
+
+.uaActive .languageText {
+  color: white;
+}
+
+.ruActive::before {
+  transform: translateX(100%);
+}
+
+.cartIcons {
+  display: flex;
+  gap: 15px;
+}
+
+.cartIcons a {
+  color: #333;
+  font-size: 16px;
+  transition: color 0.3s;
+}

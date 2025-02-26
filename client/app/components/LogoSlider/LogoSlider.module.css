@@ -1,0 +1,35 @@
+.logoSliderWrapper {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #0E4ED2;
+  }
+  
+  .logoSliderList {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    transition: transform 0.5s ease;
+    width: max-content;
+  }
+  
+  .logoSliderEl {
+    width: 100px;
+    margin-right: 20px;
+    flex-shrink: 0;
+  }
+  
+  .logoSliderImage {
+    width: 100%;
+    height: 80px;
+    object-fit: contain;
+  }
+  
+  .logoSliderTitle {
+    text-align: center;
+    margin: 5px 0 0;
+    font-size: 14px;
+  }
