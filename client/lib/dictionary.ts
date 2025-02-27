@@ -2,7 +2,7 @@ import 'server-only';
 import type { Locale } from '@/i18n.config';
 
 const dictionaries = {
-  ru: () => import('@/dictionaries/uk.json').then((module) => module.default),
+  ru: () => import('@/dictionaries/ru.json').then((module) => module.default),
   uk: () => import('@/dictionaries/uk.json').then((module) => module.default),
 };
 

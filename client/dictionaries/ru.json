@@ -2,5 +2,39 @@
   "Home": {
     "test": "test"
   },
-  "test": "testru"
+  "test": "testru",
+  "header": {
+    "callBtn": "Ru"
+  },
+  "categories": {
+    "title": "Ru",
+    "category": [
+      "Ru 1", "Ru 2", "Ru 3", "Ru 4", "Ru 5", "Ru 6", "Ru 7", "Ru 8"
+    ]
+  },
+  "avtoblog": {
+    "title": "RUАвтоблог Motoallergo",
+    "news": [
+      ["Новина 1", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
+      ["Новина 2", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
+      ["Новина 3", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
+      ["Новина 4", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
+      ["Новина 5", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"]
+    ]
+  },
+  "contact": {
+    "title": "КОНТАКТИRU",
+    "phone": "ТелефонRU:",
+    "internetShop": "Інтернет-магазин",
+    "graphWorkTitle": "Графік роботи: ",
+    "graphWorkDescription1": "Понеділок - П’ятниця 09:00 - 21:00,",
+    "graphWorkDescription2": "Субота 09:00 - 19:00, Неділя – вихідний",
+    "ContactForm": {
+      "title": "НАПИСАТИ НАМ RU",
+      "name": "Ім’я",
+      "phone": "Телефон",
+      "message": "Повідомлення",
+      "send": "Відправити",
+      "sendTrue": "Повідомлення відправлено!"}
+  }
 }

@@ -21,54 +21,53 @@ type Props = {
 const page = async ({ params: { lang } }: Props) => {
   const { contact } = await getDictionary(lang);
   return (
-    <div className="contacts-container">
+    <div>
       <Map />
-      <NavPath />
-      <div className="contacts">
-        <ContactForm />
-        <div className="contacts-divider"></div>
-        <div className="contacts-info">
-          <div className="title-container">
-            <h1>КОНТАКТИ</h1>
-            <div className="contacts-divider-info"></div>
-          </div>
-          <div className="info">
-            <div className="info-contacts">
-              <PhoneBig />
-              <div className="info-contacts-text">
-                <p>
-                  <span>Телефон: </span>+38 (093) 987 31 51
-                </p>
-                <p>
-                  <span>Email: </span>youarebeautiful@hitomi.com.ua
-                </p>
+      <div className="contacts-container">
+        <NavPath />
+        <div className="contacts">
+          <ContactForm dictionary={contact.ContactForm}/>
+          <div className="contacts-info">
+            <div className="title-container">
+              <h1>{contact.title}</h1>
+            </div>
+            <div className="info">
+              <div className="info-contacts">
+                <PhoneBig />
+                <div className="info-contacts-text">
+                  <p>
+                    <span>{contact.phone} </span>+38 (093) 987 31 51
+                  </p>
+                  <p>
+                    <span>Email: </span>youarebeautiful@hitomi.com.ua
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="socials">
-              <Link href="#">
-                <Viber />
-              </Link>
-              <Link href="#">
-                <Telegram />
-              </Link>
-              <Link href="#">
-                <Whatsapp />
-              </Link>
-              <Link href="#">
-                <Facebook />
-              </Link>
-              <Link href="#">
-                <Instagram />
-              </Link>
-            </div>
-            <div className="info-divider"></div>
-            <div className="info-text">
-              <AreaBig />
-              <div className="info-text-content">
-                <span>Інтернет-магазин</span>
-                <span>Графік роботи: </span>
-                <p>Понеділок - П’ятниця 09:00 - 21:00,</p>
-                <p>Субота 09:00 - 19:00, Неділя – вихідний</p>
+              <div className="socials">
+                <Link href="#">
+                  <Viber />
+                </Link>
+                <Link href="#">
+                  <Telegram />
+                </Link>
+                <Link href="#">
+                  <Whatsapp />
+                </Link>
+                <Link href="#">
+                  <Facebook />
+                </Link>
+                <Link href="#">
+                  <Instagram />
+                </Link>
+              </div>
+              <div className="info-text">
+                <AreaBig />
+                <div className="info-text-content">
+                  <span>{contact.internetShop}</span>
+                  <span>{contact.graphWorkTitle}</span>
+                  <p>{contact.graphWorkDescription1}</p>
+                  <p>{contact.graphWorkDescription2}</p>
+                </div>
               </div>
             </div>
           </div>

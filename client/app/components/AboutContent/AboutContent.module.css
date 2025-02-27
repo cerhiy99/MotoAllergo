@@ -1,0 +1,63 @@
+.aboutContent {
+  margin: 0 auto;
+  width: 100%;
+  padding: 0px 100px 45px;
+  border-bottom: 1px solid #0E4ED2;
+  margin-bottom: 10px;
+  font-family: var(--font-roboto);
+  color: black;
+  font-size: 16px;
+  }
+  .aboutContent > :nth-child(3){
+    margin-top: 15px;
+  }
+  .heroSection {
+    background-image: url("../../../public/images/hero-about.png");
+    background-size: cover;
+    position: relative;
+    width: 100%;
+    height: calc(100vw / 4.8);
+    margin-top: 30px;
+  }
+
+  .aboutContent {
+    padding-top: 20px;
+  }
+  .aboutContent h1{
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom:15px;
+    margin-top: 15px;
+    position: relative;
+    display:flex;
+  }
+
+  .titleContainer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .titleContainer::after {
+  content: "";
+  flex-grow: 1;
+  height: 1px;
+  background-color: #E5E5E5;
+  }
+  .aboutContent h2,
+  .aboutContent p{
+    margin-bottom: 30px;
+  }
+
+  
+  .advantagesList,
+  .rulesList {
+    list-style-type: disc;
+    margin-left: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .advantagesList li,
+  .rulesList li {
+    margin-bottom: 10px;
+  }

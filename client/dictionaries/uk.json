@@ -10,7 +10,38 @@
     "title": "Оплата і доставка",
     "description1": "Шановні клієнти, звертаємо вашу увагу, що ми приймаємо замовлення лише через сайт та за номером, вказаним на ньому!"
   },
+  "categories": {
+    "title": "категорії товарів",
+    "span": "Популярні",
+    "category": [
+      "Категорія 1", "Категорія 2", "Категорія 3", "Категорія 4", "Категорія 5", "Категорія 6", "Категорія 7", "Категорія 8"
+    ]
+  },
+  "avtoblog": {
+    "title": "Автоблог Motoallergo",
+    "news": [
+      ["Новина 1", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
+      ["Новина 2", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
+      ["Новина 3", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
+      ["Новина 4", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
+      ["Новина 5", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"]
+    ]
+  },
   "contact": {
-    "title": "НАПИСАТИ НАМ"
+    "title": "КОНТАКТИ",
+    "phone": "Телефон:",
+    "internetShop": "Інтернет-магазин",
+    "graphWorkTitle": "Графік роботи: ",
+    "graphWorkDescription1": "Понеділок - П’ятниця 09:00 - 21:00,",
+    "graphWorkDescription2": "Субота 09:00 - 19:00, Неділя – вихідний",
+    "ContactForm": {
+      "title": "НАПИСАТИ НАМ",
+      "name": "Ім’я",
+      "phone": "Телефон",
+      "message": "Повідомлення",
+      "send": "Відправити",
+      "sendTrue": "Повідомлення відправлено!"}
   }
 }
+
+

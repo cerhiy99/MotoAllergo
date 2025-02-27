@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Locale, i18n } from '@/i18n.config';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
-
+import './Home.scss';
 import { Roboto, Montserrat} from 'next/font/google';
 import { getDictionary } from '@/lib/dictionary';
 
@@ -34,7 +34,7 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { lang: Locale };
 }) {
-  const dictionary = await getDictionary(params.lang);
+  const { header } = await getDictionary(params.lang);
 
   return (
     <html
@@ -45,13 +45,9 @@ export default async function RootLayout({
         <script src="https://kit.fontawesome.com/44ddc9fabc.js" crossOrigin="anonymous" async />
       </head>
       <body>
-        <header>
-          <Header lang={params.lang} dictionary={dictionary.header} />
-        </header>
-        <main>{children}</main>
-        <footer>
-          <Footer lang={params.lang} />
-        </footer>
+          <Header lang={params.lang} dictionary={header} />
+          {children}
+          <Footer lang={params.lang}/>
       </body>
     </html>
   );

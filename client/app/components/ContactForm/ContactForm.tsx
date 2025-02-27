@@ -23,7 +23,11 @@ const schema = yup
   })
   .required();
 
-const ContactForm = () => {
+type Props = {
+  dictionary: any;
+};
+
+const ContactForm = ({ dictionary }: Props) => {
   const {
     register,
     handleSubmit,
@@ -34,28 +38,26 @@ const ContactForm = () => {
   const [messageSent, setMessageSent] = useState(false);
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    console.log(data);
     setMessageSent(true);
   };
 
   return (
     <div className="contact-form">
       <div className="title-container">
-        <h1>НАПИСАТИ НАМ</h1>
-        <div className="divider"></div>
+        <h1>{dictionary.title}</h1>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="inputs">
-          <div>
-            <label>Ім’я</label>
+          <div className="input-field">
+            <label>{dictionary.name}</label>
             <input type="text" {...register('name')} />
             {errors.name && (
               <span className="error-message">{errors.name.message}</span>
             )}
           </div>
 
-          <div>
-            <label>Телефон</label>
+          <div className="input-field">
+            <label>{dictionary.phone}</label>
             <input type="tel" {...register('phone')} />
             {errors.phone && (
               <span className="error-message">{errors.phone.message}</span>
@@ -64,19 +66,17 @@ const ContactForm = () => {
         </div>
 
         <div className="message-field">
-          <label>Повідомлення</label>
+          <label>{dictionary.message}</label>
           <textarea {...register('message')} />
           {errors.message && (
             <span className="error-message">{errors.message.message}</span>
           )}
         </div>
 
-        <button type="submit">Відправити</button>
+        <button type="submit">{dictionary.send}</button>
       </form>
 
-      {messageSent && (
-        <p className="success-message">Повідомлення відправлено!</p>
-      )}
+      {messageSent && <p className="success-message">{dictionary.sendTrue}</p>}
     </div>
   );
 };

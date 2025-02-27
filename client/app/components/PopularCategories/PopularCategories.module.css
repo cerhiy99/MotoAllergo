@@ -1,0 +1,34 @@
+.popularCategoriesWrapper{
+    padding: 0 100px 50px;
+    margin-top: 65px;
+    border-bottom: 1px solid #0E4ED2;
+}
+
+.popularCategoriesTitle{
+    font-family: var(--font-montserrat);
+    font-weight: 700;
+    font-size: 28px;
+}
+
+.popularCategoriesTitle span{
+    background-color: #0E4ED2;
+    color: #fff;
+    padding: 0 3px;
+}
+
+.popularCategoriesList {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 25px;
+    padding: 0;
+    list-style: none;
+    justify-content: start;
+  }
+  
+  .popularCategoriesEl {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
