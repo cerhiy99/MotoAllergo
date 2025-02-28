@@ -26,7 +26,6 @@
 
 @media (max-width: 1023px) and (min-width: 768px) {
     .header {
-
         border-bottom: none;
 
         .mobile-header {
@@ -46,7 +45,6 @@
             display: flex;
             background-color: rgba(53, 133, 173, 0.05);
             padding: 8px 0;
-
 
             .contacts {
                 display: flex;
@@ -100,7 +98,6 @@
         }
 
         .middleRow {
-
             display: flex;
             gap: 33px;
             align-items: center;
@@ -113,8 +110,6 @@
                 align-items: center;
                 gap: 33px;
             }
-
-
 
             .search-container {
                 display: flex;
@@ -137,247 +132,231 @@
                 outline: none;
             }
 
-            .search-button {
-                position: absolute;
-                right: 0;
-                width: 58px;
-                height: 40px;
-                background-color: #3585AD;
-                border: none;
-                border-top-right-radius: 12px;
-                border-bottom-right-radius: 12px;
-                padding: 8px 12px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-            }
+                        .search-button {
+                            position: absolute;
+                            right: 0;
+                            width: 58px;
+                            height: 40px;
+                            background-color: #3585ad;
+                            border: none;
+                            border-top-right-radius: 12px;
+                            border-bottom-right-radius: 12px;
+                            padding: 8px 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+                        }
         }
 
-        .navRow {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(53, 133, 173, 0.7);
-            border-top: 1px solid rgba(53, 133, 173, 0.7);
-            padding: 11px 0;
-            width: 100vw;
-
-            a {
-                color: inherit;
-                font-family: var(--font-montserrat);
-                font-weight: 400;
-                font-size: 14px;
-                line-height: 1;
-                color: #000;
-            }
-
-            .leftNav {
-                display: flex;
-                gap: 17px;
-                margin-bottom: 20px;
-
-                a.current {
-                    color: #144B7A;
-                    font-weight: 500;
-                }
-            }
-
-            .rightNav {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 20px;
-
-                .phone {
+                .navRow {
                     display: flex;
+                    justify-content: space-between;
                     align-items: center;
-                    gap: 18px;
-                }
+                    border-bottom: 1px solid rgba(53, 133, 173, 0.7);
+                    border-top: 1px solid rgba(53, 133, 173, 0.7);
+                    padding: 11px 0;
+        
+                    a {
+                        text-decoration: none;
+                        color: inherit;
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 1;
+                        color: #000;
+                    }
+        
+                    .leftNav {
+                        display: flex;
+                        gap: 17px;
+                        margin-bottom: 20px;
+                    }
+        
+                    .rightNav {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 20px;
+        
+                        .phone {
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                        }
 
-                .icons {
-                    display: flex;
-                    gap: 14px;
+                        .icons {
+                            display: flex;
+                        }
+                    }
                 }
-            }
-        }
     }
 }
 
 @media (min-width: 1024px) {
     .header {
-        padding: 0;
-        border-bottom: none;
-
-        .mobile-header {
-            display: none;
-        }
-
-        .header-content {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            min-width: 1240px;
-            @include responsive-width;
-        }
-
-        .topRow {
-            display: flex;
-            background-color: rgba(53, 133, 173, 0.05);
-            padding: 8px 0;
-
-
-            .contacts {
-                display: flex;
-
-                ul {
-                    display: flex;
-                    list-style: none;
-                    margin: 0;
-                    padding: 0;
-                }
-
-                li {
-                    padding: 10px;
-                    display: flex;
-                    align-items: center;
-                }
-
-                p,
-                a {
-                    margin-left: 12px;
-                    font-weight: 400;
-                    font-size: 14px;
-                    line-height: 1.78571;
-                    color: #899198;
-                }
+            border-bottom: none;
+    
+            .mobile-header {
+                display: none;
             }
-
-            .socials {
-                display: flex;
-                gap: 10px;
-                margin: 0 40px 0 0;
-            }
-
-            .callBtn {
-                display: flex;
-                align-items: center;
-                gap: 11px;
-                padding: 13px 21px;
-                border: none;
-                border-radius: 21px;
-                width: 204px;
-                height: 42px;
-                box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
-                background-color: #3585ad;
-                font-weight: 700;
-                font-size: 14px;
-                line-height: 1.57143;
-                text-align: center;
-                color: #fff;
-            }
-        }
-
-        .middleRow {
-
-            display: flex;
-            gap: 33px;
-            align-items: center;
-            justify-content: space-between;
-            padding: 11px 0;
-
+    
             .header-content {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
-                gap: 33px;
+                justify-content: space-between;
+                min-width: 1240px;
+                @include responsive-width;
             }
-
-            .search-container {
+    
+            .topRow {
                 display: flex;
-                align-items: center;
-                overflow: hidden;
-                position: relative;
-            }
-
-            .search-input {
-                border: 0.50px solid #3585ad;
-                border-radius: 12px;
-                min-width: 900px;
-                height: 40px;
-                padding: 0 12px;
-                font-weight: 400;
-                font-size: 13px;
-                text-transform: lowercase;
-                color: #797f8b;
-                flex: 1;
-                outline: none;
-            }
-
-            .search-button {
-                position: absolute;
-                right: 0;
-                width: 58px;
-                height: 40px;
-                background-color: #3585AD;
-                border: none;
-                border-top-right-radius: 12px;
-                border-bottom-right-radius: 12px;
-                padding: 8px 12px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-            }
-        }
-
-        .navRow {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(53, 133, 173, 0.7);
-            border-top: 1px solid rgba(53, 133, 173, 0.7);
-            padding: 11px 0;
-            width: 100vw;
-
-            a {
-                color: inherit;
-                font-family: var(--font-montserrat);
-                font-weight: 400;
-                font-size: 14px;
-                line-height: 1;
-                color: #000;
-            }
-
-            .leftNav {
-                display: flex;
-                gap: 17px;
-                margin-bottom: 0;
-
-                a.current {
-                    color: #144B7A;
-                    font-weight: 500;
+                background-color: rgba(53, 133, 173, 0.05);
+                padding: 8px 0;
+    
+                .contacts {
+                    display: flex;
+    
+                    ul {
+                        display: flex;
+                        list-style: none;
+                        margin: 0;
+                        padding: 0;
+                    }
+    
+                    li {
+                        padding: 10px;
+                        display: flex;
+                        align-items: center;
+                    }
+    
+                    p,
+                    a {
+                        margin-left: 12px;
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 1.78571;
+                        color: #899198;
+                    }
+                }
+    
+                .socials {
+                    display: flex;
+                    gap: 10px;
+                    margin-bottom: 0;
+                }
+    
+                .callBtn {
+                    display: flex;
+                    align-items: center;
+                    gap: 11px;
+                    padding: 13px 21px;
+                    border: none;
+                    border-radius: 21px;
+                    width: 204px;
+                    height: 42px;
+                    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
+                    background-color: #3585ad;
+                    font-weight: 700;
+                    font-size: 14px;
+                    line-height: 1.57143;
+                    text-align: center;
+                    color: #fff;
                 }
             }
-
-            .rightNav {
+    
+            .middleRow {
+                display: flex;
+                gap: 33px;
+                align-items: center;
+                justify-content: space-between;
+                padding: 11px 0;
+    
+                .header-content {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 33px;
+                }
+    
+                .search-container {
+                    display: flex;
+                    align-items: center;
+                    overflow: hidden;
+                    position: relative;
+                }
+    
+                .search-input {
+                    border: 0.50px solid #3585ad;
+                    border-radius: 12px;
+                    min-width: 900px;
+                    height: 40px;
+                    padding: 0 12px;
+                    font-weight: 400;
+                    font-size: 13px;
+                    text-transform: lowercase;
+                    color: #797f8b;
+                    flex: 1;
+                    outline: none;
+                }
+    
+                .search-button {
+                    position: absolute;
+                    right: 0;
+                    width: 58px;
+                    height: 40px;
+                    background-color: #3585ad;
+                    border: none;
+                    border-top-right-radius: 12px;
+                    border-bottom-right-radius: 12px;
+                    padding: 8px 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                }
+            }
+    
+            .navRow {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                gap: 20px;
-
-                .phone {
-                    display: flex;
-                    align-items: center;
-                    gap: 18px;
+                border-bottom: 1px solid rgba(53, 133, 173, 0.7);
+                border-top: 1px solid rgba(53, 133, 173, 0.7);
+                padding: 11px 0;
+    
+                a {
+                    text-decoration: none;
+                    color: inherit;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 1;
+                    color: #000;
                 }
-
-                .icons {
+    
+                .leftNav {
                     display: flex;
-                    gap: 14px;
+                    gap: 17px;
+                    margin-bottom: 0;
+                }
+    
+                .rightNav {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 20px;
+    
+                    .phone {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                    }
+    
+                    .icons {
+                        display: flex;
+                    }
                 }
             }
         }
-    }
 }
+

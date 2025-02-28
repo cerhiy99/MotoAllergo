@@ -21,7 +21,7 @@ type Props = {
 const page = async ({ params: { lang } }: Props) => {
   const { contact } = await getDictionary(lang);
   return (
-    <>
+    <div>
       <Map />
 
       <div className="contacts-container">
