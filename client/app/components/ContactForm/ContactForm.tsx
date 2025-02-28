@@ -41,12 +41,12 @@ const ContactForm = () => {
   return (
     <div className="contact-form">
       <div className="title-container">
-        <h1>НАПИСАТИ НАМ</h1>
+        <h1>Написати нам</h1>
         <div className="divider"></div>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="inputs">
-          <div>
+          <div className="inputs-container">
             <label>Ім’я</label>
             <input type="text" {...register('name')} />
             {errors.name && (
@@ -54,7 +54,7 @@ const ContactForm = () => {
             )}
           </div>
 
-          <div>
+          <div className="inputs-container">
             <label>Телефон</label>
             <input type="tel" {...register('phone')} />
             {errors.phone && (

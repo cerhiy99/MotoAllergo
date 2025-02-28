@@ -3,8 +3,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    max-width: 555px;
-    box-sizing: border-box;
+    max-width: 344px;
 
     .title-container {
         display: flex;
@@ -12,43 +11,49 @@
         gap: 10px;
 
         h1 {
-            font-family: var(--font-roboto);
-            font-size: 22px;
-            font-weight: 500;
-            line-height: 1.4;
-            color: #2d2a2a;
-            margin: 0;
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 1.9;
         }
 
         .divider {
-            width: 372px;
+            min-width: 228px;
             height: 1px;
             background-color: rgba(129, 129, 129, 0.2);
         }
     }
 
-    .inputs {
-        display: flex;
-        gap: 30px;
+    form {
         margin-bottom: 20px;
     }
 
+    .inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .inputs-container {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+
     label {
-        font-family: var(--font-roboto);
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 1.6;
-        color: #464646;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 1.6;
+        color: rgba(70, 70, 70, 1)
     }
 
     input {
         border: 2px solid rgba(129, 129, 129, 0.2);
         border-radius: 8px;
-        width: 242px;
-        height: 42px;
+        min-width: 324px;
+        height: 38px;
         font-size: 16px;
         padding: 0 8px;
-        margin-top: 8px;
     }
 
     textarea {
@@ -69,7 +74,7 @@
     .message-field {
         display: flex;
         flex-direction: column;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
 
     button {
@@ -79,7 +84,8 @@
         letter-spacing: 0.02em;
         text-transform: uppercase;
         text-align: center;
-        color: #3e3e3e;
+        background-color: rgba(243, 243, 243, 1);
+        color: rgba(62, 62, 62, 1);
         border-radius: 24px;
         width: 117px;
         height: 42px;

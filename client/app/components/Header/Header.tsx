@@ -5,11 +5,13 @@ import { usePathname } from 'next/navigation';
 import React from 'react';
 import './Header.scss';
 import Link from 'next/link';
-import LanguageSwitch from '../LanguageSwich/LanguageSwitch';
+import LanguageSwitch from '../LanguageSwitch/LanguageSwitch';
+import Menu from '../../assets/Header/menu_burger.svg';
+import LogoMob from '../../assets/Header/logo.svg';
 import Logo from '../../assets/icons/logo.svg';
 import Area from '../../assets/icons/area.svg';
 import Clock from '../../assets/icons/clock.svg';
-import Phone from '../../assets/icons/phone.svg';
+import Phone from '../../assets/Header/phone.svg';
 import Viber from '../../assets/icons/viber.svg';
 import Telegram from '../../assets/icons/telegram.svg';
 import Whatsapp from '../../assets/icons/whatsapp.svg';
@@ -17,8 +19,8 @@ import Facebook from '../../assets/icons/facebook.svg';
 import Instagram from '../../assets/icons/inst.svg';
 import Bell from '../../assets/icons/bell.svg';
 import Search from '../../assets/icons/search.svg';
-import Favorite from '../../assets/icons/favorite.svg';
-import Basket from '../../assets/icons/basket.svg';
+import Favorite from '../../assets/Header/favorite.svg';
+import Basket from '../../assets/Header/basket.svg';
 
 type Props = {
   lang: Locale;
@@ -30,8 +32,21 @@ const Header = ({ lang, dictionary }: Props) => {
 
   return (
     <header className="header">
-      <div className="header-container">
-        <div className="topRow">
+      <div className="mobile-header">
+        <div className="mobile-menu">
+          <Menu />
+        </div>
+        <Link href={`/${lang}`}>
+          <LogoMob />
+        </Link>
+        <div className="mobile-icons">
+          <Phone />
+          <Favorite />
+          <Basket />
+        </div>
+      </div>
+      <div className="topRow">
+        <div className="header-content">
           <div className="contacts">
             <ul>
               <li>
@@ -70,8 +85,9 @@ const Header = ({ lang, dictionary }: Props) => {
             {dictionary.callBtn}
           </button>
         </div>
-
-        <div className="middleRow">
+      </div>
+      <div className="middleRow">
+        <div className="header-content">
           <Link href={`/${lang}`}>
             <Logo width={300} height={40} />
           </Link>
@@ -86,8 +102,9 @@ const Header = ({ lang, dictionary }: Props) => {
             </button>
           </div>
         </div>
-
-        <div className="navRow">
+      </div>
+      <div className="navRow">
+        <div className="header-content">
           <nav className="leftNav">
             {[
               { path: 'about-us', label: 'Про нас' },
