@@ -8,7 +8,7 @@ const NavPathMap: Record<string, string> = {
   about: 'Про нас',
   catalog: 'Каталог',
   delivery: 'Оплата і доставка',
-  warranty: 'Гарантія',
+  guarantees: 'Гарантія',
   news: 'Новини',
   partnership: 'Партнерство',
   contacts: 'Контакти',

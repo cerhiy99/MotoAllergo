@@ -1,0 +1,77 @@
+.heroSection {
+  background-image: url("../../../public/images/hero-partnership.png");
+  background-size: cover;
+  position: relative;
+  width: 100%;
+  height: calc(100vw / 4.8);
+  margin-top: 30px;
+}
+.partnershipContent {
+    margin: 0 auto;
+    width: 100%;
+    padding: 0px 100px 30px;
+    margin-bottom: 10px;
+    font-family: var(--font-roboto);
+    color: black;
+    font-size: 16px !important;
+  }
+  
+  .partnershipContent > :nth-child(3) {
+    margin-top: 15px;
+  }
+  .partnershipImg {
+    width: 690px;
+    height: 311px;
+    max-width: 100%;
+    display: block;
+    margin: 90px auto;
+  }
+  .partnershipContent {
+    padding-top: 20px;
+  }
+  
+  .partnershipContent h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    position: relative;
+    display: flex;
+  }
+  
+  .partnershipTitle {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .partnershipTitle::after {
+    content: "";
+    flex-grow: 1;
+    height: 1px;
+    background-color: #E5E5E5;
+  }
+  
+  .partnershipContent h2,
+  .partnershipContent p {
+    margin-bottom: 30px;
+    
+  }
+  
+  .partnershipList {
+    list-style-type: disc;
+    margin-left: 30px;
+    margin-bottom: 30px;
+  }
+  .partnershipNumberList{
+    list-style-type:decimal;
+    margin-left: 30px;
+    margin-bottom: 30px;
+  }
+  .partnershipEl{
+    margin-bottom: 10px;
+    font-family: var(--font-roboto);
+  }
+  .highlightedText{
+    font-weight: bold;
+  }

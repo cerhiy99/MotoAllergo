@@ -111,7 +111,7 @@ const Header= ({ lang,dictionary }: Props) => {
             <Link href="/news">Новини</Link>
           </li>
           <li>
-            <Link href="/partners">Партнерство</Link>
+            <Link href="/partnership">Партнерство</Link>
           </li>
           <li>
             <Link href="/contacts">Контакти</Link>

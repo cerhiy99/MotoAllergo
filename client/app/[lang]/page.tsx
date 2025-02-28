@@ -10,13 +10,14 @@ import HowWeWork from '../components/HowWeWork/HowWeWork';
 import PopularCategories from '../components/PopularCategories/PopularCategories';
 import PopularProducts from '../components/PopularProducts/PopularProducts';
 import AvtoBlog from '../components/AvtoBlog/AvtoBlog';
+import News from './news/page';
 import { getDictionary } from '../../lib/dictionary';
 type Props = {
   params: { lang: Locale };
 };
 export default async function Page({ params }: { params: { lang: Locale } }) {
   const { categories } = await getDictionary(params.lang);
-  const { avtoblog } = await getDictionary(params.lang);
+  const { news } = await getDictionary(params.lang);
 
   return <main>
     <HeroSection/>
@@ -25,6 +26,6 @@ export default async function Page({ params }: { params: { lang: Locale } }) {
     <HowWeWork/>
     <PopularCategories dictionary={categories}/>
     <PopularProducts/>
-    <AvtoBlog dictionary={avtoblog}/>
+    <AvtoBlog dictionary={news}/>
   </main>;
 }

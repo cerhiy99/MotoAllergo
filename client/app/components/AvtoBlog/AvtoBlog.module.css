@@ -5,6 +5,7 @@
 
 .avtoBlogTitle{
     font-family: var(--font-montserrat), sans-serif;
+    text-transform: uppercase;
 }
 
 .navigationIcons {

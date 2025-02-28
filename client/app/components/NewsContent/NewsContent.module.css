@@ -1,0 +1,103 @@
+.newsWrapper {
+    margin: 35px 100px 80px;
+  }
+  
+  .newsTitle {
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 35px;
+  }
+  
+  .newsList {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  
+  .newsEl h2 {
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .newsEl p{
+    font-weight: 400;
+    font-size: 14px;
+    color: #707070;
+  }
+  
+  .line {
+    width: 25%;
+    height: 2px;
+    background-color: #006FE4;
+    margin: 20px 0;
+    border-radius: 5px;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 50px;
+  }
+  
+  .pageIndicator {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .pageButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #006FE4;
+    background: none;
+    color: #006FE4;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .pageButton.active {
+    background: #006FE4;
+    color: white;
+    border: none;
+  }
+  
+  .pageButton.disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  
+  .pageNumbers {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .pageNumber {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #006FE4;
+    border-radius: 6px;
+    color: #006FE4;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: white;
+  }
+  
+  .pageNumber.active {
+    background: #006FE4;
+    color: white;
+    border: none;
+  }
+  

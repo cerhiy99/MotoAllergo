@@ -17,14 +17,22 @@
       "Категорія 1", "Категорія 2", "Категорія 3", "Категорія 4", "Категорія 5", "Категорія 6", "Категорія 7", "Категорія 8"
     ]
   },
-  "avtoblog": {
+  "news": {
     "title": "Автоблог Motoallergo",
     "news": [
       ["Новина 1", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
       ["Новина 2", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
       ["Новина 3", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
       ["Новина 4", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
-      ["Новина 5", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"]
+      ["Новина 5", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
+      ["Новина 6", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
+      ["Новина 7", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
+      ["Новина 8", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
+      ["Новина 9", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
+      ["Новина 10", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
+      ["Новина 11", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
+      ["Новина 12", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"],
+      ["Новина 13", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"]
     ]
   },
   "contact": {

@@ -1,0 +1,66 @@
+.paymentContent {
+    margin: 0 auto;
+    width: 100%;
+    padding: 0px 100px 30px;
+    margin-bottom: 10px;
+    font-family: var(--font-roboto);
+    color: black;
+    font-size: 16px !important;
+  }
+  
+  .paymentContent > :nth-child(3) {
+    margin-top: 15px;
+  }
+  .paymentImg {
+    width: 690px;
+    height: 311px;
+    max-width: 100%;
+    display: block;
+    margin: 90px auto;
+  }
+  .paymentContent {
+    padding-top: 20px;
+  }
+  
+  .paymentContent h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    position: relative;
+    display: flex;
+  }
+  
+  .paymentTitle {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .paymentTitle::after {
+    content: "";
+    flex-grow: 1;
+    height: 1px;
+    background-color: #E5E5E5;
+  }
+  
+  .paymentContent h2,
+  .paymentContent p {
+    margin-bottom: 30px;
+    
+  }
+  
+  .paymentList {
+    list-style-type: disc;
+    margin-left: 30px;
+    margin-bottom: 30px;
+  }
+  .paymentNumberList{
+    list-style-type:decimal;
+    margin-left: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .paymentList li {
+    margin-bottom: 10px;
+  }
