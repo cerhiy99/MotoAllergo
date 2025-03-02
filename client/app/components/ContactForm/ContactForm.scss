@@ -11,9 +11,9 @@
         gap: 10px;
 
         h1 {
-                font-weight: 600;
-                font-size: 16px;
-                line-height: 1.9;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 1.9;
         }
 
         .divider {
@@ -41,9 +41,9 @@
     }
 
     label {
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 1.6;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
         color: rgba(70, 70, 70, 1)
     }
 
@@ -103,5 +103,36 @@
         color: green;
         font-size: 16px;
         text-align: center;
+    }
+}
+
+@media (min-width: 1024px) {
+    .contact-form {
+        min-width: 555px;
+
+        .title-container {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+        
+                h1 {
+                        font-size: 22px;
+                        line-height: 1.4;
+                }
+        
+                .divider {
+                    min-width: 371px;
+                }
+            }
+
+                 .inputs {
+                     flex-direction: row;
+                     gap: 30px;
+                     margin-bottom: 20px;
+                 }
+
+                 input{
+        min-width: 242px;
+                 }
     }
 }

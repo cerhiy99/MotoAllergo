@@ -1,59 +1,144 @@
 .footer-container {
     display: none;
-    background-color: #f8f9fa;
-    border-top: 30px solid rgba(39, 60, 102, 1);
+
 }
 
-.footer-content {
-    display: grid;
-    grid-template-columns: 264px 372px 372px 372px 60px;
-    max-width: 1440px;
-    margin: 0 auto;
-}
-
-.footer-column {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    border-left: 1px solid rgba(39, 60, 102, 1);
-    padding: 50px 33px;
-
-    h3 {
-        font-family: var(--font-roboto);
-        font-weight: 600;
-        font-size: 20px;
-        line-height: 1.5;
-        color: #163932;
-        padding: 0;
-        margin: 0;
-        margin-bottom: 20px;
-    }
-
-    a {
-        text-decoration: none;
-        color: #333;
-        transition: color 0.3s;
-    }
-
-    .newsletter {
+@media (min-width: 1024px) {
+    .footer-container {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        border-top: 30px solid rgba(39, 60, 102, 1);
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 264px 372px 372px 372px 60px;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-left: 1px solid rgba(39, 60, 102, 1);
+            padding: 50px 33px;
+
+            h3 {
+                font-family: var(--font-roboto);
+                font-weight: 600;
+                font-size: 20px;
+                line-height: 1.5;
+                color: #163932;
+                padding: 0;
+                margin: 0;
+                margin-bottom: 10px;
+            }
+
+            a {
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 21px;
+                letter-spacing: 0%;
+                text-decoration: none;
+                color: #333;
+                transition: color 0.3s;
+            }
+
+            .newsletter {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            p {
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 23.1px;
+                margin: 0;
+                padding: 0;
+            }
+
+            input {
+                border: 1px solid rgba(39, 60, 102, 1);
+                border-radius: 4px;
+                width: 300px;
+                height: 50px;
+                margin-bottom: 10px;
+            }
+
+            .newsletter-checkbox {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            #terms {
+                width: 19px;
+                height: 19px;
+                border: 1px solid rgba(39, 60, 102, 1);
+                margin: 0;
+            }
+
+            label {
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 16.79px;
+                letter-spacing: 0%;
+            }
+
+            .terms-link {
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 1.14;
+                text-decoration: underline;
+            }
+
+            button {
+                font-weight: 700;
+                font-size: 18px;
+                line-height: 1.67;
+                text-align: center;
+                color: white;
+                width: 325;
+                height: 41;
+                padding: 11px 0;
+                border: none;
+                background-color: rgba(39, 60, 102, 1);
+                border-radius: 45px;
+                transition: background-color 0.3s;
+            }
+        }
     }
 
-    .newsletter input {
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    .newsletter button {
-        background-color: #1e3a5f;
-        color: white;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
+        .footer-bottom {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 94px;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px solid rgba(39, 60, 102, 1);
+    
+            p {
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 1.5;
+                margin: 0;
+            }
+    
+            ;
+    
+            .footer-links {
+                display: flex;
+                gap: 15px;
+    
+                a {
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 1.5;
+                    text-decoration: none;
+                }
+            }
+        }
 }

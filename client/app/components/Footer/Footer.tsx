@@ -1,57 +1,60 @@
-// import React from 'react';
-// import './Footer.scss';
-// import { Locale } from '@/i18n.config';
-// import './Footer.scss';
-
-// type Props = {
-//   lang: Locale;
-// };
-
-// const Footer = (props: Props) => {
-//   return (
-//     <div className="footer-container">
-//       <div className="footer-divider"></div>
-//     </div>
-//   );
-// };
-
-// export default Footer;
-
+import { Locale } from '@/i18n.config';
 import React from 'react';
 import './Footer.scss';
 import Link from 'next/link';
 
-const Footer = () => {
+type Props = {
+  lang: Locale;
+  dictionary: any;
+};
+
+const Footer = ({ dictionary }: Props) => {
   return (
     <div className="footer-container">
       <div className="footer-content">
         <div className="footer-column"></div>
         <div className="footer-column">
           <h3>MotoAllegro</h3>
-          <Link href="/about-us">Про нас</Link>
-          <Link href="#">Як замовити</Link>
-          <Link href="#">Новини</Link>
-          <Link href="#">Партнерство</Link>
-          <Link href="#">Контакти</Link>
+          <Link href="/about-us">{dictionary.aboutUs}</Link>
+          <Link href="#">{dictionary.howToOrder}</Link>
+          <Link href="#">{dictionary.news}</Link>
+          <Link href="#">{dictionary.partnership}</Link>
+          <Link href="#">{dictionary.contacts}</Link>
         </div>
         <div className="footer-column">
-          <h3>Обслуговування клієнтів</h3>
-          <Link href="#">Файли Cookies</Link>
-          <Link href="#">Політика конфіденційності</Link>
-          <Link href="#">Оплата і доставка</Link>
-          <Link href="#">Наша гарантія</Link>
+          <h3>{dictionary.customerService}</h3>
+          <Link href="#">{dictionary.cookies}</Link>
+          <Link href="#">{dictionary.privacyPolicy}</Link>
+          <Link href="#">{dictionary.paymentAndDelivery}</Link>
+          <Link href="#">{dictionary.guarantee}</Link>
         </div>
         <div className="footer-column newsletter">
-          <h3>Інформаційний бюлетень</h3>
-          <p>
-            Підпишіться на нашу розсилку, щоб Ви могли першими дізнаватися про
-            новинки та акції на автозапчастини, а також отримувати корисні
-            поради щодо їх вибору та експлуатації!
-          </p>
-          <input type="email" placeholder="Ваш email" />
-          <button>Підписатися</button>
+          <h3>{dictionary.newsletter}</h3>
+          <p>{dictionary.newsletterText}</p>
+          <input type="email" />
+          <div className="newsletter-checkbox">
+            <input type="checkbox" id="terms" />
+            <label htmlFor="terms">{dictionary.newsletterCheckbox}</label>
+          </div>
+          <Link href="#" className="terms-link">
+            {dictionary.terms}
+          </Link>
+          <button>{dictionary.subscribeBtn}</button>
         </div>
         <div className="footer-column"></div>
+      </div>
+      <div className="footer-bottom">
+        <p>© Всі права захищені 2025 «Big Master»</p>
+        <p>
+          Цей сайт розроблено веб-студією{' '}
+          <Link href="https://fullstack-innovations.com">
+            FullStack-Innovations
+          </Link>
+        </p>
+        <div className="footer-links">
+          <Link href="/cookies">Cookies</Link>
+          <Link href="/privacy-policy">Політика Конфіденційності</Link>
+        </div>
       </div>
     </div>
   );

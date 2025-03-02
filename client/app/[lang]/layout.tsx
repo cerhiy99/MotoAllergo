@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { Locale, i18n } from '@/i18n.config';
 import Header from '../components/Header/Header';
-import Footer from '../components/Footer/Footer';
 
 import { Roboto, Montserrat } from 'next/font/google';
 import { getDictionary } from '@/lib/dictionary';
+import Footer from '../components/Footer/Footer';
 
 const roboto = Roboto({
   subsets: ['latin', 'cyrillic'],
@@ -35,7 +35,7 @@ export default async function RootLayout({
   params: { lang: Locale };
 }) {
   const dictionary = await getDictionary(params.lang);
-
+  
   return (
     <html
       lang={params.lang}
@@ -47,7 +47,7 @@ export default async function RootLayout({
         </header>
         <main>{children}</main>
         <footer>
-          <Footer lang={params.lang} />
+          <Footer lang={params.lang} dictionary={dictionary.footer} />
         </footer>
       </body>
     </html>

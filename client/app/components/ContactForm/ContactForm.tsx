@@ -5,12 +5,18 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import './ContactForm.scss';
+import { Locale } from '@/i18n.config';
 
 interface IFormInputs {
   name: string;
   phone: string;
   message: string;
 }
+
+type Props = {
+  lang: Locale;
+  dictionary: any;
+};
 
 const schema = yup
   .object({
@@ -23,7 +29,7 @@ const schema = yup
   })
   .required();
 
-const ContactForm = () => {
+const ContactForm = ({ dictionary }: Props) => {
   const {
     register,
     handleSubmit,
@@ -41,13 +47,13 @@ const ContactForm = () => {
   return (
     <div className="contact-form">
       <div className="title-container">
-        <h1>Написати нам</h1>
+        <h1>{dictionary.title}</h1>
         <div className="divider"></div>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="inputs">
           <div className="inputs-container">
-            <label>Ім’я</label>
+            <label>{dictionary.namePlaceholder}</label>
             <input type="text" {...register('name')} />
             {errors.name && (
               <span className="error-message">{errors.name.message}</span>
@@ -55,7 +61,7 @@ const ContactForm = () => {
           </div>
 
           <div className="inputs-container">
-            <label>Телефон</label>
+            <label>{dictionary.phonePlaceholder}</label>
             <input type="tel" {...register('phone')} />
             {errors.phone && (
               <span className="error-message">{errors.phone.message}</span>
@@ -64,18 +70,18 @@ const ContactForm = () => {
         </div>
 
         <div className="message-field">
-          <label>Повідомлення</label>
+          <label>{dictionary.messagePlaceholder}</label>
           <textarea {...register('message')} />
           {errors.message && (
             <span className="error-message">{errors.message.message}</span>
           )}
         </div>
 
-        <button type="submit">Відправити</button>
+        <button type="submit">{dictionary.sendBtn}</button>
       </form>
 
       {messageSent && (
-        <p className="success-message">Повідомлення відправлено!</p>
+        <p className="success-message">{dictionary.successMessage}</p>
       )}
     </div>
   );

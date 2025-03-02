@@ -19,7 +19,7 @@ type Props = {
 };
 
 const page = async ({ params: { lang } }: Props) => {
-  const { contact } = await getDictionary(lang);
+  const dictionary = await getDictionary(lang);
   return (
     <div>
       <Map />
@@ -27,7 +27,7 @@ const page = async ({ params: { lang } }: Props) => {
       <div className="contacts-container">
         <NavPath />
         <div className="contacts">
-          <ContactForm />
+          <ContactForm lang={lang} dictionary={dictionary.contactForm} />
           <div className="contacts-divider"></div>
           <div className="contacts-info">
             <div className="title-container">
@@ -77,7 +77,7 @@ const page = async ({ params: { lang } }: Props) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
