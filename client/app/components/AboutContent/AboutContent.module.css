@@ -1,7 +1,7 @@
 .aboutContent {
   margin: 0 auto;
   width: 100%;
-  padding: 0px 100px 45px;
+  padding: 20px 100px 45px;
   margin-bottom: 10px;
   font-family: var(--font-roboto);
   color: black;
@@ -17,10 +17,6 @@
     width: 100%;
     height: calc(100vw / 4.8);
     margin-top: 30px;
-  }
-
-  .aboutContent {
-    padding-top: 20px;
   }
   .aboutContent h1{
     font-size: 24px;
@@ -59,4 +55,28 @@
   .advantagesList li,
   .rulesList li {
     margin-bottom: 10px;
+  }
+
+  @media (max-width: 501px){
+    .heroSection {
+      background-image: url("../../../public/images/mobile_hero.jpg");
+      background-size: cover;
+      position: relative;
+      width: 100%;
+      height: calc(100vw / 1.22);
+      margin-top: 0px;
+    }
+    .aboutContent {
+      padding: 20px 15px 15px;
+      font-size: 14px;
+      }
+      .aboutContent h1{
+        font-size: 18px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .aboutContent h2,
+      .aboutContent p{
+        margin-bottom: 20px;
+      }
   }

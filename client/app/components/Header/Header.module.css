@@ -148,7 +148,7 @@
 
 .phone {
   color: black;
-  font-size: 16px;
+  font-size: 14px;
   text-decoration: none;
 }
 
@@ -212,4 +212,36 @@
   color: #333;
   font-size: 16px;
   transition: color 0.3s;
+}
+
+.mobileHeader{
+  display: none;
+}
+
+@media (max-width: 501px){
+    .topBar,.mainHeader,.nav{
+      display: none;
+    }
+    .mobileHeader{
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      align-items: center;
+      padding: 15px;
+      border-bottom: 1px solid #0E4ED2;
+    }
+    .logo{
+      height: 15px;
+      width: 150px;
+    }
+    .cartIcons a {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    }
+    .mobileBurger{
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    }
 }

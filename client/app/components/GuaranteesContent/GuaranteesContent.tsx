@@ -10,6 +10,7 @@ type Props = {
 const GuaranteesContent = ({ dictionary }: Props) => {
   return (
     <section className={styles.guaranteesSection}>
+      <div className={styles.heroSection}></div>
       <div className={styles.guaranteesContent}>
         <NavPath />
         <div className={styles.guaranteesTitle}>

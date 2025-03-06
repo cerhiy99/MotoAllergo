@@ -1,0 +1,343 @@
+.catalog{
+    padding: 30px 45px 60px;
+    font-family: var(--font-montserrat), sans-serif;
+}
+
+.catalogContentWrapper{
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: self-start;
+}
+
+.sidebarWrapper{
+    width: 21vw;
+}
+
+/* Filters */
+
+.filtersWrapper{
+    border: 1px solid #CDD0D1;
+    border-radius: 5px;
+    padding: 15px 10px;
+
+}
+
+.filtersTitleWrapper{
+    display: flex;
+    width: 100%;
+    justify-content: start;
+    align-items: center;
+    gap: 15px;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.filtersTitleWrapper i{
+    color: #0E4ED2;
+}
+
+.filterParts {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    position: static;
+  }
+  
+  .filterList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+  }
+  
+  .filterEl {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: white;
+    border-radius: 15px;
+    padding: 5px 10px;
+    position: relative;
+    border: 1px solid #CDD0D1;
+  }
+  
+  .filterElPara {
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .filterElNumber {
+    color: #dcdcdc;
+    padding-right: 10px;
+    border-right: 2px solid #dcdcdc;
+  }
+  
+  .filterElNumber.active {
+    border-right: 2px solid #0e4ed2;
+    color: #0e4ed2;
+  }
+  
+  
+  .filterElIconWrapper {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .filterElIconWrapper.active {
+    border: 2px solid #0e4ed2;
+  }
+  
+  .filterElIconWrapper i {
+    font-size: 14px;
+    color: #696969;
+    background-color: #e0e0e0;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .filterElIconWrapper.active i {
+      background-color: #0e4ed2;
+      color: white;
+    }
+    
+    .filterElButton {
+        background-color: #0e4ed2;
+        font-family: var(--font-montserrat), sans-serif;
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        border-radius: 15px;
+        padding: 15px 35px;
+        border: none;
+        cursor: pointer;
+    }
+
+  .filterElIconWrapper.chosen {
+    border: 2px solid #00CE18;
+  }
+  
+  .filterElIconWrapper.chosen i {
+    background-color: #00CE18;
+  }
+  
+  .chosen .filterElPara {
+    font-weight: bold;
+  }
+  
+  .chosen .filterElNumber {
+    border-right: 2px solid #00CE18;
+    color: #000;
+  }
+  
+  
+  .filterElButton.chosen {
+    opacity: 1;
+    transition: opacity 500ms;
+  }
+
+  .dropdownMenu {
+    position: absolute;
+    top: 100%;
+    width: 85%;
+    left: 50%;
+    right: auto;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 10px 0;
+    margin: 0 auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 20;
+    transform: translateX(-50%) translateY(0);
+  }
+  
+  .dropdownMenu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%);
+  }
+  
+  .dropdownItem {
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+  
+  .dropdownItem:hover {
+    background: #f5f5f5;
+  }
+
+/* Categories */
+
+.categoriesWrapper{
+    width: 100%;
+    margin-top: 30px;
+    padding: 0 5px 30px 0;
+    border-bottom: 1px solid #E4E7E9;
+}
+
+.categoriesTitleWrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 15px;
+    color: #303030;
+}
+
+.categoriesTitleWrapper i{
+    cursor: pointer;
+}
+
+.categoriesList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: self-start;
+    gap: 15px;
+  }
+  
+  .categoriesEl {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #475156;
+  }
+  
+  .categoriesEl input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    appearance: none;
+    border: 2px solid #E4E7E9;
+    border-radius: 1px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .categoriesEl input[type="checkbox"]::after{
+    content: '✓';
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .categoriesEl input[type="checkbox"]:checked {
+    background-color: #0E4ED2;
+    border: 2px solid #0E4ED2;
+    border-radius: 2px;
+  }
+  
+  .categoriesEl:not(:last-child) {
+    margin-bottom: 5px;
+  }
+  
+
+/* Pagination */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 50px;
+  }
+  
+  .pageIndicator {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .pageButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #006FE4;
+    background: none;
+    color: #006FE4;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .pageButton.active {
+    background: #006FE4;
+    color: white;
+    border: none;
+  }
+  
+  .pageButton.disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  
+  .pageNumbers {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .pageNumber {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #006FE4;
+    border-radius: 6px;
+    color: #006FE4;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: white;
+  }
+  
+  .pageNumber.active {
+    background: #006FE4;
+    color: white;
+    border: none;
+  }
+  

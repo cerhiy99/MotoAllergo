@@ -7,15 +7,15 @@
     }
     .title-container {
         display: flex;
-        align-items: center; /* Вирівнюємо по вертикалі */
-        gap: 20px; /* Відступ між текстом і лінією */
+        align-items: center;
+        gap: 20px;
     }
       
     .title-container::after {
     content: "";
-    flex-grow: 1; /* Лінія займе всю доступну ширину */
-    height: 1px; /* Товщина лінії */
-    background-color: #E5E5E5; /* Колір лінії */
+    flex-grow: 1; 
+    height: 1px;
+    background-color: #E5E5E5;
     }
     .contacts {
         display: flex;
@@ -26,12 +26,6 @@
     .contacts > * { 
         flex: 1;
       }
-    // .contacts-divider {
-    //     width: 2px;
-    //     height: 380px;
-    //     background-color: rgba(129, 129, 129, 0.2);
-    //     margin: 0 85px 0 40px;
-    // }
 
     h1 {
         position: relative;
@@ -42,12 +36,6 @@
         color: #2d2a2a;
         margin: 0;
     }
-
-    // .contacts-divider-info {
-    //     width: 430px;
-    //     height: 1px;
-    //     background-color: rgba(129, 129, 129, 0.2);
-    // }
 
     .info-contacts {
         display: flex;
@@ -85,14 +73,6 @@
         margin-bottom: 30px;
     }
 
-    // .info-divider {
-    //     background-color:  #ebebeb;
-    //     width: 35%;
-    //     position: absolute;
-    //     right: 0;
-    //     height: 1px;
-    //     margin-bottom: 30px;
-    // }
 
     .info-text {
         display: flex;
@@ -124,3 +104,28 @@
         }
     }
 }
+@media (max-width: 501px){
+    .contacts-container .contacts{
+        flex-direction: column;
+        gap: 30px;
+    }
+    .contacts-container{
+        padding: 0px 25px 20px;
+    }
+    .contacts-container .socials {
+        display: none;
+    }
+    .aboutContent {
+      padding: 20px 15px 15px;
+      font-size: 14px;
+      }
+      .aboutContent h1{
+        font-size: 18px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .aboutContent h2,
+      .aboutContent p{
+        margin-bottom: 20px;
+      }
+  }

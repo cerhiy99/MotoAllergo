@@ -107,3 +107,15 @@
         text-align: center;
     }
 }
+@media (max-width: 501px){
+      .inputs{
+        flex-direction: column;
+      }
+      input{
+        width: 80%;
+      }
+      .contact-form{
+        border-right: none;
+        padding-right: 0px;
+      }
+  }

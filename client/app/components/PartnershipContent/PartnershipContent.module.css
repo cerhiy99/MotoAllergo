@@ -75,3 +75,27 @@
   .highlightedText{
     font-weight: bold;
   }
+
+  @media (max-width: 501px){
+    .heroSection {
+      background-image: url("../../../public/images/mobile_hero.jpg");
+      background-size: cover;
+      position: relative;
+      width: 100%;
+      height: calc(100vw / 1.22);
+      margin-top: 0px;
+    }
+    .partnershipContent {
+      padding: 20px 15px 15px;
+      font-size: 14px;
+      }
+      .partnershipContent h1{
+        font-size: 18px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .partnershipContent h2,
+      .partnershipContent p{
+        margin-bottom: 20px;
+      }
+  }

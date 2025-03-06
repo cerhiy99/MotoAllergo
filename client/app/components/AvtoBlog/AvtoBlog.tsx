@@ -10,7 +10,8 @@ type Props = {
 const AvtoBlog = ({ dictionary }: Props) => {
   const [isUa, setIsUa] = useState(true);
   const [startIndex, setStartIndex] = useState(0);
-  const newsPerPage = 3;
+  let newsPerPage = window.innerWidth > 501 ? 3 : 1;
+
   
   const nextNews = () => {
     if (startIndex + newsPerPage < dictionary.news.length) {

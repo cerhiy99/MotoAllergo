@@ -60,3 +60,34 @@
     font-weight: 400;
     font-size: 14px;
 }
+
+@media (max-width: 501px) {
+  .avtoBlogWrapper {
+    margin: 25px 20px;
+  }
+
+  .avtoBlogList{
+    margin-top: 25px;
+  }
+
+  .avtoBlogTitle {
+    font-size: 14px;
+  }
+
+  .line{
+    margin: 10px 0;
+  }
+
+  .navigationIcons {
+    top: 0;
+    gap: 5px;
+  }
+
+  .avtoBlogEl h2 {
+    font-size: 14px;
+  }
+
+  .avtoBlogEl p {
+    font-size: 14px;
+  }
+}

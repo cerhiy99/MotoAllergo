@@ -1,44 +1,76 @@
 .guaranteesContent {
-    margin: 0 auto;
-    width: 100%;
-    padding: 0px 100px 0px;
-    margin-bottom: 10px;
-    font-family: var(--font-roboto);
-    color: black;
-    font-size: 16px !important;
-  }
+  margin: 0 auto;
+  width: 100%;
+  padding: 20px 100px 0px;
+  margin-bottom: 10px;
+  font-family: var(--font-roboto);
+  color: black;
+  font-size: 16px !important;
+}
+.guaranteesContent > :nth-child(3){
+  margin-top: 15px;
+}
+.guaranteesContent > :nth-child(3) {
+  margin-top: 15px;
+}
+.guaranteesContent {
+  padding-top: 20px;
+}
+.heroSection {
+  background-image: url("../../../public/images/hero-about.png");
+  background-size: cover;
+  position: relative;
+  width: 100%;
+  height: calc(100vw / 4.8);
+  margin-top: 30px;
+}
+.guaranteesContent h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  position: relative;
+  display: flex;
+}
+
+.guaranteesTitle {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.guaranteesTitle::after {
+  content: "";
+  flex-grow: 1;
+  height: 1px;
+  background-color: #E5E5E5;
+}
+
+.guaranteesContent h2,
+.guaranteesContent p {
+  margin-bottom: 30px;
   
-  .guaranteesContent > :nth-child(3) {
-    margin-top: 15px;
+}
+@media (max-width: 501px){
+  .heroSection {
+    background-image: url("../../../public/images/mobile_hero.jpg");
+    background-size: cover;
+    position: relative;
+    width: 100%;
+    height: calc(100vw / 1.22);
+    margin-top: 0px;
   }
   .guaranteesContent {
-    padding-top: 20px;
-  }
-  
-  .guaranteesContent h1 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 15px;
-    margin-top: 15px;
-    position: relative;
-    display: flex;
-  }
-  
-  .guaranteesTitle {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .guaranteesTitle::after {
-    content: "";
-    flex-grow: 1;
-    height: 1px;
-    background-color: #E5E5E5;
-  }
-  
-  .guaranteesContent h2,
-  .guaranteesContent p {
-    margin-bottom: 30px;
-    
-  }
+    padding: 20px 15px 15px;
+    font-size: 14px;
+    }
+    .guaranteesContent h1{
+      font-size: 18px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .guaranteesContent h2,
+    .guaranteesContent p{
+      margin-bottom: 20px;
+    }
+}

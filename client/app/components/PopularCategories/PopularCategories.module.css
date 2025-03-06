@@ -32,3 +32,38 @@
     text-align: center;
   }
   
+  @media (max-width: 501px) {
+    .popularCategoriesWrapper {
+      padding: 0 20px 40px;
+      margin-top: 40px;
+    }
+  
+    .popularCategoriesTitle {
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+  
+    .popularCategoriesList {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, auto);
+      gap: 10px;
+    }
+  
+    .popularCategoriesEl img {
+      width: 75px;
+      height: 75px;
+    }
+  
+    .popularCategoriesEl p {
+      font-size: 12px;
+      margin-top: 5px;
+    }
+  
+    .popularCategoriesEl:nth-child(n + 7) {
+      display: none;
+    }
+  }
+  
+  

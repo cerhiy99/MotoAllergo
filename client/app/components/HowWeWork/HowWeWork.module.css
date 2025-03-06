@@ -6,7 +6,6 @@
   border-bottom: 1px solid #0E4ED2;
   margin-bottom: 10px;
 }
-
 .title {
   font-size: 28px;
   font-weight: bold;
@@ -45,6 +44,11 @@
   border-top: 1px solid #FF5C05;
   padding-top:35px;
 }
+.step svg {
+  width: 150px;
+  height: 95px;
+  object-fit: contain;
+}
 
 .stepNumber {
   padding-top: 35px;
@@ -73,15 +77,19 @@
   top: -15px;
   z-index: 1;
 }
-
+.firstStep .step:first-child::after,
+.secondStep .step:last-child::after {
+  background-color: #0E4ED2;
+}
 .step::after {
   right: -15px;
   background-color: #FF5C05;
 }
-
-.firstStep .step:first-child::after,
-.secondStep .step:last-child::after {
-  background-color: #0E4ED2;
+.steps .step:nth-child(2) .stepNumbers svg {
+  color: #0E4ED2; 
+}
+.steps .step:nth-child(1) .stepNumbers svg {
+  color: #FF5C05;
 }
 .stepIconTextWrapper{
   display: flex;
@@ -89,3 +97,70 @@
   align-items: center;
   gap: 15px;
 }
+@media (max-width: 501px) {
+  .step p:first-of-type {
+    font-size: 14px;
+  }
+  .step p:last-of-type{
+    font-size: 12px !important;
+  }
+  .howWeWork {
+    margin-top: 40px;
+    padding: 0 20px 20px;
+    border-bottom: 1px solid #0E4ED2;
+  }
+
+  .title {
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .firstStep,
+  .secondStep {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .step {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 20px;
+    position: relative;
+    text-align: center;
+    
+  }
+  .stepIconTextWrapper img {
+    display: none;
+  }
+  .steps .step:nth-child(2) .stepNumbers svg {
+    color: #FF5C05;
+  }
+  .steps .step:nth-child(1) .stepNumbers svg {
+    color: #0E4ED2;
+  }
+  .secondStep .step:first-child{
+    border-top: 1px solid #0E4ED2;
+    
+  }
+.secondStep .step:first-child::after {
+  background-color: #0E4ED2;
+}
+.firstStep .step:last-child::after,
+.secondStep .step:last-child::after {
+  background-color: #FF5C05;
+  left: -15px;
+}
+.secondStep .step:last-child {
+  border-top: 1px solid #FF5C05;
+}
+} 

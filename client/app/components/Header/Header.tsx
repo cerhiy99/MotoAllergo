@@ -78,9 +78,7 @@ const Header= ({ lang,dictionary }: Props) => {
       </div>
       <div className={styles.mainHeader}>
         <div className={styles.logo}>
-          <Logo src="logotype-desktop.svg"
-              alt="Logotype"
-              layout="fill" />
+          <Link href="/"><img src="/images/logotype-desctop.svg" alt="logo" /></Link>
         </div>
         <form className={styles.searchForm}>
           <input
@@ -143,6 +141,27 @@ const Header= ({ lang,dictionary }: Props) => {
           </Link>
         </div>
       </nav>
+      <div className={styles.mobileHeader}>
+        <div className={styles.mobileBurger}>
+            <img src="/images/burger.svg" alt="burger" />
+        </div>
+        <div className={styles.logo}>
+          <Link href="/">
+            <img src="/images/mobile_logo.svg" alt="logo" />
+          </Link>
+        </div>
+        <div className={styles.cartIcons}>
+          <a href="tel:+380985193009" className={styles.phone}>
+              <img src="/images/mobile_phone.svg" alt="phone" />
+          </a>
+          <Link href="/favorites" aria-label="Favorites">
+            <Heart />
+          </Link>
+          <Link href="/cart" aria-label="Cart">
+            <Cart />
+          </Link>
+        </div>
+      </div>
     </header>
   );
 };

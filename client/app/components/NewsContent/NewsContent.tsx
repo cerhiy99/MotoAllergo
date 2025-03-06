@@ -40,7 +40,7 @@ const NewsContent = ({ dictionary }: Props) => {
         {currentNews.map(([title, content], index) => (
           <li key={index} className={styles.newsEl}>
             <h2>
-              <Link href={`/news/${index + 1}`}>{title}</Link> {/* Посилання на новину за ID (1, 2 тощо) */}
+              <Link href={`/news/${index + 1}`}>{title}</Link>
             </h2>
             <div className={styles.line}></div>
             <p>{content}</p>

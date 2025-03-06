@@ -33,3 +33,22 @@
     margin: 5px 0 0;
     font-size: 14px;
   }
+  @media (max-width: 501px) {
+    .logoSliderWrapper {
+      padding: 10px 0;
+    }
+  
+    .logoSliderEl {
+      margin-right: 0px ;
+      width: 20vw;
+    }
+  
+    .logoSliderImage {
+      width: 100%;
+    }
+  
+    .logoSliderTitle {
+      font-size: 12px;
+    }
+  }
+  

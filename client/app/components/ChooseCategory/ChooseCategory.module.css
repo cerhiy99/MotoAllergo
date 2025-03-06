@@ -42,3 +42,36 @@
     font-weight: bold;
     text-align: center;
   }
+
+  @media (max-width: 501px) {
+    .ChooseCategory {
+      padding: 0px 20px 40px;
+      margin-top: 40px;
+    }
+  
+    .title {
+      font-size: 22px;
+      margin-bottom: 30px;
+    }
+  
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(4, auto);
+      gap: 5px;
+    }
+  
+    .categoryItem {
+      padding: 5px;
+    }
+  
+    .categoryName {
+      font-size: 12px;
+      margin-top: 5px;
+    }
+  
+    .categoryItem:nth-child(n + 13) {
+      display: none;
+    }
+  }
+  
+  

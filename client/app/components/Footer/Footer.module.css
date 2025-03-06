@@ -176,3 +176,90 @@
     width: 100vw;
     background-color: #273C66;
 }
+
+@media (max-width: 501px){
+  .footer {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    height: auto;
+}
+
+.footerWrapper {
+    height: auto;
+}
+
+.footerList {
+    flex-direction: column;
+    align-items: start;
+    text-align: start;
+}
+
+.footerEl {
+    width: 100vw !important;
+    padding: 15px 34px;
+}
+
+.footerElHeader {
+    font-size: 16px;
+}
+
+.footerElList {
+    gap: 10px;
+    text-align: justify;
+}
+
+.footerList > .footerEl:first-child,
+.footerList > .footerEl:last-child {
+    display: none;
+}
+
+.footerList > .footerEl:not(:first-child) {
+    border-left: none;
+    border-bottom: 1.5px solid #273C66;
+}
+
+.footer button {
+    margin: 15px auto;
+    width: 100%;
+}
+
+.lastBlockList {
+    flex-direction: column;
+    gap: 10px;
+    font-size: 12px;
+}
+
+.lastBlockList > li {
+  order: initial;
+}
+
+.lastBlockList > li:nth-child(3) {
+  order: 1;
+}
+
+.lastBlockList > li:nth-child(1) {
+  order: 2;
+  text-align: center;
+}
+
+.lastBlockList > li:nth-child(1)::after {
+  content: '';
+  display: block;
+  width: 100vw;
+  height: 1px;
+  background-color: #273C66;
+  margin: 10px 0;
+}
+
+.lastBlockList > li:nth-child(2) {
+  order: 3;
+  padding:0;
+}
+
+
+.lastBlockList > li:nth-child(3) ul li {
+  margin-bottom: 5px;
+}
+
+}
