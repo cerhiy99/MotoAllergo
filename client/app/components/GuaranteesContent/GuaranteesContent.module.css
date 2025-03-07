@@ -1,7 +1,7 @@
 .guaranteesContent {
   margin: 0 auto;
   width: 100%;
-  padding: 20px 100px 0px;
+  padding: 20px 100px 45px;
   margin-bottom: 10px;
   font-family: var(--font-roboto);
   color: black;
@@ -22,7 +22,7 @@
   position: relative;
   width: 100%;
   height: calc(100vw / 4.8);
-  margin-top: 30px;
+  margin-top: 20px;
 }
 .guaranteesContent h1 {
   font-size: 24px;
@@ -48,7 +48,7 @@
 
 .guaranteesContent h2,
 .guaranteesContent p {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   
 }
 @media (max-width: 501px){

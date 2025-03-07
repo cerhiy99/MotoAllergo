@@ -61,7 +61,7 @@
   margin-bottom: 30px;
 }
 
-.paymentList li {
+.paymentList li,.paymentNumberList li {
   margin-bottom: 10px;
 }
 

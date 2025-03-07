@@ -1,17 +1,13 @@
 .catalog{
-    padding: 30px 45px 60px;
+    padding: 20px 45px 60px;
     font-family: var(--font-montserrat), sans-serif;
 }
 
 .catalogContentWrapper{
     margin-top: 30px;
     display: flex;
-    justify-content: space-between;
+    gap: 20px;
     align-items: self-start;
-}
-
-.sidebarWrapper{
-    width: 21vw;
 }
 
 /* Filters */
@@ -20,7 +16,7 @@
     border: 1px solid #CDD0D1;
     border-radius: 5px;
     padding: 15px 10px;
-
+    min-width: 300px;
 }
 
 .filtersTitleWrapper{
@@ -272,72 +268,288 @@
     margin-bottom: 5px;
   }
   
+  /* Main content */
 
-/* Pagination */
+  .catalogMainContent{
+    flex-grow: 1;
+  }
 
-.pagination {
+  .sortByWrapper{
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #0000000d;
+    border-radius: 10px;
+  }
+
+  .activeFiltersWrapper{
     display: flex;
     justify-content: center;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .activeFiltersWrapper p{
+    color: #797F8B;
+    white-space: nowrap;
+  }
+
+  .activeFiltersList{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    font-weight: 400;
+    flex-wrap: wrap;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .activeFiltersEl{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+  }
+
+  .activeFiltersEl i{
+    color: #929FA5;
+    cursor: pointer;
+  }
+
+  .sortBy {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .sortBy p {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+  }
+  
+  .sortedByDropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .sortButton {
+    display: flex;
     align-items: center;
     gap: 8px;
-    margin-top: 50px;
-  }
-  
-  .pageIndicator {
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  .pageButton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border: 2px solid #006FE4;
-    background: none;
-    color: #006FE4;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 6px;
+    padding: 8px 12px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     cursor: pointer;
-    transition: 0.3s;
+    font-size: 14px;
+    color: #333;
+    transition: all 0.2s ease;
+    max-width: 170px;
   }
   
-  .pageButton.active {
-    background: #006FE4;
-    color: white;
-    border: none;
+  .sortButton:hover {
+    border-color: #999;
   }
   
-  .pageButton.disabled {
-    opacity: 0.5;
-    cursor: default;
+  .sortedByDropdownMenu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    z-index: 10;
+    margin-top: 5px;
   }
   
-  .pageNumbers {
+  .sortOption {
+    padding: 8px 12px;
+    margin: 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .sortOption:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .activeSort {
+    background-color: #e6f0ff;
+    color: #0066cc;
+    font-weight: 500;
+  }
+  
+  .sortByWrapper {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  /* Products */
+
+  .productsList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 60px 30px;
+  }
+
+  .productsEL {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .productImageWrapper {
+    position: relative;
+    margin-bottom: 15px;
+  }
+  
+  .productsImage {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  
+  .productImageWrapper i {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .productImageWrapper i {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .productImageWrapper i.active {
+    color: #FF0000;
+    -webkit-text-stroke: 1.5px white;
+  }
+  
+  .productsPara {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #4A4A4A;
+  }
+  
+  .productsPara span {
+    font-weight: 400;
+    color: #A3A3A3;
+  }
+  
+  .productsPriceWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+  }
+  
+  .pricePara {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+  }
+  
+  .priceButton {
+    display: flex;
+    align-items: center;
     gap: 5px;
-  }
-  
-  .pageNumber {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid #006FE4;
-    border-radius: 6px;
-    color: #006FE4;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    background-color: white;
-  }
-  
-  .pageNumber.active {
-    background: #006FE4;
+    padding: 8px 12px;
+    background-color: #006FE4;
     color: white;
     border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
   }
   
+  .priceButton:hover {
+    background-color: #006FE4;
+  }
+  
+  .priceButton .fa-bag-shopping {
+    font-size: 14px;
+  }
+  
+  /* Pagination */
+  
+  .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 50px;
+    }
+    
+    .pageIndicator {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    .pageButton {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      border: 2px solid #006FE4;
+      background: none;
+      color: #006FE4;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    .pageButton.active {
+      background: #006FE4;
+      color: white;
+      border: none;
+    }
+    
+    .pageButton.disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+    
+    .pageNumbers {
+      display: flex;
+      gap: 5px;
+    }
+    
+    .pageNumber {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid #006FE4;
+      border-radius: 6px;
+      color: #006FE4;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      background-color: white;
+    }
+    
+    .pageNumber.active {
+      background: #006FE4;
+      color: white;
+      border: none;
+    }

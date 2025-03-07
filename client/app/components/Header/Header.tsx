@@ -47,20 +47,20 @@ const Header= ({ lang,dictionary }: Props) => {
             <i className="fa-solid fa-clock"></i>
             8:00 - 22:00 Пн - Нд
           </span>
-          <a href="tel:+380933699968" className={styles.phone}>
+          <a href="tel:+380972439410" className={styles.phone}>
             <i className="fa-solid fa-phone-volume"></i>
-            +38(093)-369-99-68
+            +38 (097) 243-94-10
           </a>
         </div>
         <div className={styles.socialWrapper}>
           <div className={styles.socialIcons}>
-            <a href="https://viber.com" target="_blank" aria-label="Viber">
+            <a href="viber://chat?number=%2B380972439410" target="_blank" aria-label="Viber">
               <Viber />
             </a>
             <a href="https://t.me" target="_blank" aria-label="Telegram">
               <Telegram />
             </a>
-            <a href="https://whatsapp.com" target="_blank" aria-label="WhatsApp">
+            <a href="https://wa.me/380972439410" target="_blank" aria-label="WhatsApp">
               <Whatsapp />
             </a>
             <a href="https://facebook.com" target="_blank" aria-label="Facebook">
@@ -72,7 +72,7 @@ const Header= ({ lang,dictionary }: Props) => {
           </div>
           <button className={styles.callButton}>
             <i className="fa-regular fa-bell"></i>
-            {dictionary.callBtn || 'Замовити дзвінок'} {/* Використовуємо dictionary з пропсів */}
+            {dictionary.callBtn || 'Замовити дзвінок'}
           </button>
         </div>
       </div>
@@ -116,9 +116,9 @@ const Header= ({ lang,dictionary }: Props) => {
           </li>
         </ul>
         <div className={styles.TelWrapper}>
-          <a href="tel:+380985193009" className={styles.phone}>
+          <a href="tel:+380972439410" className={styles.phone}>
             <i className="fa-solid fa-phone-volume"></i>
-            +(380) 98 519 3009
+            +38 (097) 243-94-10
           </a>
         </div>
         <div className={styles.rightSectionButton}>

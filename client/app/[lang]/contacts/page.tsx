@@ -36,21 +36,23 @@ const page = async ({ params: { lang } }: Props) => {
                 <PhoneBig />
                 <div className="info-contacts-text">
                   <p>
-                    <span>{contact.phone} </span>+38 (093) 987 31 51
+                    <span>{contact.phone} </span>
+                    <a href="tel:+380972439410">+38 (097) 243-94-10</a>
                   </p>
                   <p>
-                    <span>Email: </span>youarebeautiful@hitomi.com.ua
+                    <span>Email: </span>
+                    <a href='mailto:zenoviistankevych77@gmail.com'>zenoviistankevych77@gmail.com</a>
                   </p>
                 </div>
               </div>
               <div className="socials">
-                <Link href="#">
+                <Link href="viber://chat?number=%2B380972439410">
                   <Viber />
                 </Link>
                 <Link href="#">
                   <Telegram />
                 </Link>
-                <Link href="#">
+                <Link href="https://wa.me/380972439410">
                   <Whatsapp />
                 </Link>
                 <Link href="#">

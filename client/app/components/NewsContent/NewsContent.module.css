@@ -1,5 +1,5 @@
 .newsWrapper {
-    margin: 35px 100px 80px;
+    margin: 20px 100px 80px;
   }
   
   .newsTitle {
@@ -100,4 +100,22 @@
     color: white;
     border: none;
   }
-  
+  @media (max-width: 501px){
+    .newsWrapper{
+      margin: 15px 15px 30px;
+    }
+    .newsList{
+      grid-template-columns: repeat(1, 1fr);
+      margin-top: 15px;
+      gap: 20px;
+    }
+    .line{
+      margin: 10px 0;
+    }
+    .newsTitle{
+      margin-top: 15px;
+    }
+    .pagination{
+      margin-top: 30px;
+    }
+  }

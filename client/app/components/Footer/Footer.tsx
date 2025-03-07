@@ -19,19 +19,19 @@ const Footer = (props: Props) => {
             <h2 className={styles.footerElHeader}>MotoAllergo</h2>
             <ul className={styles.footerElList}>
               <li>
-                <Link href="#">Про нас</Link>
+                <Link href="/about">Про нас</Link>
               </li>
               <li>
-                <Link href="#">Як замовити</Link>
+                <Link href="/catalog">Каталог</Link>
               </li>
               <li>
-                <Link href="#">Новини</Link>
+                <Link href="/news">Новини</Link>
               </li>
               <li>
-                <Link href="#">Партнерство</Link>
+                <Link href="/partnership">Партнерство</Link>
               </li>
               <li>
-                <Link href="#">Контакти</Link>
+                <Link href="/contacts">Контакти</Link>
               </li>
             </ul>
           </li>
@@ -39,16 +39,18 @@ const Footer = (props: Props) => {
             <h2 className={styles.footerElHeader}>Обслуговування клієнтів</h2>
             <ul className={styles.footerElList}>
               <li>
-                <Link href="#">Файли Cookies</Link>
+                <Link href="#">
+                Файли Cookies
+                </Link>
               </li>
               <li>
                 <Link href="#">Політика конфіденційності</Link>
               </li>
               <li>
-                <Link href="#">Оплата і доставка</Link>
+                <Link href="/delivery">Оплата і доставка</Link>
               </li>
               <li>
-                <Link href="#">Наша гарантія</Link>
+                <Link href="/guarantees">Наша гарантія</Link>
               </li>
             </ul>
           </li>
@@ -76,9 +78,9 @@ const Footer = (props: Props) => {
             <ul>
               <li>Cookies</li>
               <li>
-                <Link href="/privacy/" target="_blank">
+                {/* <Link href="/privacy/" target="_blank"> */}
                 Політика Конфіденційності
-                </Link>
+                {/* </Link> */}
               </li>
             </ul>
           </li>

@@ -14,11 +14,11 @@ interface IFormInputs {
 
 const schema = yup
   .object({
-    name: yup.string().required('Ім’я обов’язкове'),
+    name: yup.string().required("Будь ласка, введіть ім'я."),
     phone: yup
       .string()
-      .matches(/^\+380\d{9}$/, 'Телефон повинен бути у форматі +380XXXXXXXXX')
-      .required('Телефон обов’язковий'),
+      .required('Будь ласка, введіть номер телефону.')
+      .matches(/^(?:(?:\+?380)\d{9}|0\d{9})$/, 'Невірний формат телефону. Введіть номер у форматі +380 або 380 і 9 цифр, або 0 і 9 цифр.'),
     message: yup.string().required('Повідомлення обов’язкове'),
   })
   .required();
@@ -31,14 +31,17 @@ const ContactForm = ({ dictionary }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { errors, isValid },
   } = useForm<IFormInputs>({
     resolver: yupResolver(schema),
+    mode: 'onChange',
   });
   const [messageSent, setMessageSent] = useState(false);
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
     setMessageSent(true);
+    reset();
   };
 
   return (
@@ -73,7 +76,9 @@ const ContactForm = ({ dictionary }: Props) => {
           )}
         </div>
 
-        <button type="submit">{dictionary.send}</button>
+        <button type="submit" disabled={!isValid}>
+          {dictionary.send}
+        </button>
       </form>
 
       {messageSent && <p className="success-message">{dictionary.sendTrue}</p>}

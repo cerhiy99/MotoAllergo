@@ -97,9 +97,9 @@ const SubscribeForm: React.FC = () => {
           </div>
         </li>
         <li>
-          <Link href="/privacy/" target="_blank" className={styles.footerLink}>
+          {/* <Link href="/privacy/" target="_blank" className={styles.footerLink}> */}
           Прочитайте умови та положення
-          </Link>
+          {/* </Link> */}
           <button className={styles.subscribeButton} onClick={handleSubscribe} disabled={!isChecked}>
             Підписатися
           </button>

@@ -8,7 +8,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 7vw;
-  background-color: #e9ecef;
+  background-color: #0e4ed20d;
   font-size: 12px;
   color: #333;
 }
@@ -41,16 +41,23 @@
 .phone {
   color: #899198;
 }
-
+.phone i{
+  color: #4BA0E8;
+  font-size: 17px;
+}
 .socialIcons {
   display: flex;
   gap: 10px;
+  align-items: center;
 }
 
 .socialIcons a {
   color: #333;
   font-size: 14px;
   transition: color 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .callButton {
@@ -64,6 +71,7 @@
   transition: background-color 0.3s;
   display: flex;
   gap: 10px;
+  align-items: center;
 }
 
 .mainHeader {
@@ -73,6 +81,7 @@
   padding: 10px 7vw;
   background-color: #ffffff;
   margin: 0 auto;
+  gap: 30px;
 
 }
 .logo{
@@ -91,16 +100,18 @@
 .searchForm {
   display: flex;
   align-items: center;
-  width: 65%;
+  width: 100%;
 }
 
 .searchInput {
   padding: 8.5px;
   border: 1px solid #0E4ED2;
   border-radius: 12px 0 0 12px;
+  border-right: none;
   font-size: 14px;
   outline: none;
   width: 100%;
+  height: 40px;
 }
 
 .searchButton {
@@ -111,7 +122,10 @@
   border-radius: 0 4px 4px 0;
   cursor: pointer;
   transition: background-color 0.3s;
+  height: 40px;
+  font-size: 20px;
 }
+
 
 .nav {
   display: flex;
