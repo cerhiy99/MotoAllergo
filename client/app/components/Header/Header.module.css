@@ -1,6 +1,5 @@
 .header {
   width: 100%;
-  font-family: 'Arial', sans-serif;
 }
 
 .topBar {
@@ -231,18 +230,21 @@
 .mobileHeader{
   display: none;
 }
-
+.burger{
+  display: none;
+}
 @media (max-width: 501px){
-    .topBar,.mainHeader,.nav{
-      display: none;
-    }
-    .mobileHeader{
-      display: flex;
+  .topBar,
+  .mainHeader,
+  .nav{
+    display: none;
+  }
+  .mobileHeader{
+    display: flex;
       justify-content: space-between;
       gap: 40px;
       align-items: center;
       padding: 15px;
-      border-bottom: 1px solid #0E4ED2;
     }
     .logo{
       height: 15px;
@@ -253,9 +255,282 @@
       display: flex;
       justify-content: center;
     }
-    .mobileBurger{
-      align-items: center;
+    .burger.active{
       display: flex;
+      flex-direction: column ;
+      align-items: self-start;
       justify-content: center;
     }
+
+    .burger .logo{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 15px;
+      border-bottom: 1px solid #0E4ED2;
+    }
+    .logo img{
+      width: 150px;
+    }
+
+    .searchForm{
+      padding: 15px;
+      border-bottom: 1px solid #0E4ED2;
+    }
+
+    .burgerContentWrapper{
+      padding: 15px;
+      padding-bottom: 40px;
+      width: 100%;
+    }
+
+    .burger .navList{
+      flex-direction: column;
+      width: 100%;
+      gap: 0;
+    }
+    .navListElRef{
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #D8D8D8;
+      padding: 10px;
+      padding-right: 0;
+    }
+    .burgerElWrapper{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+    }
+    .navListElRef i{
+      padding: 4px 7px;
+      border: 2px solid black;
+      border-radius: 5px;
+    }
+
+    .TelWrapper a{
+      padding: 15px 5px 15px 10px;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      border-bottom: 1px solid #D8D8D8;
+      text-align: center;
+    }
+    .TelWrapper a i{
+      color: black;
+      padding: 0;
+    }
+    .TelWrapper span{
+      position: absolute;
+      left: 33%;
+    }
+
+    .burger .socialIcons{
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid #D8D8D8;
+      padding: 15px;
+      gap: 40px;
+    }
+    .burger .socialIcons i{
+      font-size: 30px;
+      color: #0E4ED2;
+    }
+
+  }
+
+
+/* Обгортка кошика */
+.cartWrapper,.favoritesWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
 }
+
+/* Лічильник кошика */
+.cartCount,.favoritesCount {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  background: #ff0000;
+  color: #fff;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+/* Стилі для кошика (залишаються без змін) */
+.cartWrapper button,.favoritesWrapper button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Затемнення фону для кошика */
+.cartModal,.favoritesModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Контейнер спливаючого вікна для кошика */
+.cartModalContent,.favoritesModalContent {
+  background: #fff;
+  width: 90%;
+  max-width: 650px;
+  border-radius: 8px;
+  padding: 30px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Заголовок для кошика */
+.cartHeader,.favoritesHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.cartHeader h3,
+.favoritesHeader h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Список елементів у кошику */
+.cartItems,.favoritesItems {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+/* Елемент кошика */
+.cartItem,.favoritesItem {
+  display: flex;
+  padding: 15px 0;
+  border-bottom: 1px solid #ddd;
+}
+/* Зображення в кошику */
+.cartItemImage,.favoritesItemImage {
+  width: 170px;
+  height: 130px;
+  object-fit: cover;
+  margin-right: 15px;
+  border-radius: 20px;
+}
+
+/* Деталі елемента в кошику */
+.cartItemDetails,.favoritesItemDetails {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.cartItemDescription,
+.favoritesItemDescription {
+  font-size: 18px;
+  margin: 0 0 15px;
+}
+
+.cartItemLot,
+.favoritesItemLot {
+  font-size: 16px;
+  color: #666;
+  margin: 10px 0 15px;
+}
+
+.cartItemPrice,
+.favoritesItemPrice {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 0 5px;
+}
+
+/* Кількість у кошику */
+.quantityControls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.quantityControls button {
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+.quantityControls button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.quantityControls span {
+  font-size: 14px;
+}
+
+/* Кнопка видалення */
+.removeButton {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.2s ease;
+}
+
+.removeButton:hover {
+  color: #ff0000;
+}
+
+/* Футер кошика */
+.cartFooter,.favoritesFooter {
+  padding-top: 10px;
+  text-align: right;
+}
+
+/* Загальна сума в кошику */
+.totalPrice {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 30px;
+}
+
+/* Кнопка оформлення замовлення */
+.checkoutButton,.viewFavoritesButton {
+  display: inline-block;
+  background: rgba(14, 78, 210, 1);
+  color: #fff;
+  padding: 12px 20px;
+  font-weight: 700;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+

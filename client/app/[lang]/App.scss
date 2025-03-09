@@ -23,6 +23,10 @@ a {
   text-decoration: none;
   color: inherit;
 }
+p,h1,h2{
+text-align: justify;
+}
+
 
 ul {
   list-style: none;
@@ -32,7 +36,9 @@ ul {
   @media (min-width: 1024px) {
     width: 85%;
   }
-
+  p,h1,h2{
+  text-align: left;
+  }
   @media (max-width: 1023px) and (min-width: 768px) {
     width: 90%;
   }

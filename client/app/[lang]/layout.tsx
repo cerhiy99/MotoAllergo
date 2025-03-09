@@ -26,7 +26,6 @@ export const metadata: Metadata = {
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
 }
-
 export default async function RootLayout({
   children,
   params,
@@ -35,7 +34,42 @@ export default async function RootLayout({
   params: { lang: Locale };
 }) {
   const { header } = await getDictionary(params.lang);
+  
+  const initialCartItems = [
+    {
+      id: 1,
+      lotNumber: '123456789',
+      description: 'Lorem ipsum dolor sit amet',
+      price: '123 456 грн',
+      image: '/images/Picture.png',
+      quantity: 1,
+    },
+    {
+      id: 2,
+      lotNumber: '987654321',
+      description: 'Consectetur adipiscing elit',
+      price: '89 000 грн',
+      image: '/images/Picture.png',
+      quantity: 2,
+    },
+  ];
 
+  const initialFavoriteItems = [
+    {
+      id: 3,
+      lotNumber: '555555555',
+      description: 'Favorite item 1',
+      price: '45 000 грн',
+      image: '/images/Picture.png',
+    },
+    {
+      id: 4,
+      lotNumber: '666666666',
+      description: 'Favorite item 2',
+      price: '67 000 грн',
+      image: '/images/Picture.png',
+    },
+  ];
   return (
     <html
       lang={params.lang}
@@ -45,7 +79,12 @@ export default async function RootLayout({
         <script src="https://kit.fontawesome.com/44ddc9fabc.js" crossOrigin="anonymous" async />
       </head>
       <body>
-          <Header lang={params.lang} dictionary={header} />
+        <Header
+          lang={params.lang}
+          dictionary={header}
+          initialCartItems={initialCartItems}
+          initialFavoriteItems={initialFavoriteItems}
+        />
           {children}
           <Footer lang={params.lang}/>
       </body>

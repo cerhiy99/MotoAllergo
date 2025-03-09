@@ -49,6 +49,21 @@
       "message": "Повідомлення",
       "send": "Відправити",
       "sendTrue": "Повідомлення відправлено!"}
+  },
+  "cart": {
+    "checkoutTitle": "ОФОРМЛЕННЯ ЗАМОВЛЕННЯ",
+    "contactDetails": "Контактні дані",
+    "fullName": "ПІБ",
+    "phone": "Телефон",
+    "email": "E-mail",
+    "fullNamePlaceholder": "",
+    "continue": "Продовжити",
+    "deliveryAndPayment": "Доставка і оплата",
+    "country": "Країна отримувача:",
+    "countryPlaceholder": "Україна",
+    "paymentMethod": "Спосіб оплати:",
+    "paymentMethodPlaceholder": "Спосіб оплати",
+    "lotNumber": "Номер лота"
   }
 }
 

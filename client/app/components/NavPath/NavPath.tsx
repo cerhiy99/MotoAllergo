@@ -12,6 +12,7 @@ const NavPathMap: Record<string, string> = {
   news: 'Новини',
   partnership: 'Партнерство',
   contacts: 'Контакти',
+  cart:'Офромлення замовлення'
 };
 
 export default function NavPath() {
