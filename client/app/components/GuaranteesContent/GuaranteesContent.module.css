@@ -7,15 +7,19 @@
   color: black;
   font-size: 16px !important;
 }
-.guaranteesContent > :nth-child(3){
+
+.guaranteesContent> :nth-child(3) {
   margin-top: 15px;
 }
-.guaranteesContent > :nth-child(3) {
+
+.guaranteesContent> :nth-child(3) {
   margin-top: 15px;
 }
+
 .guaranteesContent {
   padding-top: 20px;
 }
+
 .heroSection {
   background-image: url("../../../public/images/hero-about.png");
   background-size: cover;
@@ -24,6 +28,7 @@
   height: calc(100vw / 4.8);
   margin-top: 20px;
 }
+
 .guaranteesContent h1 {
   font-size: 24px;
   font-weight: 700;
@@ -49,9 +54,10 @@
 .guaranteesContent h2,
 .guaranteesContent p {
   margin-bottom: 20px;
-  
+
 }
-@media (max-width: 501px){
+
+@media (max-width: 501px) {
   .heroSection {
     background-image: url("../../../public/images/mobile_hero.jpg");
     background-size: cover;
@@ -60,17 +66,20 @@
     height: calc(100vw / 1.22);
     margin-top: 0px;
   }
+
   .guaranteesContent {
     padding: 20px 15px 15px;
     font-size: 14px;
-    }
-    .guaranteesContent h1{
-      font-size: 18px;
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
-    .guaranteesContent h2,
-    .guaranteesContent p{
-      margin-bottom: 20px;
-    }
+  }
+
+  .guaranteesContent h1 {
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .guaranteesContent h2,
+  .guaranteesContent p {
+    margin-bottom: 20px;
+  }
 }

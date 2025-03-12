@@ -6,77 +6,84 @@
   font-family: var(--font-roboto);
   color: black;
   font-size: 16px;
-  }
-  .aboutContent > :nth-child(3){
-    margin-top: 15px;
-  }
-  .heroSection {
-    background-image: url("../../../public/images/hero-about.png");
-    background-size: cover;
-    position: relative;
-    width: 100%;
-    height: calc(100vw / 4.8);
-    margin-top: 20px;
-  }
-  .aboutContent h1{
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom:15px;
-    margin-top: 15px;
-    position: relative;
-    display:flex;
-  }
+}
 
-  .titleContainer {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
+.aboutContent> :nth-child(3) {
+  margin-top: 15px;
+}
 
-  .titleContainer::after {
+.heroSection {
+  background-image: url("../../../public/images/hero-about.png");
+  background-size: cover;
+  position: relative;
+  width: 100%;
+  height: calc(100vw / 4.8);
+  margin-top: 20px;
+}
+
+.aboutContent h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  position: relative;
+  display: flex;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.titleContainer::after {
   content: "";
   flex-grow: 1;
   height: 1px;
   background-color: #E5E5E5;
-  }
-  .aboutContent h2,
-  .aboutContent p{
-    margin-bottom: 20px;
+}
+
+.aboutContent h2,
+.aboutContent p {
+  margin-bottom: 20px;
+}
+
+
+.advantagesList,
+.rulesList {
+  list-style-type: disc;
+  margin-left: 30px;
+  margin-bottom: 30px;
+}
+
+.advantagesList li,
+.rulesList li {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 501px) {
+  .heroSection {
+    background-image: url("../../../public/images/mobile_hero.jpg");
+    background-size: cover;
+    position: relative;
+    width: 100%;
+    height: calc(100vw / 1.22);
+    margin-top: 0px;
   }
 
-  
-  .advantagesList,
-  .rulesList {
-    list-style-type: disc;
-    margin-left: 30px;
-    margin-bottom: 30px;
+  .aboutContent {
+    padding: 20px 15px 15px;
+    font-size: 14px;
   }
-  
-  .advantagesList li,
-  .rulesList li {
+
+  .aboutContent h1 {
+    font-size: 18px;
+    margin-top: 10px;
     margin-bottom: 10px;
   }
 
-  @media (max-width: 501px){
-    .heroSection {
-      background-image: url("../../../public/images/mobile_hero.jpg");
-      background-size: cover;
-      position: relative;
-      width: 100%;
-      height: calc(100vw / 1.22);
-      margin-top: 0px;
-    }
-    .aboutContent {
-      padding: 20px 15px 15px;
-      font-size: 14px;
-      }
-      .aboutContent h1{
-        font-size: 18px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-      }
-      .aboutContent h2,
-      .aboutContent p{
-        margin-bottom: 20px;
-      }
+  .aboutContent h2,
+  .aboutContent p {
+    margin-bottom: 20px;
   }
+}

@@ -1,69 +1,67 @@
-.popularCategoriesWrapper{
-    padding: 0 100px 50px;
-    margin-top: 65px;
-    border-bottom: 1px solid #0E4ED2;
+.popularCategoriesWrapper {
+  padding: 0 100px 50px;
+  margin-top: 65px;
+  border-bottom: 1px solid #0E4ED2;
 }
 
-.popularCategoriesTitle{
-    font-family: var(--font-montserrat);
-    font-weight: 700;
-    font-size: 28px;
+.popularCategoriesTitle {
+  font-family: var(--font-montserrat);
+  font-weight: 700;
+  font-size: 28px;
 }
 
-.popularCategoriesTitle span{
-    background-color: #0E4ED2;
-    color: #fff;
-    padding: 0 3px;
+.popularCategoriesTitle span {
+  background-color: #0E4ED2;
+  color: #fff;
+  padding: 0 3px;
 }
 
 .popularCategoriesList {
-    display: grid;
-    grid-template-columns: repeat(4, auto);
-    gap: 25px;
-    padding: 0;
-    list-style: none;
-    justify-content: start;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 25px;
+  padding: 0;
+  list-style: none;
+  justify-content: start;
+}
+
+.popularCategoriesEl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+@media (max-width: 501px) {
+  .popularCategoriesWrapper {
+    padding: 0 20px 40px;
+    margin-top: 40px;
   }
-  
-  .popularCategoriesEl {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+  .popularCategoriesTitle {
+    font-size: 22px;
     text-align: center;
+    margin-bottom: 30px;
   }
-  
-  @media (max-width: 501px) {
-    .popularCategoriesWrapper {
-      padding: 0 20px 40px;
-      margin-top: 40px;
-    }
-  
-    .popularCategoriesTitle {
-      font-size: 22px;
-      text-align: center;
-      margin-bottom: 30px;
-    }
-  
-    .popularCategoriesList {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(2, auto);
-      gap: 10px;
-    }
-  
-    .popularCategoriesEl img {
-      width: 75px;
-      height: 75px;
-    }
-  
-    .popularCategoriesEl p {
-      font-size: 12px;
-      margin-top: 5px;
-    }
-  
-    .popularCategoriesEl:nth-child(n + 7) {
-      display: none;
-    }
+
+  .popularCategoriesList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 10px;
   }
-  
-  
+
+  .popularCategoriesEl img {
+    width: 75px;
+    height: 75px;
+  }
+
+  .popularCategoriesEl p {
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
+  .popularCategoriesEl:nth-child(n + 7) {
+    display: none;
+  }
+}

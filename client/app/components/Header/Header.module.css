@@ -40,10 +40,12 @@
 .phone {
   color: #899198;
 }
-.phone i{
+
+.phone i {
   color: #4BA0E8;
   font-size: 17px;
 }
+
 .socialIcons {
   display: flex;
   gap: 10px;
@@ -83,7 +85,8 @@
   gap: 30px;
 
 }
-.logo{
+
+.logo {
   position: relative;
   width: 300px;
   height: 40px;
@@ -227,132 +230,148 @@
   transition: color 0.3s;
 }
 
-.mobileHeader{
+.mobileHeader {
   display: none;
 }
-.burger{
+
+.burger {
   display: none;
 }
-@media (max-width: 501px){
+
+@media (max-width: 501px) {
+
   .topBar,
   .mainHeader,
-  .nav{
+  .nav {
     display: none;
   }
-  .mobileHeader{
+
+  .mobileHeader {
     display: flex;
-      justify-content: space-between;
-      gap: 40px;
-      align-items: center;
-      padding: 15px;
-    }
-    .logo{
-      height: 15px;
-      width: 150px;
-    }
-    .cartIcons a {
-      align-items: center;
-      display: flex;
-      justify-content: center;
-    }
-    .burger.active{
-      display: flex;
-      flex-direction: column ;
-      align-items: self-start;
-      justify-content: center;
-    }
-
-    .burger .logo{
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 15px;
-      border-bottom: 1px solid #0E4ED2;
-    }
-    .logo img{
-      width: 150px;
-    }
-
-    .searchForm{
-      padding: 15px;
-      border-bottom: 1px solid #0E4ED2;
-    }
-
-    .burgerContentWrapper{
-      padding: 15px;
-      padding-bottom: 40px;
-      width: 100%;
-    }
-
-    .burger .navList{
-      flex-direction: column;
-      width: 100%;
-      gap: 0;
-    }
-    .navListElRef{
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #D8D8D8;
-      padding: 10px;
-      padding-right: 0;
-    }
-    .burgerElWrapper{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 15px;
-    }
-    .navListElRef i{
-      padding: 4px 7px;
-      border: 2px solid black;
-      border-radius: 5px;
-    }
-
-    .TelWrapper a{
-      padding: 15px 5px 15px 10px;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      border-bottom: 1px solid #D8D8D8;
-      text-align: center;
-    }
-    .TelWrapper a i{
-      color: black;
-      padding: 0;
-    }
-    .TelWrapper span{
-      position: absolute;
-      left: 33%;
-    }
-
-    .burger .socialIcons{
-      width: 100%;
-      justify-content: center;
-      align-items: center;
-      border-bottom: 1px solid #D8D8D8;
-      padding: 15px;
-      gap: 40px;
-    }
-    .burger .socialIcons i{
-      font-size: 30px;
-      color: #0E4ED2;
-    }
-
+    justify-content: space-between;
+    gap: 40px;
+    align-items: center;
+    padding: 15px;
   }
+
+  .logo {
+    height: 15px;
+    width: 150px;
+  }
+
+  .cartIcons a {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .burger.active {
+    display: flex;
+    flex-direction: column;
+    align-items: self-start;
+    justify-content: center;
+  }
+
+  .burger .logo {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 15px;
+    border-bottom: 1px solid #0E4ED2;
+  }
+
+  .logo img {
+    width: 150px;
+  }
+
+  .searchForm {
+    padding: 15px;
+    border-bottom: 1px solid #0E4ED2;
+  }
+
+  .burgerContentWrapper {
+    padding: 15px;
+    padding-bottom: 40px;
+    width: 100%;
+  }
+
+  .burger .navList {
+    flex-direction: column;
+    width: 100%;
+    gap: 0;
+  }
+
+  .navListElRef {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #D8D8D8;
+    padding: 10px;
+    padding-right: 0;
+  }
+
+  .burgerElWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .navListElRef i {
+    padding: 4px 7px;
+    border: 2px solid black;
+    border-radius: 5px;
+  }
+
+  .TelWrapper a {
+    padding: 15px 5px 15px 10px;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid #D8D8D8;
+    text-align: center;
+  }
+
+  .TelWrapper a i {
+    color: black;
+    padding: 0;
+  }
+
+  .TelWrapper span {
+    position: absolute;
+    left: 33%;
+  }
+
+  .burger .socialIcons {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #D8D8D8;
+    padding: 15px;
+    gap: 40px;
+  }
+
+  .burger .socialIcons i {
+    font-size: 30px;
+    color: #0E4ED2;
+  }
+
+}
 
 
 /* Обгортка кошика */
-.cartWrapper,.favoritesWrapper {
+.cartWrapper,
+.favoritesWrapper {
   position: relative;
   display: inline-flex;
   align-items: center;
 }
 
 /* Лічильник кошика */
-.cartCount,.favoritesCount {
+.cartCount,
+.favoritesCount {
   position: absolute;
   bottom: -5px;
   right: -5px;
@@ -365,7 +384,8 @@
 }
 
 /* Стилі для кошика (залишаються без змін) */
-.cartWrapper button,.favoritesWrapper button {
+.cartWrapper button,
+.favoritesWrapper button {
   background: none;
   border: none;
   cursor: pointer;
@@ -375,7 +395,8 @@
 }
 
 /* Затемнення фону для кошика */
-.cartModal,.favoritesModal {
+.cartModal,
+.favoritesModal {
   position: fixed;
   top: 0;
   left: 0;
@@ -389,7 +410,8 @@
 }
 
 /* Контейнер спливаючого вікна для кошика */
-.cartModalContent,.favoritesModalContent {
+.cartModalContent,
+.favoritesModalContent {
   background: #fff;
   width: 90%;
   max-width: 650px;
@@ -401,7 +423,8 @@
 }
 
 /* Заголовок для кошика */
-.cartHeader,.favoritesHeader {
+.cartHeader,
+.favoritesHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -422,20 +445,24 @@
 }
 
 /* Список елементів у кошику */
-.cartItems,.favoritesItems {
+.cartItems,
+.favoritesItems {
   list-style: none;
   padding: 0;
   margin: 10px 0;
 }
 
 /* Елемент кошика */
-.cartItem,.favoritesItem {
+.cartItem,
+.favoritesItem {
   display: flex;
   padding: 15px 0;
   border-bottom: 1px solid #ddd;
 }
+
 /* Зображення в кошику */
-.cartItemImage,.favoritesItemImage {
+.cartItemImage,
+.favoritesItemImage {
   width: 170px;
   height: 130px;
   object-fit: cover;
@@ -444,7 +471,8 @@
 }
 
 /* Деталі елемента в кошику */
-.cartItemDetails,.favoritesItemDetails {
+.cartItemDetails,
+.favoritesItemDetails {
   flex: 1;
   display: flex;
   justify-content: space-between;
@@ -509,7 +537,8 @@
 }
 
 /* Футер кошика */
-.cartFooter,.favoritesFooter {
+.cartFooter,
+.favoritesFooter {
   padding-top: 10px;
   text-align: right;
 }
@@ -522,7 +551,8 @@
 }
 
 /* Кнопка оформлення замовлення */
-.checkoutButton,.viewFavoritesButton {
+.checkoutButton,
+.viewFavoritesButton {
   display: inline-block;
   background: rgba(14, 78, 210, 1);
   color: #fff;
@@ -532,5 +562,3 @@
   text-decoration: none;
   font-size: 14px;
 }
-
-

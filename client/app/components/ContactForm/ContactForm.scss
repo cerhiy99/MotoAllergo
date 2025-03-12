@@ -1,135 +1,134 @@
-/* Общие стили */
 .contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+  border-right: 1px solid rgba(129, 129, 129, 0.2);
+  padding-right: 40px;
+
+  .title-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    h1 {
+      font-family: var(--font-roboto);
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.4;
+      color: #2d2a2a;
+      margin: 0;
+    }
+
+    .divider {
+      width: 372px;
+      height: 1px;
+      background-color: rgba(129, 129, 129, 0.2);
+    }
+  }
+
+  .inputs {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 20px;
+  }
+
+  label {
+    font-family: var(--font-roboto);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #464646;
+  }
+
+  input {
+    border: 2px solid rgba(129, 129, 129, 0.2);
+    border-radius: 8px;
+    width: 40%;
+    height: 42px;
+    font-size: 16px;
+    padding: 0 8px;
+    margin-top: 8px;
+  }
+
+  .input-field {
+    flex: 1;
+  }
+
+  .input-field input,
+  .input-field textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  textarea {
+    border: 2px solid rgba(129, 129, 129, 0.2);
+    border-radius: 8px;
+    font-size: 16px;
+    margin-top: 8px;
+    padding: 8px;
+    height: 190px;
+    resize: none;
+  }
+
+  input:focus,
+  textarea:focus {
+    outline: none;
+  }
+
+  .message-field {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    box-sizing: border-box;
-    border-right: 1px solid rgba(129, 129, 129, 0.2);
-    padding-right: 40px;
-  
-    .title-container {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-  
-      h1 {
-        font-family: var(--font-roboto);
-        font-size: 22px;
-        font-weight: 500;
-        line-height: 1.4;
-        color: #2d2a2a;
-        margin: 0;
-      }
-  
-      .divider {
-        width: 372px;
-        height: 1px;
-        background-color: rgba(129, 129, 129, 0.2);
-      }
-    }
-  
-    .inputs {
-      display: flex;
-      gap: 30px;
-      margin-bottom: 20px;
-    }
-  
-    label {
-      font-family: var(--font-roboto);
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 1.6;
-      color: #464646;
-    }
-  
-    input {
-      border: 2px solid rgba(129, 129, 129, 0.2);
-      border-radius: 8px;
-      width: 40%;
-      height: 42px;
-      font-size: 16px;
-      padding: 0 8px;
-      margin-top: 8px;
-    }
-  
-    .input-field {
-      flex: 1;
-    }
-  
-    .input-field input,
-    .input-field textarea {
-      width: 100%;
-      padding: 10px;
-      font-size: 16px;
-    }
-  
-    textarea {
-      border: 2px solid rgba(129, 129, 129, 0.2);
-      border-radius: 8px;
-      font-size: 16px;
-      margin-top: 8px;
-      padding: 8px;
-      height: 190px;
-      resize: none;
-    }
-  
-    input:focus,
-    textarea:focus {
-      outline: none;
-    }
-  
-    .message-field {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 20px;
-    }
-  
-    button {
-      font-weight: 600;
-      font-size: 13px;
-      line-height: 1.38462;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      text-align: center;
-      color: white;
-      border-radius: 24px;
-      width: 117px;
-      height: 42px;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      background-color: rgba(57, 96, 255, 1);
-    }
-  
-    button:disabled {
-      background-color: rgba(57, 96, 255, 0.5);
-      cursor: not-allowed;
-    }
-  
-    .error-message {
-      color: red;
-      font-size: 12px;
-      text-align: left;
-    }
-  
-    .success-message {
-      color: green;
-      font-size: 16px;
-      text-align: center;
-    }
+    margin-bottom: 20px;
   }
-  
-  @media (max-width: 501px) {
-    .inputs {
-      flex-direction: column;
-    }
-  
-    input {
-      width: 80%;
-    }
-  
-    .contact-form {
-      border-right: none;
-      padding-right: 0px;
-    }
+
+  button {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.38462;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+    border-radius: 24px;
+    width: 117px;
+    height: 42px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: rgba(57, 96, 255, 1);
   }
+
+  button:disabled {
+    background-color: rgba(57, 96, 255, 0.5);
+    cursor: not-allowed;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 12px;
+    text-align: left;
+  }
+
+  .success-message {
+    color: green;
+    font-size: 16px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 501px) {
+  .inputs {
+    flex-direction: column;
+  }
+
+  input {
+    width: 80%;
+  }
+
+  .contact-form {
+    border-right: none;
+    padding-right: 0px;
+  }
+}

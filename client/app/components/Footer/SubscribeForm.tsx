@@ -68,7 +68,7 @@ const SubscribeForm: React.FC = () => {
       <ul className={styles.footerElList}>
         <li>
           <p>
-          Підпишіться на нашу розсилку, щоб Ви могли першими дізнаватися про новинки та акції на автозапчастини, а також отримувати корисні поради щодо їх вибору та експлуатації!
+            Підпишіться на нашу розсилку, щоб Ви могли першими дізнаватися про новинки та акції на автозапчастини, а також отримувати корисні поради щодо їх вибору та експлуатації!
           </p>
         </li>
         <li>
@@ -92,14 +92,14 @@ const SubscribeForm: React.FC = () => {
               onChange={(e) => setIsChecked(e.target.checked)}
             />
             <label htmlFor="checkbox" className={styles.checkboxLabel}>
-            Прийняти умови
+              Прийняти умови
             </label>
           </div>
         </li>
         <li>
-          {/* <Link href="/privacy/" target="_blank" className={styles.footerLink}> */}
+          <Link href="/privacy_policy/" target="_blank" className={styles.footerLink}>
           Прочитайте умови та положення
-          {/* </Link> */}
+          </Link>
           <button className={styles.subscribeButton} onClick={handleSubscribe} disabled={!isChecked}>
             Підписатися
           </button>

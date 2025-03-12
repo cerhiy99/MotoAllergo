@@ -1,4 +1,4 @@
-'use client'; 
+'use client';
 
 import { useState, useTransition, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
@@ -12,6 +12,7 @@ import Facebook from '../../assets/icons/facebook.svg';
 import Instagram from '../../assets/icons/inst.svg';
 import Heart from '../../assets/icons/heart.svg';
 import Cart from '../../assets/icons/cart.svg';
+import AnimatedInput from './AnimatedInput';
 
 type Props = {
   lang: any;
@@ -76,7 +77,7 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
       }
     }
   }, [isBurgerOpen]);
-  
+
   const toggleBurgerMenu = () => {
     setIsBurgerOpen(!isBurgerOpen);
   };
@@ -182,11 +183,13 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
           </Link>
         </div>
         <form className={styles.searchForm}>
-          <input
+          {/* <input
             type="text"
             placeholder="МОТОРЧИК ПОВІТРОДУВКИ ОБІГРІВАЧА КОНДИЦІОНЕРА КОНДИЦИОНЕРА VW AUDI SKODA SEAT КОМПЛЕКТ"
             className={styles.searchInput}
-          />
+          /> */}
+          <AnimatedInput />
+
           <button type="submit" className={styles.searchButton}>
             <i className="fas fa-search"></i>
           </button>
@@ -252,7 +255,7 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
           </div>
         </div>
       </nav>
-            <div className={styles.mobileHeader}>
+      <div className={styles.mobileHeader}>
         <div className={styles.mobileBurger} onClick={toggleBurgerMenu}>
           <img src="/images/burger.svg" alt="burger" />
         </div>
@@ -263,14 +266,24 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
         </div>
         <div className={styles.cartIcons}>
           <a href="tel:+380985193009" className={styles.phone}>
-              <img src="/images/mobile_phone.svg" alt="phone" />
+            <img src="/images/mobile_phone.svg" alt="phone" />
           </a>
-          <Link href="/favorites" aria-label="Favorites">
-            <Heart />
-          </Link>
-          <Link href="/cart" aria-label="Cart">
-            <Cart />
-          </Link>
+          <div className={styles.favoritesWrapper}>
+            <button onClick={toggleFavorites} aria-label="Favorites">
+              <Heart />
+              {favoriteItems.length > 0 && (
+                <span className={styles.favoritesCount}>{favoriteItems.length}</span>
+              )}
+            </button>
+          </div>
+          <div className={styles.cartWrapper}>
+            <button onClick={toggleCart} aria-label="Cart">
+              <Cart />
+              {cartItems.length > 0 && (
+                <span className={styles.cartCount}>{cartItems.length}</span>
+              )}
+            </button>
+          </div>
         </div>
       </div>
       <div className={`${styles.burger} ${isBurgerOpen ? styles.active : ''}`}>
@@ -349,7 +362,7 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
                   <img src="/images/mobile_header_icon.svg" alt="" />
                   Контакти
                 </div>
-              
+
                 <i className="fa-solid fa-chevron-right"></i>
               </Link>
             </li>

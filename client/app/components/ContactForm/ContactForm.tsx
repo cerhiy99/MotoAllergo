@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -43,6 +43,15 @@ const ContactForm = ({ dictionary }: Props) => {
     setMessageSent(true);
     reset();
   };
+
+  useEffect(() => {
+    if (messageSent) {
+      const timer = setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [messageSent]);
 
   return (
     <div className="contact-form">

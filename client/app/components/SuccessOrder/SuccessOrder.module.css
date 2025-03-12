@@ -1,0 +1,55 @@
+.successContainer {
+  margin: 0 auto;
+  width: 100%;
+  padding: 20px 7vw 45px;
+  margin-bottom: 10px;
+}
+
+.successContent {
+  text-align: justify;
+}
+
+.contentWrapper {
+  gap: 15vw;
+  display: flex;
+}
+
+.successTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.successTitle span {
+  background-color: #0E4ED2;
+  color: #fff;
+  padding: 0 3px;
+}
+
+.orderNumber {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.priceInfo {
+  margin-bottom: 40px;
+}
+
+.continueShoppingButton {
+  background: rgba(14, 78, 210, 1);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 40px;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+.carImage img {
+  width: 40vw;
+}

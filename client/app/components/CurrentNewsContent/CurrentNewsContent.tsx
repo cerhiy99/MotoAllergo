@@ -35,13 +35,13 @@ const CurrentNewsContent: React.FC<NewsDetailProps> = ({ news, dictionary, lang 
 
   const additionalImages = news.imagePaths.slice(1); // Всі фото окрім першого
   const visibleImages = 3; // Кількість фото, які видно одночасно
-  
+
   const nextSlide = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex + visibleImages >= additionalImages.length ? 0 : prevIndex + 1
     );
   };
-  
+
   const prevSlide = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? Math.max(0, additionalImages.length - visibleImages) : prevIndex - 1
@@ -52,7 +52,6 @@ const CurrentNewsContent: React.FC<NewsDetailProps> = ({ news, dictionary, lang 
     <div className={styles.newsDetail}>
       <NavPath />
 
-      {/* Перше зображення (не входить в слайдер) */}
       <div className={styles.firstImgWrapper}>
         {news.imagePaths.length > 0 && (
           <img

@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
 }
+
 body {
   min-height: 100vh;
   margin: 0;
@@ -10,9 +11,11 @@ body {
   font-family: var(--font-montserrat), sans-serif;
   box-sizing: border-box;
 }
+
 main {
   min-height: 50vh;
 }
+
 footer {
   width: 100%;
   position: relative;
@@ -23,27 +26,41 @@ a {
   text-decoration: none;
   color: inherit;
 }
-p,h1,h2{
-text-align: justify;
+
+p,
+h1,
+h2,
+li {
+  text-align: justify;
 }
 
 
 ul {
   list-style: none;
 }
+
 @mixin responsive-width {
   margin: 0 auto;
+
   @media (min-width: 1024px) {
     width: 85%;
   }
-  p,h1,h2{
-  text-align: left;
-  }
+
   @media (max-width: 1023px) and (min-width: 768px) {
     width: 90%;
   }
 
   @media (max-width: 767px) {
     width: 95%;
+  }
+}
+
+@media(max-width: 501px) {
+
+  p,
+  h1,
+  h2,
+  li {
+    text-align: left;
   }
 }

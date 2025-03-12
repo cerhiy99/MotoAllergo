@@ -20,12 +20,12 @@ export default async function Page({ params }: { params: { lang: Locale } }) {
   const { news } = await getDictionary(params.lang);
 
   return <main>
-    <HeroSection/>
-    <LogoSlider/>
-    <ChooseCategory/>
-    <HowWeWork/>
-    <PopularCategories dictionary={categories}/>
-    <PopularProducts/>
-    <AvtoBlog dictionary={news}/>
+    <HeroSection />
+    <LogoSlider />
+    <ChooseCategory />
+    <HowWeWork />
+    <PopularCategories dictionary={categories} />
+    <PopularProducts />
+    <AvtoBlog dictionary={news} />
   </main>;
 }

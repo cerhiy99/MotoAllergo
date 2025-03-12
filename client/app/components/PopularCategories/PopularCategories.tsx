@@ -4,8 +4,8 @@ import { useState } from 'react';
 import styles from './PopularCategories.module.css';
 
 type Props = {
-    dictionary: any;
-  };
+  dictionary: any;
+};
 
 const imagePaths = {
   wheels: "/images/wheels.png",
@@ -13,7 +13,7 @@ const imagePaths = {
   brakes: "/images/brakes.png"
 };
 
-const PopularCategories= ({ dictionary }: Props) => {
+const PopularCategories = ({ dictionary }: Props) => {
   const [isUa, setIsUa] = useState(true);
   const toggleLanguage = () => setIsUa(!isUa);
   return (

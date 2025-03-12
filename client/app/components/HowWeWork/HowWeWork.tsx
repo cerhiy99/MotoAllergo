@@ -15,7 +15,7 @@ const HowWeWork: React.FC = () => {
         <div className={styles.firstStep}>
           <div className={styles.step}>
             <div className={styles.stepNumbers}>
-              <ONE fill="currentColor"/>
+              <ONE fill="currentColor" />
             </div>
             <div className={styles.stepIconTextWrapper}>
               <Image src="/images/icons/step-cart.svg" alt="Cart" width={50} height={50} />
@@ -27,7 +27,7 @@ const HowWeWork: React.FC = () => {
           </div>
           <div className={styles.step}>
             <div className={styles.stepNumbers}>
-              <TWO/>
+              <TWO />
             </div>
             <div className={styles.stepIconTextWrapper}>
               <Image src="/images/icons/step-operator.svg" alt="Cart" width={60} height={60} />
@@ -41,11 +41,11 @@ const HowWeWork: React.FC = () => {
         <div className={styles.secondStep}>
           <div className={styles.step}>
             <div className={styles.stepNumbers}>
-              <THREE/>
+              <THREE />
             </div>
             {/* <Image src="/images/icons/step-zero-third.svg" alt="Cart" width={150} height={95} /> */}
             <div className={styles.stepIconTextWrapper}>
-            <Image src="/images/icons/step-stock.svg" alt="Cart" width={65} height={65} />
+              <Image src="/images/icons/step-stock.svg" alt="Cart" width={65} height={65} />
               <div className={styles.stepText}>
                 <p>Замовлення товару</p>
                 <p>Замовляється даний товар в Польщі на базі. Перевіряється на якість.</p>
@@ -54,11 +54,11 @@ const HowWeWork: React.FC = () => {
           </div>
           <div className={styles.step}>
             <div className={styles.stepNumbers}>
-              <FOUR/>
+              <FOUR />
             </div>
             {/* <Image src="/images/icons/step-zero-fourth.svg" alt="Cart" width={150} height={95} /> */}
             <div className={styles.stepIconTextWrapper}>
-            <Image src="/images/icons/step-truck.svg" alt="Cart" width={65} height={65} />
+              <Image src="/images/icons/step-truck.svg" alt="Cart" width={65} height={65} />
               <div className={styles.stepText}>
                 <p>Доставка товару</p>
                 <p>Відповідний товар доставляється на склад, а потім до покупця.</p>

@@ -12,8 +12,8 @@ const HeroSection = () => {
 
   const desktopImages = [
     "/images/home-hero-image.png",
-    "/images/image.png",
-    "/images/home-hero-image.png"
+    "/images/home-hero-image-second.png",
+    "/images/home-hero-image-third.png"
   ];
 
   const mobileImages = [
@@ -27,12 +27,19 @@ const HeroSection = () => {
       const newImages = window.innerWidth <= 501 ? mobileImages : desktopImages;
       setImages(newImages);
     };
-
     updateImages();
     window.addEventListener("resize", updateImages);
 
     return () => window.removeEventListener("resize", updateImages);
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % images.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [images]);
 
   const handleDotClick = (index) => {
     setCurrentSlide(index);
@@ -52,7 +59,7 @@ const HeroSection = () => {
   const handleItemClick = (index, value) => {
     setChosenFilters((prev) => ({ ...prev, [index]: value }));
     setDropdowns((prev) => ({ ...prev, [index]: false }));
-    
+
     if (index === 0) setActiveFilters((prev) => [...prev, 1]);
     if (index === 1) setActiveFilters((prev) => [...prev, 2]);
     if (index === 3) setActiveFilters((prev) => [...prev, 4]);
@@ -61,10 +68,10 @@ const HeroSection = () => {
   return (
     <div className={styles.heroSection}>
       <div className={styles.imageContainer}>
-        <img 
-          src={images[currentSlide]} 
-          alt="Hero Slide" 
-          className={styles.heroImage} 
+        <img
+          src={images[currentSlide]}
+          alt="Hero Slide"
+          className={styles.heroImage}
         />
       </div>
       <div className={styles.heroWrapper}>
@@ -72,18 +79,18 @@ const HeroSection = () => {
           <h1 className={styles.heroSectionTitle}>Підбір автозапчастин</h1>
           <ul className={styles.filterList}>
             {["Виберіть марку", "Виберіть модель", "Виберіть модифікацію", "Виберіть групу", "Виберіть категорію"].map((text, index) => (
-              <li 
-                key={index} 
+              <li
+                key={index}
                 className={`${styles.filterEl} ${activeFilters.includes(index) ? styles.active : ''} ${chosenFilters[index] ? styles.chosen : ''}`}
               >
-                <p 
+                <p
                   className={`${styles.filterElPara} ${chosenFilters[index] ? styles.chosen : ''}`}
                   onClick={() => handleFilterClick(index)}
                 >
                   <span className={`${styles.filterElNumber} ${activeFilters.includes(index) ? styles.active : ''} ${chosenFilters[index] ? styles.chosen : ''}`}>{index + 1}</span>
                   {chosenFilters[index] || text}
                 </p>
-                <div 
+                <div
                   className={`${styles.filterElIconWrapper} ${activeFilters.includes(index) ? styles.active : ''} ${chosenFilters[index] ? styles.chosen : ''}`}
                   onClick={() => handleFilterClick(index)}
                 >
@@ -101,11 +108,11 @@ const HeroSection = () => {
               </li>
             ))}
           </ul>
-          <button 
+          <button
             className={`${styles.filterElButton} ${Object.keys(chosenFilters).length > 0 ? styles.chosen : ''}`}
             style={{ opacity: Object.keys(chosenFilters).length > 0 ? 1 : 0.7 }}>
-              <i className="fa-solid fa-magnifying-glass"></i>
-              Підібрати
+            <i className="fa-solid fa-magnifying-glass"></i>
+            Підібрати
           </button>
         </form>
         <div className={styles.sliderDots}>

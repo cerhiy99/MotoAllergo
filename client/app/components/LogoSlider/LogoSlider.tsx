@@ -8,7 +8,7 @@ const LogoSlider = () => {
   const [position, setPosition] = useState(0);
   const [visibleItems, setVisibleItems] = useState(5);
   const sliderRef = useRef(null);
-  
+
   const desktopItemWidth = 120;
   const mobileItemWidth = window.innerWidth / 5 - 0.1;
   const itemWidth = window.innerWidth <= 501 ? mobileItemWidth : desktopItemWidth;

@@ -34,16 +34,18 @@ const NewsContent = ({ dictionary }: Props) => {
 
   return (
     <div className={styles.newsWrapper}>
-      <NavPath/>
+      <NavPath />
       <h1 className={styles.newsTitle}>{dictionary.news.title}</h1>
       <ul className={styles.newsList}>
         {currentNews.map(([title, content], index) => (
           <li key={index} className={styles.newsEl}>
+            <Link href={`/news/${index + 1}`}>
             <h2>
-              <Link href={`/news/${index + 1}`}>{title}</Link>
+              {title}
             </h2>
             <div className={styles.line}></div>
             <p>{content}</p>
+            </Link>
           </li>
         ))}
       </ul>

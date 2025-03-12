@@ -8,9 +8,10 @@
   font-size: 16px !important;
 }
 
-.paymentContent > :nth-child(3) {
+.paymentContent> :nth-child(3) {
   margin-top: 15px;
 }
+
 .paymentImg {
   width: 690px;
   height: 311px;
@@ -18,6 +19,7 @@
   display: block;
   margin: 90px auto;
 }
+
 .paymentContent {
   padding-top: 20px;
 }
@@ -47,7 +49,7 @@
 .paymentContent h2,
 .paymentContent p {
   margin-bottom: 30px;
-  
+
 }
 
 .paymentList {
@@ -55,33 +57,38 @@
   margin-left: 30px;
   margin-bottom: 30px;
 }
-.paymentNumberList{
-  list-style-type:decimal;
+
+.paymentNumberList {
+  list-style-type: decimal;
   margin-left: 30px;
   margin-bottom: 30px;
 }
 
-.paymentList li,.paymentNumberList li {
+.paymentList li,
+.paymentNumberList li {
   margin-bottom: 10px;
 }
 
-@media (max-width: 501px){
+@media (max-width: 501px) {
   .paymentContent {
     padding: 20px 15px 15px;
     font-size: 14px;
-    }
-    .paymentContent h1{
-      font-size: 18px;
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
-    .paymentContent h2,
-    .paymentContent p{
-      margin-bottom: 20px;
-    }
-    .paymentContent img{
-      width: 260px;
-      height: 150px;
-      margin: 20px auto;
-    }
+  }
+
+  .paymentContent h1 {
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .paymentContent h2,
+  .paymentContent p {
+    margin-bottom: 20px;
+  }
+
+  .paymentContent img {
+    width: 260px;
+    height: 150px;
+    margin: 20px auto;
+  }
 }

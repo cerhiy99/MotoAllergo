@@ -5,17 +5,17 @@ import PaymentDeliveryContent from "@/app/components/PaymentDeliveryContent/Paym
 
 import styles from './About.module.css'
 type Props = {
-    params: { lang: Locale };
-  };
-  
- const page = async ({ params: { lang } }: Props) => {
-   const dictionary = await getDictionary(lang);
-  
-    return (
-      <main>
-        <PaymentDeliveryContent dictionary ={dictionary}/>
-      </main>
-    );
-  };    
+  params: { lang: Locale };
+};
 
-  export default page;
+const page = async ({ params: { lang } }: Props) => {
+  const dictionary = await getDictionary(lang);
+
+  return (
+    <main>
+      <PaymentDeliveryContent dictionary={dictionary} />
+    </main>
+  );
+};
+
+export default page;

@@ -9,12 +9,12 @@ const generateStaticParams = () => {
   return [{ id: '1' }, { id: '2' }];
 };
 
-const getData=async(id:number)=>{
-    const response=await fetch('',{next:{revalidate:360}})
+const getData = async (id: number) => {
+  const response = await fetch('', { next: { revalidate: 360 } })
 }
 
-const page = async({ params: { lang, id } }: Props) => {
-    const blog=await getData(id);
+const page = async ({ params: { lang, id } }: Props) => {
+  const blog = await getData(id);
   return <div>page</div>;
 };
 

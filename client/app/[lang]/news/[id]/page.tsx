@@ -15,36 +15,36 @@ const generateStaticParams = () => {
 };
 
 const getData = async (id: string) => {
-    const newsData = new Map([
-        [
-          '1',
-          {
-            title: 'Новина 1',
-            content: 'Це текст першої новини. Тут можуть бути деталі, наприклад, дата, автор і опис події.',
-            createdAt: '2023-01-15T10:00:00Z',
-            imagePaths: [
-              '/images/news/image.png',
-              '/images/news/image.png',
-              '/images/news/image.png',
-              '/images/news/image.png',
-              '/images/news/image.png',
-              '/images/news/image.png',
-              '/images/news/image.png',
-            ],
-          },
+  const newsData = new Map([
+    [
+      '1',
+      {
+        title: 'Новина 1',
+        content: 'Це текст першої новини. Тут можуть бути деталі, наприклад, дата, автор і опис події.',
+        createdAt: '2023-01-15T10:00:00Z',
+        imagePaths: [
+          '/images/news/image.png',
+          '/images/news/image.png',
+          '/images/news/image.png',
+          '/images/news/image.png',
+          '/images/news/image.png',
+          '/images/news/image.png',
+          '/images/news/image.png',
         ],
-        [
-          '2',
-          {
-            title: 'Новина 2',
-            content: 'Це текст другої новини. Вона може містити інформацію про нові автозапчастини чи акції.',
-            createdAt: '2023-02-20T14:30:00Z',
-            imagePaths: [
-              '/images/news/image.png',
-            ],
-          },
+      },
+    ],
+    [
+      '2',
+      {
+        title: 'Новина 2',
+        content: 'Це текст другої новини. Вона може містити інформацію про нові автозапчастини чи акції.',
+        createdAt: '2023-02-20T14:30:00Z',
+        imagePaths: [
+          '/images/news/image.png',
         ],
-      ]);
+      },
+    ],
+  ]);
 
   return newsData.get(id) || null;
 };

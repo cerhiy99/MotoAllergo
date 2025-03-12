@@ -36,11 +36,11 @@ export default async function Page({ params, searchParams }: Props) {
     }
     const filters = params.filters
       ? Object.fromEntries(
-          parseQueryParam(params.filters).map((f) => {
-            const [key, value] = f.split('=');
-            return [key.replace('filter', ''), value];
-          })
-        )
+        parseQueryParam(params.filters).map((f) => {
+          const [key, value] = f.split('=');
+          return [key.replace('filter', ''), value];
+        })
+      )
       : {};
     Object.entries(filters).forEach(([_, value]) => {
       if (value) {

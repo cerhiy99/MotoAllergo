@@ -223,29 +223,28 @@
 }
 
 @media (max-width: 501px) {
-
-  .heroSection{
+  .heroSection {
     height: auto;
     margin: 0;
   }
 
-  .heroWrapper{
+  .heroWrapper {
     display: block;
     padding: 0;
-    padding: 30px 35px 15px 0;
+    padding: 30px 30px 15px 30px;
   }
 
-  .filterParts{
+  .filterParts {
     width: 100%;
     margin: 0 auto;
     margin-bottom: 40px;
   }
 
-  .heroImage{
+  .heroImage {
     background-size: contain;
   }
 
-  .heroSectionTitle{
+  .heroSectionTitle {
     font-size: 20px;
     width: 100%;
     text-align: center;

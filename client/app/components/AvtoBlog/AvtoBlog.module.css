@@ -1,64 +1,64 @@
-.avtoBlogWrapper{
-    margin: 45px 100px;
-    position: relative;
+.avtoBlogWrapper {
+  margin: 45px 100px;
+  position: relative;
 }
 
-.avtoBlogTitle{
-    font-family: var(--font-montserrat), sans-serif;
-    text-transform: uppercase;
+.avtoBlogTitle {
+  font-family: var(--font-montserrat), sans-serif;
+  text-transform: uppercase;
 }
 
 .navigationIcons {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: flex;
-    gap: 10px;
-  }
-  
-  .navigationIcons i {
-    cursor: pointer;
-    font-size: 20px;
-    color: #333;
-    transition: color 0.3s ease;
-  }
-  
-  .navigationIcons i:hover {
-    color: #000;
-  }
-  
-  .navigationIcons .disabled {
-    opacity: 0.5;
-    pointer-events: none;
-  }
-  
-.avtoBlogList{
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: var(--font-montserrat), sans-serif;
-    text-align: justify;
-    gap: 55px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
 }
 
-.avtoBlogEl h2{
-    font-weight: 600;
-    font-size: 14px;
+.navigationIcons i {
+  cursor: pointer;
+  font-size: 20px;
+  color: #333;
+  transition: color 0.3s ease;
 }
 
-.avtoBlogEl .line{
-    width: 25%;
-    height: 2px;
-    background-color: #0E4ED2;
-    margin: 20px 0;
-    border-radius: 5px;
+.navigationIcons i:hover {
+  color: #000;
 }
 
-.avtoBlogEl p{
-    color: #707070;
-    font-weight: 400;
-    font-size: 14px;
+.navigationIcons .disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.avtoBlogList {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-montserrat), sans-serif;
+  text-align: justify;
+  gap: 55px;
+}
+
+.avtoBlogEl h2 {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.avtoBlogEl .line {
+  width: 25%;
+  height: 2px;
+  background-color: #0E4ED2;
+  margin: 20px 0;
+  border-radius: 5px;
+}
+
+.avtoBlogEl p {
+  color: #707070;
+  font-weight: 400;
+  font-size: 14px;
 }
 
 @media (max-width: 501px) {
@@ -66,7 +66,7 @@
     margin: 25px 20px;
   }
 
-  .avtoBlogList{
+  .avtoBlogList {
     margin-top: 25px;
   }
 
@@ -74,7 +74,7 @@
     font-size: 14px;
   }
 
-  .line{
+  .line {
     margin: 10px 0;
   }
 

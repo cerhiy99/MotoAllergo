@@ -12,9 +12,8 @@ export default function LanguageSwitch() {
 
   return (
     <button
-      className={`${styles.languageToggle} ${
-        language === 'UA' ? styles.uaActive : styles.ruActive
-      }`}
+      className={`${styles.languageToggle} ${language === 'UA' ? styles.uaActive : styles.ruActive
+        }`}
       onClick={handleToggle}
       aria-label="Toggle language"
     >

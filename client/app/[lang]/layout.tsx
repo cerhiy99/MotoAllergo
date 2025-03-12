@@ -3,7 +3,7 @@ import { Locale, i18n } from '@/i18n.config';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import './Home.scss';
-import { Roboto, Montserrat} from 'next/font/google';
+import { Roboto, Montserrat } from 'next/font/google';
 import { getDictionary } from '@/lib/dictionary';
 
 const roboto = Roboto({
@@ -34,7 +34,7 @@ export default async function RootLayout({
   params: { lang: Locale };
 }) {
   const { header } = await getDictionary(params.lang);
-  
+
   const initialCartItems = [
     {
       id: 1,
@@ -85,8 +85,8 @@ export default async function RootLayout({
           initialCartItems={initialCartItems}
           initialFavoriteItems={initialFavoriteItems}
         />
-          {children}
-          <Footer lang={params.lang}/>
+        {children}
+        <Footer lang={params.lang} />
       </body>
     </html>
   );

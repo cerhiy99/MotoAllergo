@@ -12,21 +12,15 @@
 
 /* Filters */
 
+.mobileSideBarWrapper{
+  display: none;
+}
+
 .filtersWrapper{
     border: 1px solid #CDD0D1;
     border-radius: 5px;
     padding: 15px 10px;
     min-width: 300px;
-}
-
-.filtersTitleWrapper{
-    display: flex;
-    width: 100%;
-    justify-content: start;
-    align-items: center;
-    gap: 15px;
-    font-weight: 500;
-    font-size: 16px;
 }
 
 .filtersTitleWrapper i{
@@ -393,6 +387,45 @@
     margin-bottom: 20px;
   }
 
+  /* Categories */
+
+  .productsByCategories{
+    margin-bottom: 50px;
+  }
+
+  .productsByCategoriesTitle{
+    font-size: 24px;
+    font-weight: 700;
+    margin: 14px 0;
+  }
+
+  .productsByCategoriesPara{
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .productsByCategoriesList{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 40px 30px;
+  }
+
+  .productsByCategoriesEl{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    gap: 10px;
+  }
+
+  .productsByCategoriesEl img{
+    width: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
   /* Products */
 
   .productsList {
@@ -470,12 +503,16 @@
     align-items: center;
     gap: 5px;
     padding: 8px 12px;
-    background-color: rgba(14, 78, 210, 1);
+    background-color: #006FE4;
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 4px;
     cursor: pointer;
-    font-weight: 700;
+    transition: background-color 0.2s ease;
+  }
+  
+  .priceButton:hover {
+    background-color: #006FE4;
   }
   
   .priceButton .fa-bag-shopping {
@@ -548,4 +585,123 @@
       background: #006FE4;
       color: white;
       border: none;
+    }
+    @media (max-width: 501px) {
+      .filterPartsFilter,
+      .filterPartsSort {
+        display: none;
+      }
+      .catalog {
+        padding: 15px 15px 40px;
+      }
+      .filtersWrapper,
+      .categoriesWrapper {
+        display: none;
+      }
+      .catalogContentWrapper {
+        justify-content: center;
+        width: 100%;
+        margin-top: 20px;
+      }
+      .catalogContentWrapper > * {
+        width: 100%;
+      }
+      .mobileSideBarWrapper {
+        display: block;
+        width: 100%;
+      }
+      .filterTab {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        border: 2px solid #CDD0D1;
+        border-radius: 5px;
+      }
+      .filterTabFilter {
+        border-right: 2px solid #CDD0D1;
+      }
+      .filterTabFilter,
+      .filterTabSort {
+        width: 50%;
+        display: flex;
+      }
+      .filterTabFilter.active {
+        width: 75%;
+      }
+      .filterTabFilter.active + .filterTabSort {
+        width: 25%;
+      }
+      .filterTabSort.active {
+        width: 75%;
+      }
+      .filterTab:has(.filterTabSort.active) .filterTabFilter:not(.active) {
+        width: 25%;
+      }
+
+      .filterEl{
+        border-radius: 60px;
+        padding-left: 20px;
+      }
+      .filterPartsFilter,
+      .filterPartsSort {
+        display: none;
+      }
+      .mobileSideBarWrapper:has(.filterTabFilter.active) .filterPartsFilter {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+        margin-top: 10px;
+      }
+      .mobileSideBarWrapper:has(.filterTabSort.active) .filterPartsSort{
+        display: block;
+        margin-top: 15px;
+      }
+      .filterTabFilter.active .filterTabFilterWrapperText span,
+      .filterTabSort.active .filterTabFilterWrapperText span{
+        display: block;
+        font-weight: 500;
+      }
+
+      .filterTabFilterWrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 15px;
+      }
+      .filterTabFilterWrapper i {
+        color: #CDD0D1;
+      }
+      .filterTabFilterWrapperText {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+      }
+      .filterTabFilterWrapperText span {
+        display: none;
+      }
+      .catalogMainContent {
+        display: none;
+      }
+
+      .filterPartsSort{
+        display: flex !important;
+        flex-direction: column;
+      }
+
+      .filterSection{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 15px;
+      }
+      .filterSection > label{
+        margin-bottom: 7px;
+        font-weight: 400;
+        font-size: 12px;
+        color: #AAAEAF;
+      }
     }

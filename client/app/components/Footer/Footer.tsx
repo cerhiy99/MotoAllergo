@@ -9,7 +9,7 @@ type Props = {
 
 const Footer = (props: Props) => {
   return (
-    
+
     <footer className={styles.footer}>
       <div className={styles.footerLine}></div>
       <div className={styles.footerWrapper}>
@@ -19,19 +19,19 @@ const Footer = (props: Props) => {
             <h2 className={styles.footerElHeader}>MotoAllergo</h2>
             <ul className={styles.footerElList}>
               <li>
-                <Link href="/about">Про нас</Link>
+                <a href="/about">Про нас</a>
               </li>
               <li>
-                <Link href="/catalog">Каталог</Link>
+                <a href="/catalog">Каталог</a>
               </li>
               <li>
-                <Link href="/news">Новини</Link>
+                <a href="/news">Новини</a>
               </li>
               <li>
-                <Link href="/partnership">Партнерство</Link>
+                <a href="/partnership">Партнерство</a>
               </li>
               <li>
-                <Link href="/contacts">Контакти</Link>
+                <a href="/contacts">Контакти</a>
               </li>
             </ul>
           </li>
@@ -39,12 +39,12 @@ const Footer = (props: Props) => {
             <h2 className={styles.footerElHeader}>Обслуговування клієнтів</h2>
             <ul className={styles.footerElList}>
               <li>
-                <Link href="#">
-                Файли Cookies
+                <Link href="/offer_agreement/">
+                  Договір оферти
                 </Link>
               </li>
               <li>
-                <Link href="#">Політика конфіденційності</Link>
+                <Link href="/privacy_policy/">Політика конфіденційності</Link>
               </li>
               <li>
                 <Link href="/delivery">Оплата і доставка</Link>
@@ -76,11 +76,15 @@ const Footer = (props: Props) => {
           </li>
           <li className={styles.lastBlockEl}>
             <ul>
-              <li>Cookies</li>
               <li>
-                {/* <Link href="/privacy/" target="_blank"> */}
-                Політика Конфіденційності
-                {/* </Link> */}
+                <Link href="/offer_agreement/" target="_blank">
+                  Договір оферти
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy_policy/" target="_blank">
+                  Політика Конфіденційності
+                </Link>
               </li>
             </ul>
           </li>

@@ -1,0 +1,97 @@
+.offerAgreementContent {
+    margin: 0 auto;
+    width: 100%;
+    padding: 0px 100px 30px;
+    margin-bottom: 10px;
+    font-family: var(--font-roboto);
+    color: black;
+    font-size: 16px !important;
+  }
+  
+  .offerAgreementContent> :nth-child(3) {
+    margin-top: 15px;
+  }
+  
+  .offerAgreementImg {
+    width: 690px;
+    height: 311px;
+    max-width: 100%;
+    display: block;
+    margin: 90px auto;
+  }
+  
+  .offerAgreementContent {
+    padding-top: 20px;
+  }
+  
+  .offerAgreementContent h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    position: relative;
+    display: flex;
+  }
+  
+  .offerAgreementTitle {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .offerAgreementTitle::after {
+    content: "";
+    flex-grow: 1;
+    height: 1px;
+    background-color: #E5E5E5;
+  }
+  
+  .offerAgreementContent h2,
+  .offerAgreementContent p {
+    margin-bottom: 30px;
+  
+  }
+  
+  .offerAgreementList {
+    list-style-type: disc;
+    margin-left: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .offerAgreementNumberList {
+    list-style-type: decimal;
+    margin-left: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .offerAgreementList li,
+  .offerAgreementNumberList li {
+    margin-bottom: 10px;
+  }
+  .offerAgreementListNested{
+    margin-top: 10px;
+    margin-left: 30px;
+  }
+  @media (max-width: 501px) {
+    .offerAgreementContent {
+      padding: 20px 15px 15px;
+      font-size: 14px;
+    }
+  
+    .offerAgreementContent h1 {
+      font-size: 18px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  
+    .offerAgreementContent h2,
+    .offerAgreementContent p {
+      margin-bottom: 20px;
+    }
+  
+    .offerAgreementContent img {
+      width: 260px;
+      height: 150px;
+      margin: 20px auto;
+    }
+  }
