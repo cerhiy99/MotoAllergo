@@ -33,8 +33,8 @@ const CurrentNewsContent: React.FC<NewsDetailProps> = ({ news, dictionary, lang 
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const additionalImages = news.imagePaths.slice(1); // Всі фото окрім першого
-  const visibleImages = 3; // Кількість фото, які видно одночасно
+  const additionalImages = news.imagePaths.slice(1);
+  const visibleImages = 3;
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) =>

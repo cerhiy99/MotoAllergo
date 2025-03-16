@@ -8,13 +8,14 @@ type Props = {
   params: { lang: Locale };
 };
 
-export default async function Page({ params }: { params: { lang: string } }) {
-  const dictionary = await getDictionary(params.lang);
+const Page = async ({ params: { lang } }: Props) => {
+  const {about} = await getDictionary(lang);
 
   return (
     <main>
 
-      <AboutContent />
+      <AboutContent dictionary={about}/>
     </main>
   );
 };
+export default Page;

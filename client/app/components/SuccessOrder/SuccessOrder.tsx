@@ -16,6 +16,7 @@ export default function SuccessOrderComponent() {
           <p className={styles.priceInfo}>
             У нас в магазині більш 32.000.000
             запчастин, чекаємо Вас, ще.
+            З <i className="fa-solid fa-heart"></i> MotoAllegro
           </p>
           <Link href="/catalog" className={styles.continueShoppingButton}>
             Продовжити покупки

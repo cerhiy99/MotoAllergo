@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from './CatalogContent.module.css';
 import NavPath from '@/app/components/NavPath/NavPath';
 import { useRouter } from 'next/navigation';
@@ -16,9 +16,6 @@ interface Product {
 
 interface CatalogContentClientProps {
   dictionary: any;
-  searchParams: { [key: string]: string | string[] | undefined };
-  products: Product[];
-  totalPages: number;
 }
 
 const parseQueryParam = (
@@ -66,7 +63,7 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
 }) => {
   const router = useRouter();
   const [isUa] = useState<boolean>(true);
-  const [activeFilters, setActiveFilters] = useState<number[]>([0, 3]); // Початково активні 1-й і 4-й фільтри
+  const [activeFilters, setActiveFilters] = useState<number[]>([0, 3]);
   const [dropdowns, setDropdowns] = useState<{ [key: number]: boolean }>({});
   const [chosenFilters, setChosenFilters] = useState<{ [key: number]: string }>(
     searchParams.filters
@@ -87,7 +84,7 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
   );
   const [isSortDropdownOpen, setIsSortDropdownOpen] = useState<boolean>(false);
   const [selectedSort, setSelectedSort] = useState<string>(
-    searchParams.sort || 'Популярності'
+    searchParams.sort || dictionary.sortOptions.popularity
   );
   const [currentPage, setCurrentPage] = useState<number>(
     parseInt((searchParams.page as string) || '1', 10)
@@ -96,6 +93,71 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
     [key: number]: boolean;
   }>({});
   const [activeSection, setActiveSection] = useState<'filter' | 'sort' | null>(null);
+  const itemsRef = useRef<HTMLLIElement[]>([]);
+  const categoryItemsRef = useRef<HTMLLIElement[]>([]);
+
+  useEffect(() => {
+    const handleProductMouseEnter = (item: HTMLLIElement) => {
+      item.style.transform = 'scale(1.03)';
+      const image = item.querySelector(`.${styles.productsImage}`);
+      if (image) {
+        image.style.transform = 'scale(1.05)';
+      }
+    };
+
+    const handleProductMouseLeave = (item: HTMLLIElement) => {
+      item.style.transform = 'scale(1)';
+      const image = item.querySelector(`.${styles.productsImage}`);
+      if (image) {
+        image.style.transform = 'scale(1)';
+      }
+    };
+
+    const handleCategoryMouseEnter = (item: HTMLLIElement) => {
+      item.style.transform = 'scale(1.05)';
+      const image = item.querySelector('img');
+      if (image) {
+        image.style.transform = 'scale(1.1)';
+      }
+    };
+
+    const handleCategoryMouseLeave = (item: HTMLLIElement) => {
+      item.style.transform = 'scale(1)';
+      const image = item.querySelector('img');
+      if (image) {
+        image.style.transform = 'scale(1)';
+      }
+    };
+
+    itemsRef.current.forEach((item) => {
+      if (item) {
+        item.addEventListener('mouseenter', () => handleProductMouseEnter(item));
+        item.addEventListener('mouseleave', () => handleProductMouseLeave(item));
+      }
+    });
+
+    categoryItemsRef.current.forEach((item) => {
+      if (item) {
+        item.addEventListener('mouseenter', () => handleCategoryMouseEnter(item));
+        item.addEventListener('mouseleave', () => handleCategoryMouseLeave(item));
+      }
+    });
+
+    return () => {
+      itemsRef.current.forEach((item) => {
+        if (item) {
+          item.removeEventListener('mouseenter', () => handleProductMouseEnter(item));
+          item.removeEventListener('mouseleave', () => handleProductMouseLeave(item));
+        }
+      });
+      categoryItemsRef.current.forEach((item) => {
+        if (item) {
+          item.removeEventListener('mouseenter', () => handleCategoryMouseEnter(item));
+          item.removeEventListener('mouseleave', () => handleCategoryMouseLeave(item));
+        }
+      });
+    };
+  }, [currentPage]);
 
   const handleFilterSectionClick = () => {
     setActiveSection(activeSection === 'filter' ? null : 'filter');
@@ -106,19 +168,17 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
   };
 
   const sortOptions: string[] = [
-    'Популярності',
-    'Ціні: від низької до високої',
-    'Ціні: від високої до низької',
-    'Новизні',
+    dictionary.sortOptions.popularity,
+    dictionary.sortOptions.priceLowToHigh,
+    dictionary.sortOptions.priceHighToLow,
+    dictionary.sortOptions.newest,
   ];
 
   const updateQueryString = (newParams: {
     [key: string]: string | string[] | undefined;
   }) => {
     const queryString = createQueryString(searchParams, newParams);
-    console.log('New query string:', queryString);
     const newUrl = `/uk/catalog${queryString ? `?${queryString}` : ''}`;
-    console.log('Navigating to:', newUrl);
     router.replace(newUrl);
   };
 
@@ -154,10 +214,9 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
     });
     setDropdowns((prev) => ({ ...prev, [index]: false }));
 
-    // Логіка послідовного розблокування
-    if (index === 0) setActiveFilters((prev) => [...prev, 1]); // Після 1-го відкривається 2-й
-    if (index === 1) setActiveFilters((prev) => [...prev, 2]); // Після 2-го відкривається 3-й
-    if (index === 3) setActiveFilters((prev) => [...prev, 4]); // Після 4-го відкривається 5-й
+    if (index === 0) setActiveFilters((prev) => [...prev, 1]);
+    if (index === 1) setActiveFilters((prev) => [...prev, 2]);
+    if (index === 3) setActiveFilters((prev) => [...prev, 4]);
   };
 
   const toggleCategories = (): void => {
@@ -198,9 +257,30 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
+      itemsRef.current = [];
+      categoryItemsRef.current = [];
       updateQueryString({ page: page.toString() });
     }
   };
+
+  const addToProductRefs = (el: HTMLLIElement) => {
+    if (el && !itemsRef.current.includes(el)) {
+      itemsRef.current.push(el);
+    }
+  };
+
+  const addToCategoryRefs = (el: HTMLLIElement) => {
+    if (el && !categoryItemsRef.current.includes(el)) {
+      categoryItemsRef.current.push(el);
+    }
+  };
+
+  const ITEMS_PER_PAGE = 6;
+  const totalCalculatedPages = Math.ceil(products.length / ITEMS_PER_PAGE);
+  const paginatedProducts = products.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   return (
     <div className={styles.catalog}>
@@ -218,9 +298,13 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
                 <div className={styles.filterTabFilterWrapper}>
                   <div className={styles.filterTabFilterWrapperText}>
                     <i className="fa-solid fa-sliders"></i>
-                    <span>Фільтр</span>
+                    <span>{dictionary.filterTabFilter}</span>
                   </div>
-                  <i className="fa-solid fa-chevron-down"></i>
+                  <i
+                    className={`fa-solid fa-chevron-down ${
+                      activeSection === 'filter' ? styles.rotateChevron : styles.rotateChevronBack
+                    }`}
+                  ></i>
                 </div>
               </div>
               <div
@@ -232,171 +316,189 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
                 <div className={styles.filterTabFilterWrapper}>
                   <div className={styles.filterTabFilterWrapperText}>
                     <img src="/images/sortIcon.svg" alt="" />
-                    <span>Сортування</span>
+                    <span>{dictionary.filterTabSort}</span>
                   </div>
-                  <i className="fa-solid fa-chevron-down"></i>
+                  <i
+                    className={`fa-solid fa-chevron-down ${
+                      activeSection === 'sort' ? styles.rotateChevron : styles.rotateChevronBack
+                    }`}
+                  ></i>
                 </div>
               </div>
             </div>
-            <form className={styles.filterPartsFilter} action="#">
-              <ul className={styles.filterList}>
-                {[
-                  'Виберіть марку',
-                  'Виберіть модель',
-                  'Виберіть модифікацію',
-                  'Виберіть групу',
-                  'Виберіть категорію',
-                ].map((text, index) => (
-                  <li
-                    key={index}
-                    className={`${styles.filterEl} ${
-                      activeFilters.includes(index) ? styles.active : ''
-                    } ${chosenFilters[index] ? styles.chosen : ''}`}
-                  >
-                    <p
-                      className={`${styles.filterElPara} ${
-                        chosenFilters[index] ? styles.chosen : ''
-                      }`}
-                      onClick={() => handleFilterClick(index)}
-                    >
-                      <span
-                        className={`${styles.filterElNumber} ${
-                          activeFilters.includes(index) ? styles.active : ''
-                        } ${chosenFilters[index] ? styles.chosen : ''}`}
-                      >
-                        {index + 1}
-                      </span>
-                      {chosenFilters[index] || text}
-                    </p>
-                    <div
-                      className={`${styles.filterElIconWrapper} ${
+            {activeSection === 'filter' && (
+              <form className={styles.filterPartsFilter} action="#">
+                <ul className={styles.filterList}>
+                  {[
+                    dictionary.filter1,
+                    dictionary.filter2,
+                    dictionary.filter3,
+                    dictionary.filter4,
+                    dictionary.filter5,
+                  ].map((text, index) => (
+                    <li
+                      key={index}
+                      className={`${styles.filterEl} ${
                         activeFilters.includes(index) ? styles.active : ''
                       } ${chosenFilters[index] ? styles.chosen : ''}`}
-                      onClick={() => handleFilterClick(index)}
                     >
-                      <i className="fa-solid fa-chevron-down"></i>
-                    </div>
-                    {dropdowns[index] && (
-                      <ul
-                        className={`${styles.dropdownMenu} ${
-                          dropdowns[index] ? styles.active : ''
+                      <p
+                        className={`${styles.filterElPara} ${
+                          chosenFilters[index] ? styles.chosen : ''
                         }`}
+                        onClick={() => handleFilterClick(index)}
                       >
-                        {['Заглушка 1', 'Заглушка 2', 'Заглушка 3'].map(
-                          (item, i) => (
-                            <li
-                              key={i}
-                              className={styles.dropdownItem}
-                              onClick={() => handleItemClick(index, item)}
-                            >
-                              {item}
-                            </li>
-                          )
-                        )}
-                      </ul>
-                    )}
-                  </li>
-                ))}
-              </ul>
-              <button
-                className={`${styles.filterElButton} ${
-                  Object.keys(chosenFilters).length > 0 ? styles.chosen : ''
-                }`}
-                style={{
-                  opacity: Object.keys(chosenFilters).length > 0 ? 1 : 0.7,
-                }}
-              >
-                <i className="fa-solid fa-magnifying-glass"></i>
-                Підібрати
-              </button>
-            </form>
-            <form className={styles.filterPartsSort} action="#">
-              <div className={styles.filterSection}>
-                <label>Сортування товару:</label>
-                <div>
-                  <input
-                    type="radio"
-                    id="popular"
-                    name="sort"
-                    value="popular"
-                    defaultChecked
-                    onChange={() => handleSortSelect('Популярності')}
-                  />
-                  <label htmlFor="popular">Найпопулярніший</label>
+                        <span
+                          className={`${styles.filterElNumber} ${
+                            activeFilters.includes(index) ? styles.active : ''
+                          } ${chosenFilters[index] ? styles.chosen : ''}`}
+                        >
+                          {index + 1}
+                        </span>
+                        {chosenFilters[index] || text}
+                      </p>
+                      <div
+                        className={`${styles.filterElIconWrapper} ${
+                          activeFilters.includes(index) ? styles.active : ''
+                        } ${chosenFilters[index] ? styles.chosen : ''}`}
+                        onClick={() => handleFilterClick(index)}
+                      >
+                        <i
+                          className={`fa-solid fa-chevron-down ${
+                            dropdowns[index] ? styles.rotateChevron : styles.rotateChevronBack
+                          }`}
+                        ></i>
+                      </div>
+                      {dropdowns[index] && (
+                        <ul
+                          className={`${styles.dropdownMenu} ${
+                            dropdowns[index] ? styles.active : ''
+                          }`}
+                        >
+                          {['Заглушка 1', 'Заглушка 2', 'Заглушка 3'].map(
+                            (item, i) => (
+                              <li
+                                key={i}
+                                className={styles.dropdownItem}
+                                onClick={() => handleItemClick(index, item)}
+                              >
+                                {item}
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  className={`${styles.filterElButton} ${
+                    Object.keys(chosenFilters).length > 0 ? styles.chosen : ''
+                  }`}
+                  style={{
+                    opacity: Object.keys(chosenFilters).length > 0 ? 1 : 0.7,
+                  }}
+                >
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                  {dictionary.selectButton}
+                </button>
+              </form>
+            )}
+            {activeSection === 'sort' && (
+              <form className={styles.filterPartsSort} action="#">
+                <div className={styles.filterSection}>
+                  <label>{dictionary.filterLabel}</label>
+                  <div className={styles.filterSectionEl}>
+                    <input
+                      type="radio"
+                      id="popular"
+                      name="sort"
+                      value="popular"
+                      defaultChecked
+                      onChange={() => handleSortSelect(dictionary.sortOptions.popularity)}
+                    />
+                    <label htmlFor="popular">{dictionary.sortPopular}</label>
+                  </div>
+                  <div className={styles.filterSectionEl}>
+                    <input
+                      type="radio"
+                      id="cheapest"
+                      name="sort"
+                      value="cheapest"
+                      onChange={() => handleSortSelect(dictionary.sortOptions.priceLowToHigh)}
+                    />
+                    <label htmlFor="cheapest">{dictionary.sortCheapest}</label>
+                  </div>
+                  <div className={styles.filterSectionEl}>
+                    <input
+                      type="radio"
+                      id="expensive"
+                      name="sort"
+                      value="expensive"
+                      onChange={() => handleSortSelect(dictionary.sortOptions.priceHighToLow)}
+                    />
+                    <label htmlFor="expensive">{dictionary.sortExpensive}</label>
+                  </div>
                 </div>
-                <div>
-                  <input
-                    type="radio"
-                    id="cheapest"
-                    name="sort"
-                    value="cheapest"
-                    onChange={() => handleSortSelect('Ціні: від низької до високої')}
-                  />
-                  <label htmlFor="cheapest">Найдешевший</label>
+                <div className={styles.filterSection}>
+                  <label>{dictionary.conditionLabel}</label>
+                  <div className={styles.filterSectionSortWrapper}>
+                    <div>
+                      <div className={styles.filterSectionEl}>
+                        <input
+                          type="checkbox"
+                          id="used"
+                          name="condition"
+                          value="used"
+                          onChange={(e) => {
+                            const newCategories = e.target.checked
+                              ? [...activeCategories, 'used']
+                              : activeCategories.filter((cat) => cat !== 'used');
+                            setActiveCategories(newCategories);
+                            setCheckedCategories((prev) => ({ ...prev, used: e.target.checked }));
+                            updateQueryString({ categories: newCategories });
+                          }}
+                        />
+                        <label htmlFor="used">{dictionary.conditionUsed}</label>
+                      </div>
+                    </div>
+                    <div>
+                      <div className={styles.filterSectionEl}>
+                        <input
+                          type="checkbox"
+                          id="new"
+                          name="condition"
+                          value="new"
+                          onChange={(e) => {
+                            const newCategories = e.target.checked
+                              ? [...activeCategories, 'new']
+                              : activeCategories.filter((cat) => cat !== 'new');
+                            setActiveCategories(newCategories);
+                            setCheckedCategories((prev) => ({ ...prev, new: e.target.checked }));
+                            updateQueryString({ categories: newCategories });
+                          }}
+                        />
+                        <label htmlFor="new">{dictionary.conditionNew}</label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <input
-                    type="radio"
-                    id="expensive"
-                    name="sort"
-                    value="expensive"
-                    onChange={() => handleSortSelect('Ціні: від високої до низької')}
-                  />
-                  <label htmlFor="expensive">Найдорожчий</label>
-                </div>
-              </div>
-              <div className={styles.filterSection}>
-                <label>Стан товару:</label>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="used"
-                    name="condition"
-                    value="used"
-                    onChange={(e) => {
-                      const newCategories = e.target.checked
-                        ? [...activeCategories, 'used']
-                        : activeCategories.filter((cat) => cat !== 'used');
-                      setActiveCategories(newCategories);
-                      setCheckedCategories((prev) => ({ ...prev, used: e.target.checked }));
-                      updateQueryString({ categories: newCategories });
-                    }}
-                  />
-                  <label htmlFor="used">Б/В</label>
-                </div>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="new"
-                    name="condition"
-                    value="new"
-                    onChange={(e) => {
-                      const newCategories = e.target.checked
-                        ? [...activeCategories, 'new']
-                        : activeCategories.filter((cat) => cat !== 'new');
-                      setActiveCategories(newCategories);
-                      setCheckedCategories((prev) => ({ ...prev, new: e.target.checked }));
-                      updateQueryString({ categories: newCategories });
-                    }}
-                  />
-                  <label htmlFor="new">Новий</label>
-                </div>
-              </div>
-              <button className={styles.filterElButton} type="submit">
-                <i className="fa-solid fa-magnifying-glass"></i>
-                Застосувати
-              </button>
-            </form>
+                <button className={styles.filterElButton} type="submit">
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                  {dictionary.applyButton}
+                </button>
+              </form>
+            )}
           </div>
           <div className={styles.filtersWrapper}>
             <form className={styles.filterParts} action="#">
               <ul className={styles.filterList}>
                 {[
-                  'Виберіть марку',
-                  'Виберіть модель',
-                  'Виберіть модифікацію',
-                  'Виберіть групу',
-                  'Виберіть категорію',
+                  dictionary.filter1,
+                  dictionary.filter2,
+                  dictionary.filter3,
+                  dictionary.filter4,
+                  dictionary.filter5,
                 ].map((text, index) => (
                   <li
                     key={index}
@@ -425,7 +527,11 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
                       } ${chosenFilters[index] ? styles.chosen : ''}`}
                       onClick={() => handleFilterClick(index)}
                     >
-                      <i className="fa-solid fa-chevron-down"></i>
+                      <i
+                        className={`fa-solid fa-chevron-down ${
+                          dropdowns[index] ? styles.rotateChevron : styles.rotateChevronBack
+                        }`}
+                      ></i>
                     </div>
                     {dropdowns[index] && (
                       <ul
@@ -451,15 +557,17 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
               </ul>
               <button className={styles.filterElButton}>
                 <i className="fa-solid fa-magnifying-glass"></i>
-                Підібрати
+                {dictionary.selectButton}
               </button>
             </form>
           </div>
           <div className={styles.categoriesWrapper}>
             <div className={styles.categoriesTitleWrapper}>
-              Категорії товарів:
+              {dictionary.categoriesTitle}
               <i
-                className={`fa-solid ${isCategoriesOpen ? 'fa-chevron-up' : 'fa-chevron-down'}`}
+                className={`fa-solid fa-chevron-down ${
+                  isCategoriesOpen ? styles.rotateChevron : styles.rotateChevronBack
+                }`}
                 onClick={toggleCategories}
               ></i>
             </div>
@@ -497,7 +605,7 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
         <div className={styles.catalogMainContent}>
           <div className={styles.sortByWrapper}>
             <div className={styles.activeFiltersWrapper}>
-              <p>Активні фільтри</p>
+              <p>{dictionary.activeFiltersTitle}</p>
               <ul className={styles.activeFiltersList}>
                 {activeCategories.map((category) => (
                   <li key={category} className={styles.activeFiltersEl}>
@@ -511,7 +619,7 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
               </ul>
             </div>
             <div className={styles.sortBy}>
-              <p>Сортувати по:</p>
+              <p>{dictionary.sortBy}</p>
               <div className={styles.sortedByDropdown}>
                 <button
                   onClick={toggleSortDropdown}
@@ -519,7 +627,9 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
                 >
                   {selectedSort}
                   <i
-                    className={`fa-solid ${isSortDropdownOpen ? 'fa-chevron-up' : 'fa-chevron-down'}`}
+                    className={`fa-solid fa-chevron-down ${
+                      isSortDropdownOpen ? styles.rotateChevron : styles.rotateChevronBack
+                    }`}
                   ></i>
                 </button>
                 {isSortDropdownOpen && (
@@ -540,57 +650,61 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
           </div>
           <div className={styles.productsByCategories}>
             <h2 className={styles.productsByCategoriesTitle}>
-              Категорія категорія
+              {dictionary.productsByCategoriesTitle}
             </h2>
             <p className={styles.productsByCategoriesPara}>
-              Категорії групи категорія категорія
+              {dictionary.productsByCategoriesPara}
             </p>
             <ul className={styles.productsByCategoriesList}>
-              <li className={styles.productsByCategoriesEl}>
+              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
                 <img src="/images/Picture.png" alt="" />
                 <p>Webasto</p>
               </li>
-              <li className={styles.productsByCategoriesEl}>
+              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
                 <img src="/images/Picture.png" alt="" />
                 <p>Webasto</p>
               </li>
-              <li className={styles.productsByCategoriesEl}>
+              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
                 <img src="/images/Picture.png" alt="" />
                 <p>Webasto</p>
               </li>
-              <li className={styles.productsByCategoriesEl}>
+              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
                 <img src="/images/Picture.png" alt="" />
                 <p>Webasto</p>
               </li>
-              <li className={styles.productsByCategoriesEl}>
+              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
                 <img src="/images/Picture.png" alt="" />
                 <p>Webasto</p>
               </li>
-              <li className={styles.productsByCategoriesEl}>
+              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
                 <img src="/images/Picture.png" alt="" />
                 <p>Webasto</p>
               </li>
-              <li className={styles.productsByCategoriesEl}>
+              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
                 <img src="/images/Picture.png" alt="" />
                 <p>Webasto</p>
               </li>
-              <li className={styles.productsByCategoriesEl}>
+              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
                 <img src="/images/Picture.png" alt="" />
                 <p>Webasto</p>
               </li>
-              <li className={styles.productsByCategoriesEl}>
+              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
                 <img src="/images/Picture.png" alt="" />
                 <p>Webasto</p>
               </li>
-              <li className={styles.productsByCategoriesEl}>
+              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
                 <img src="/images/Picture.png" alt="" />
                 <p>Webasto</p>
               </li>
             </ul>
           </div>
           <ul className={styles.productsList}>
-            {products.map((product) => (
-              <li key={product.id} className={styles.productsEL}>
+            {paginatedProducts.map((product) => (
+              <li
+                key={product.id}
+                ref={addToProductRefs}
+                className={styles.productsEL}
+              >
                 <div className={styles.productImageWrapper}>
                   <img
                     className={styles.productsImage}
@@ -605,13 +719,14 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
                   ></i>
                 </div>
                 <p className={styles.productsPara}>
-                  <span>Номер лота:</span> {product.lotNumber}
+                  <span>{dictionary.lotNumberLabel}</span> {product.lotNumber}
                 </p>
                 <p className={styles.productsPara}>{product.description}</p>
                 <div className={styles.productsPriceWrapper}>
                   <p className={styles.pricePara}>{product.price}</p>
                   <button className={styles.priceButton}>
-                    <i className="fa-solid fa-bag-shopping"></i>В кошик
+                    <i className="fa-solid fa-bag-shopping"></i>
+                    {dictionary.addToCart}
                   </button>
                 </div>
               </li>

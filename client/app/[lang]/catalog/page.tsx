@@ -73,11 +73,11 @@ export default async function Page({ params, searchParams }: Props) {
   };
 
   const { products, totalPages } = getFilteredProducts(productsData as Product[], searchParams);
-
+  const { catalogContent } = await getDictionary(params.lang);
   return (
     <main>
       <CatalogContentClient
-        dictionary={dictionary}
+        dictionary={catalogContent}
         searchParams={searchParams}
         products={products}
         totalPages={totalPages}

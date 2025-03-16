@@ -32,6 +32,25 @@
       ["Новина 15", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, provident?"]
     ]
   },
+  "footer": {
+    "companyName": "MotoAllergo",
+    "about": "Про нас",
+    "catalog": "Каталог",
+    "news": "Новини",
+    "partnership": "Партнерство",
+    "contacts": "Контакти",
+    "customerService": "Обслуговування клієнтів",
+    "offerAgreement": "Договір оферти",
+    "privacyPolicy": "Політика конфіденційності",
+    "delivery": "Оплата і доставка",
+    "guarantees": "Наша гарантія",
+    "copyright": "© Всі права захищені 2025 «Big Master»",
+    "developedBy": "Цей сайт розроблено веб-студією",
+    "developerName": "«FullStack-Innovations»",
+    "developerLink": "https://fullstack-innovation.com/",
+    "bottomOfferAgreement": "Договір оферти",
+    "bottomPrivacyPolicy": "Політика Конфіденційності"
+  },
   "contact": {
     "title": "КОНТАКТИRU",
     "phone": "ТелефонRU:",

@@ -15,7 +15,7 @@ interface CartItem {
   quantity: number;
 }
 
-export default function ClientCart({ cart, cartItems }: { cart: any; cartItems: CartItem[] }) {
+export default function ClientCart({ dictionary, cartItems }: { dictionary: any; cartItems: CartItem[] }) {
   const [isContactCollapsed, setIsContactCollapsed] = useState(false);
   const [isDeliveryCollapsed, setIsDeliveryCollapsed] = useState(true);
   const [fullName, setFullName] = useState('');
@@ -86,15 +86,22 @@ export default function ClientCart({ cart, cartItems }: { cart: any; cartItems: 
     return <SuccessOrderComponent />;
   }
 
+  const totalPrice = cartItems.reduce(
+    (total, item) =>
+      total + parseFloat(item.price.replace(/[^0-9.]/g, '')) * item.quantity,
+    0
+  );
+
   return (
     <div className={styles.cartPage}>
       <NavPath />
-      <h1 className={styles.cartHeader}>{cart.checkoutTitle || 'ОФОРМЛЕННЯ ЗАМОВЛЕННЯ'}</h1>
+
       <div className={styles.cartContainer}>
         <div className={styles.formSection}>
+          <h1 className={styles.cartHeader}>{dictionary.checkoutTitle}</h1>
           <div className={`${styles.formGroup} ${isContactCollapsed ? styles.collapsed : ''}`}>
             <h2 className={styles.formHeaderEditButton}>
-              1. {cart.contactDetails || 'Контактні дані'}{' '}
+              1. {dictionary.contactDetails}{' '}
               {isContactCollapsed && (
                 <button onClick={handleEdit} className={styles.editButton}>
                   <i className="fa-solid fa-pencil"></i>
@@ -104,11 +111,12 @@ export default function ClientCart({ cart, cartItems }: { cart: any; cartItems: 
             <ul className={styles.inputWrapper}>
               {!isContactCollapsed && (
                 <>
-                  <li>
+                  <li className={styles.inputWithIcon}>
+                    <i className="fa-regular fa-user"></i>
                     <input
                       type="text"
                       id="fullName"
-                      placeholder={cart.fullNamePlaceholder || 'ПІБ'}
+                      placeholder={dictionary.fullNamePlaceholder || dictionary.fullName}
                       value={fullName}
                       onChange={handleFullNameChange}
                       required
@@ -116,7 +124,8 @@ export default function ClientCart({ cart, cartItems }: { cart: any; cartItems: 
                     {nameError && <span className={styles.errorMessage}>{nameError}</span>}
                   </li>
 
-                  <li>
+                  <li className={styles.inputWithIcon}>
+                    <i className="fa-solid fa-phone"></i>
                     <input
                       type="tel"
                       id="phone"
@@ -128,11 +137,12 @@ export default function ClientCart({ cart, cartItems }: { cart: any; cartItems: 
                     {phoneError && <span className={styles.errorMessage}>{phoneError}</span>}
                   </li>
 
-                  <li>
+                  <li className={styles.inputWithIcon}>
+                    <i className="fa-regular fa-envelope"></i>
                     <input
                       type="email"
                       id="email"
-                      placeholder="E-mail"
+                      placeholder={dictionary.email}
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
@@ -145,7 +155,7 @@ export default function ClientCart({ cart, cartItems }: { cart: any; cartItems: 
                       disabled={!isContinueButtonActive}
                       className={styles.continueButton}
                     >
-                      {cart.continue || 'Продовжити'}
+                      {dictionary.continue}
                     </button>
                   </li>
                 </>
@@ -153,16 +163,21 @@ export default function ClientCart({ cart, cartItems }: { cart: any; cartItems: 
             </ul>
           </div>
           <div className={`${styles.formGroup} ${isDeliveryCollapsed ? styles.collapsed : ''}`}>
-            <h2>2. {cart.deliveryAndPayment || 'Доставка і оплата'}</h2>
+            <h2>2. {dictionary.deliveryAndPayment}</h2>
             {!isDeliveryCollapsed && (
               <>
-                <label htmlFor="country">{cart.country || 'Країна отримувача:'}</label>
+                <label htmlFor="country">{dictionary.country}</label>
                 <div className={styles.customSelect}>
                   <div
                     className={styles.selectButton}
-                    onClick={() => setActiveSelect('country')}
+                    onClick={() => setActiveSelect(activeSelect === 'country' ? null : 'country')}
                   >
-                    {country || (cart.countryOptions?.select || 'Виберіть країну')}
+                    {country || dictionary.countryOptions.select}
+                    <i
+                      className={`fa-solid fa-chevron-down ${
+                        activeSelect === 'country' ? styles.rotateChevron : styles.rotateChevronBack
+                      }`}
+                    ></i>
                   </div>
                   {activeSelect === 'country' && (
                     <ul className={styles.selectOptions}>
@@ -173,28 +188,33 @@ export default function ClientCart({ cart, cartItems }: { cart: any; cartItems: 
                           setActiveSelect(null);
                         }}
                       >
-                        {cart.countryOptions?.select || 'Виберіть країну'}
+                        {dictionary.countryOptions.select}
                       </li>
                       <li
                         className={styles.option}
                         onClick={() => {
-                          setCountry('Україна');
+                          setCountry(dictionary.countryOptions.ukraine);
                           setActiveSelect(null);
                         }}
                       >
-                        {cart.countryOptions?.ukraine || 'Україна'}
+                        {dictionary.countryOptions.ukraine}
                       </li>
                     </ul>
                   )}
                 </div>
 
-                <label htmlFor="paymentMethod">{cart.paymentMethod || 'Спосіб оплати'}</label>
+                <label htmlFor="paymentMethod">{dictionary.paymentMethod}</label>
                 <div className={styles.customSelect}>
                   <div
                     className={styles.selectButton}
-                    onClick={() => setActiveSelect('paymentMethod')}
+                    onClick={() => setActiveSelect(activeSelect === 'paymentMethod' ? null : 'paymentMethod')}
                   >
-                    {paymentMethod || (cart.paymentOptions?.select || 'Виберіть спосіб')}
+                    {paymentMethod || dictionary.paymentOptions.select}
+                    <i
+                      className={`fa-solid fa-chevron-down ${
+                        activeSelect === 'paymentMethod' ? styles.rotateChevron : styles.rotateChevronBack
+                      }`}
+                    ></i>
                   </div>
                   {activeSelect === 'paymentMethod' && (
                     <ul className={styles.selectOptions}>
@@ -205,37 +225,33 @@ export default function ClientCart({ cart, cartItems }: { cart: any; cartItems: 
                           setActiveSelect(null);
                         }}
                       >
-                        {cart.paymentOptions?.select || 'Виберіть спосіб'}
+                        {dictionary.paymentOptions.select}
                       </li>
                       <li
                         className={styles.option}
                         onClick={() => {
-                          setPaymentMethod('Оплата онлайн WayForPay');
+                          setPaymentMethod(dictionary.paymentOptions.card);
                           setActiveSelect(null);
                         }}
                       >
-                        {cart.paymentOptions?.cash || 'Оплата онлайн WayForPay'}
-                      </li>
-                      <li
-                        className={styles.option}
-                        onClick={() => {
-                          setPaymentMethod('Оплата на рахунок ФОП');
-                          setActiveSelect(null);
-                        }}
-                      >
-                        {cart.paymentOptions?.card || 'Оплата на рахунок ФОП'}
+                        {dictionary.paymentOptions.card}
                       </li>
                     </ul>
                   )}
                 </div>
 
-                <label htmlFor="paymentSize">{cart.paymentSize || 'Розмір платежу'}</label>
+                <label htmlFor="paymentSize">{dictionary.paymentSize}</label>
                 <div className={styles.customSelect}>
                   <div
                     className={styles.selectButton}
-                    onClick={() => setActiveSelect('paymentSize')}
+                    onClick={() => setActiveSelect(activeSelect === 'paymentSize' ? null : 'paymentSize')}
                   >
-                    {paymentSize || (cart.paymentSizeOptions?.select || 'Виберіть розмір')}
+                    {paymentSize || dictionary.paymentSizeOptions.select}
+                    <i
+                      className={`fa-solid fa-chevron-down ${
+                        activeSelect === 'paymentSize' ? styles.rotateChevron : styles.rotateChevronBack
+                      }`}
+                    ></i>
                   </div>
                   {activeSelect === 'paymentSize' && (
                     <ul className={styles.selectOptions}>
@@ -246,37 +262,42 @@ export default function ClientCart({ cart, cartItems }: { cart: any; cartItems: 
                           setActiveSelect(null);
                         }}
                       >
-                        {cart.paymentSizeOptions?.select || 'Виберіть розмір'}
+                        {dictionary.paymentSizeOptions.select}
                       </li>
                       <li
                         className={styles.option}
                         onClick={() => {
-                          setPaymentSize('Оплатити повну вартість 100%');
+                          setPaymentSize(dictionary.paymentSizeOptions.small);
                           setActiveSelect(null);
                         }}
                       >
-                        {cart.paymentSizeOptions?.small || 'Оплатити повну вартість 100%'}
+                        {dictionary.paymentSizeOptions.small}
                       </li>
                       <li
                         className={styles.option}
                         onClick={() => {
-                          setPaymentSize('Оплатити тільки частину вартості (50%)');
+                          setPaymentSize(dictionary.paymentSizeOptions.medium);
                           setActiveSelect(null);
                         }}
                       >
-                        {cart.paymentSizeOptions?.medium || 'Оплатити тільки частину вартості (50%)'}
+                        {dictionary.paymentSizeOptions.medium}
                       </li>
                     </ul>
                   )}
                 </div>
 
-                <label htmlFor="deliveryMethod">{cart.deliveryMethod || 'Спосіб доставки'}</label>
+                <label htmlFor="deliveryMethod">{dictionary.deliveryMethod}</label>
                 <div className={styles.customSelect}>
                   <div
                     className={styles.selectButton}
-                    onClick={() => setActiveSelect('deliveryMethod')}
+                    onClick={() => setActiveSelect(activeSelect === 'deliveryMethod' ? null : 'deliveryMethod')}
                   >
-                    {deliveryMethod || (cart.deliveryMethodOptions?.select || 'Виберіть спосіб')}
+                    {deliveryMethod || dictionary.deliveryMethodOptions.select}
+                    <i
+                      className={`fa-solid fa-chevron-down ${
+                        activeSelect === 'deliveryMethod' ? styles.rotateChevron : styles.rotateChevronBack
+                      }`}
+                    ></i>
                   </div>
                   {activeSelect === 'deliveryMethod' && (
                     <ul className={styles.selectOptions}>
@@ -287,28 +308,33 @@ export default function ClientCart({ cart, cartItems }: { cart: any; cartItems: 
                           setActiveSelect(null);
                         }}
                       >
-                        {cart.deliveryMethodOptions?.select || 'Виберіть спосіб'}
+                        {dictionary.deliveryMethodOptions.select}
                       </li>
                       <li
                         className={styles.option}
                         onClick={() => {
-                          setDeliveryMethod('Нова Пошта');
+                          setDeliveryMethod(dictionary.deliveryMethodOptions.novaPoshta);
                           setActiveSelect(null);
                         }}
                       >
-                        {cart.deliveryMethodOptions?.novaPoshta || 'Нова Пошта'}
+                        {dictionary.deliveryMethodOptions.novaPoshta}
                       </li>
                     </ul>
                   )}
                 </div>
 
-                <label htmlFor="city">{cart.city || 'Місто доставки'}</label>
+                <label htmlFor="city">{dictionary.city}</label>
                 <div className={styles.customSelect}>
                   <div
                     className={styles.selectButton}
-                    onClick={() => setActiveSelect('city')}
+                    onClick={() => setActiveSelect(activeSelect === 'city' ? null : 'city')}
                   >
-                    {city || (cart.cityOptions?.select || 'Виберіть місто')}
+                    {city || dictionary.cityOptions.select}
+                    <i
+                      className={`fa-solid fa-chevron-down ${
+                        activeSelect === 'city' ? styles.rotateChevron : styles.rotateChevronBack
+                      }`}
+                    ></i>
                   </div>
                   {activeSelect === 'city' && (
                     <ul className={styles.selectOptions}>
@@ -319,37 +345,42 @@ export default function ClientCart({ cart, cartItems }: { cart: any; cartItems: 
                           setActiveSelect(null);
                         }}
                       >
-                        {cart.cityOptions?.select || 'Виберіть місто'}
+                        {dictionary.cityOptions.select}
                       </li>
                       <li
                         className={styles.option}
                         onClick={() => {
-                          setCity('Київ');
+                          setCity(dictionary.cityOptions.kyiv);
                           setActiveSelect(null);
                         }}
                       >
-                        {cart.cityOptions?.kyiv || 'Київ'}
+                        {dictionary.cityOptions.kyiv}
                       </li>
                       <li
                         className={styles.option}
                         onClick={() => {
-                          setCity('Львів');
+                          setCity(dictionary.cityOptions.lviv);
                           setActiveSelect(null);
                         }}
                       >
-                        {cart.cityOptions?.lviv || 'Львів'}
+                        {dictionary.cityOptions.lviv}
                       </li>
                     </ul>
                   )}
                 </div>
 
-                <label htmlFor="branch">{cart.branch || 'Відділення'}</label>
+                <label htmlFor="branch">{dictionary.branch}</label>
                 <div className={styles.customSelect}>
                   <div
                     className={styles.selectButton}
-                    onClick={() => setActiveSelect('branch')}
+                    onClick={() => setActiveSelect(activeSelect === 'branch' ? null : 'branch')}
                   >
-                    {branch || (cart.branchOptions?.select || 'Виберіть відділення')}
+                    {branch || dictionary.branchOptions.select}
+                    <i
+                      className={`fa-solid fa-chevron-down ${
+                        activeSelect === 'branch' ? styles.rotateChevron : styles.rotateChevronBack
+                      }`}
+                    ></i>
                   </div>
                   {activeSelect === 'branch' && (
                     <ul className={styles.selectOptions}>
@@ -360,7 +391,7 @@ export default function ClientCart({ cart, cartItems }: { cart: any; cartItems: 
                           setActiveSelect(null);
                         }}
                       >
-                        {cart.branchOptions?.select || 'Виберіть відділення'}
+                        {dictionary.branchOptions.select}
                       </li>
                       <li
                         className={styles.option}
@@ -380,7 +411,6 @@ export default function ClientCart({ cart, cartItems }: { cart: any; cartItems: 
                       >
                         №2
                       </li>
-
                     </ul>
                   )}
                 </div>
@@ -391,7 +421,7 @@ export default function ClientCart({ cart, cartItems }: { cart: any; cartItems: 
                   disabled={!isCheckoutButtonActive}
                   className={styles.checkoutButton}
                 >
-                  {cart.checkout || 'Оформити замовлення'}
+                  {dictionary.cartCheckout}
                 </button>
               </>
             )}
@@ -399,21 +429,35 @@ export default function ClientCart({ cart, cartItems }: { cart: any; cartItems: 
         </div>
 
         <div className={styles.itemsSection}>
-          {cartItems.map((item) => (
-            <div key={item.id} className={styles.cartItem}>
-              <img src={item.image} alt={item.description} className={styles.cartItemImage} />
-              <div className={styles.cartItemDetails}>
-                <div className={styles.cartItemDetailsTextWrapper}>
-                  <p className={styles.cartItemLot}>{cart.lotNumber || 'Номер лота'}: {item.lotNumber}</p>
-                  <p className={styles.cartItemDescription}>{item.description}</p>
+          <h1 className={styles.cartHeader}>{dictionary.itemTitle}</h1>
+          <div className={styles.itemsListWrapper}>
+            {cartItems.map((item) => (
+              <div key={item.id} className={styles.cartItem}>
+                <img src={item.image} alt={item.description} className={styles.cartItemImage} />
+                <div className={styles.cartItemDetails}>
+                  <div className={styles.cartItemDetailsTextWrapper}>
+                    <p className={styles.cartItemLot}>
+                      {dictionary.lotNumber}: {item.lotNumber}
+                    </p>
+                    <p className={styles.cartItemDescription}>{item.description}</p>
+                    <p className={styles.cartItemDescription}>
+                      {dictionary.quantityLabel}: {item.quantity}
+                    </p>
+                  </div>
+                  <p className={styles.cartItemPrice}>{item.price}</p>
                 </div>
-                <p className={styles.cartItemPrice}>{item.price}</p>
+                <button className={styles.removeButton}>
+                  <i className="fa-regular fa-trash-can"></i>
+                </button>
               </div>
-              <button className={styles.removeButton}>
-                <i className="fa-regular fa-trash-can"></i>
-              </button>
-            </div>
-          ))}
+            ))}
+          </div>
+          <div className={styles.orderTotal}>
+            <p className={styles.orderTotalLabel}>{dictionary.orderTotal}:</p>
+            <p className={styles.orderTotalAmount}>
+              {totalPrice.toLocaleString()} {dictionary.currency}
+            </p>
+          </div>
         </div>
       </div>
     </div>

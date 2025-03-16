@@ -61,6 +61,42 @@
   font-size: 14px;
 }
 
+.avtoBlogEl {
+  flex: 1;
+  min-width: 0;
+}
+
+.fadeOut {
+  opacity: 1;
+}
+
+.fadeOutActive {
+  opacity: 0;
+  display: none;
+}
+
+.fadeInRight {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.fadeInRightActive {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+}
+
+.fadeInLeft {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.fadeInLeftActive {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 500ms ease-out;
+}
+
 @media (max-width: 501px) {
   .avtoBlogWrapper {
     margin: 25px 20px;
@@ -90,4 +126,19 @@
   .avtoBlogEl p {
     font-size: 14px;
   }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.avtoBlogWrapper {
+  animation: slideInFromLeft 0.7s ease-out;
 }

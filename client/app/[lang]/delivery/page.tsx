@@ -9,11 +9,11 @@ type Props = {
 };
 
 const page = async ({ params: { lang } }: Props) => {
-  const dictionary = await getDictionary(lang);
+  const {paymentDelivery} = await getDictionary(lang);
 
   return (
     <main>
-      <PaymentDeliveryContent dictionary={dictionary} />
+      <PaymentDeliveryContent dictionary={paymentDelivery} />
     </main>
   );
 };

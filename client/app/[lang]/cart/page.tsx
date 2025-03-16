@@ -21,24 +21,40 @@ export default async function CartPage({ params }: { params: { lang: Locale } })
     {
       id: 1,
       lotNumber: '123456789',
-      description: 'РАДАТОР ОСНОВНИЙ AUDI Q5 80A РЕСТАЙЛ 2.0 2R ORIHINAL',
-      price: '123 566 грн.',
-      image: '/images/wheels.png',
+      description: 'Lorem ipsum dolor sit amet',
+      price: '123 456 грн',
+      image: '/images/Picture.png',
       quantity: 1,
     },
     {
       id: 2,
-      lotNumber: '123456789',
-      description: 'КОМПЛЕКТНИЙ АБСОРБЕР AUDI Q5 80A РЕСТАЙЛ 2.0 2R ORIHINAL',
-      price: '123 566 грн.',
-      image: '/images/wheels.png',
+      lotNumber: '987654321',
+      description: 'Consectetur adipiscing elit',
+      price: '89 000 грн',
+      image: '/images/Picture.png',
+      quantity: 2,
+    },
+    {
+      id: 3,
+      lotNumber: '555555555',
+      description: 'Favorite item 1',
+      price: '45 000 грн',
+      image: '/images/Picture.png',
+      quantity: 2,
+    },
+    {
+      id: 4,
+      lotNumber: '666666666',
+      description: 'Favorite item 2',
+      price: '67 000 грн',
+      image: '/images/Picture.png',
       quantity: 2,
     },
   ];
 
   return (
     <div >
-      <CartOrder cart={cart} cartItems={cartItems} />
+      <CartOrder dictionary={cart} cartItems={cartItems} />
     </div>
   );
 }

@@ -3,6 +3,9 @@
   margin: 0;
   padding: 0;
 }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   min-height: 100vh;
@@ -62,5 +65,15 @@ ul {
   h2,
   li {
     text-align: left;
+  }
+
+  h1,
+  h2 {
+    font-size: 18px ;
+  }
+
+  p,
+  li {
+    font-size: 16px;
   }
 }

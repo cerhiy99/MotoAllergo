@@ -4,53 +4,50 @@ import Link from 'next/link';
 import styles from './Footer.module.css';
 import SubscribeForm from './SubscribeForm'
 type Props = {
-  lang: Locale;
+  dictionary: any;
 };
 
-const Footer = (props: Props) => {
+const Footer = ({ dictionary }: Props) => {
   return (
-
     <footer className={styles.footer}>
       <div className={styles.footerLine}></div>
       <div className={styles.footerWrapper}>
         <ul className={styles.footerList}>
           <li className={styles.footerEl}></li>
           <li className={styles.footerEl}>
-            <h2 className={styles.footerElHeader}>MotoAllergo</h2>
+            <h2 className={styles.footerElHeader}>{dictionary.companyName}</h2>
             <ul className={styles.footerElList}>
               <li>
-                <a href="/about">Про нас</a>
+                <a href="/about">{dictionary.about}</a>
               </li>
               <li>
-                <a href="/catalog">Каталог</a>
+                <a href="/catalog">{dictionary.catalog}</a>
               </li>
               <li>
-                <a href="/news">Новини</a>
+                <a href="/news">{dictionary.news}</a>
               </li>
               <li>
-                <a href="/partnership">Партнерство</a>
+                <a href="/partnership">{dictionary.partnership}</a>
               </li>
               <li>
-                <a href="/contacts">Контакти</a>
+                <a href="/contacts">{dictionary.contacts}</a>
               </li>
             </ul>
           </li>
           <li className={styles.footerEl}>
-            <h2 className={styles.footerElHeader}>Обслуговування клієнтів</h2>
+            <h2 className={styles.footerElHeader}>{dictionary.customerService}</h2>
             <ul className={styles.footerElList}>
               <li>
-                <Link href="/offer_agreement/">
-                  Договір оферти
-                </Link>
+                <Link href="/offer_agreement/">{dictionary.offerAgreement}</Link>
               </li>
               <li>
-                <Link href="/privacy_policy/">Політика конфіденційності</Link>
+                <Link href="/privacy_policy/">{dictionary.privacyPolicy}</Link>
               </li>
               <li>
-                <Link href="/delivery">Оплата і доставка</Link>
+                <Link href="/delivery">{dictionary.delivery}</Link>
               </li>
               <li>
-                <Link href="/guarantees">Наша гарантія</Link>
+                <Link href="/guarantees">{dictionary.guarantees}</Link>
               </li>
             </ul>
           </li>
@@ -62,28 +59,28 @@ const Footer = (props: Props) => {
       </div>
       <div className={styles.lastBlock}>
         <ul className={styles.lastBlockList}>
-          <li className={styles.lastBlockEl}>© Всі права захищені 2025 «Big Master»</li>
+          <li className={styles.lastBlockEl}>{dictionary.copyright}</li>
           <li className={styles.lastBlockEl}>
-            Цей сайт розроблено веб-студією{' '}
+            {dictionary.developedBy}{' '}
             <a
               target="_blank"
               rel="noopener noreferrer"
-              href="https://fullstack-innovation.com/"
+              href={dictionary.developerLink}
               className={styles.footerLink}
             >
-              «FullStack-Innovations»
+              {dictionary.developerName}
             </a>
           </li>
           <li className={styles.lastBlockEl}>
             <ul>
               <li>
                 <Link href="/offer_agreement/" target="_blank">
-                  Договір оферти
+                  {dictionary.bottomOfferAgreement}
                 </Link>
               </li>
               <li>
                 <Link href="/privacy_policy/" target="_blank">
-                  Політика Конфіденційності
+                  {dictionary.bottomPrivacyPolicy}
                 </Link>
               </li>
             </ul>

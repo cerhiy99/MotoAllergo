@@ -30,10 +30,12 @@
 .categoryItem {
   text-align: center;
   padding: 10px;
+  transition: all 0.3s ease;
 }
 
 .imageWrapper {
   overflow: hidden;
+  transition: transform 0.3s ease;
 }
 
 .categoryName {

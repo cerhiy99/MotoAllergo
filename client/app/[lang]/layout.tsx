@@ -5,7 +5,7 @@ import Footer from '../components/Footer/Footer';
 import './Home.scss';
 import { Roboto, Montserrat } from 'next/font/google';
 import { getDictionary } from '@/lib/dictionary';
-
+import PhoneIconModal from '../components/PhoneIconModal/PhoneIconModal';
 const roboto = Roboto({
   subsets: ['latin', 'cyrillic'],
   weight: ['300', '400', '700'],
@@ -34,7 +34,8 @@ export default async function RootLayout({
   params: { lang: Locale };
 }) {
   const { header } = await getDictionary(params.lang);
-
+  const { footer } = await getDictionary(params.lang);
+  const { modalForm } = await getDictionary(params.lang);
   const initialCartItems = [
     {
       id: 1,
@@ -52,9 +53,39 @@ export default async function RootLayout({
       image: '/images/Picture.png',
       quantity: 2,
     },
+    {
+      id: 3,
+      lotNumber: '555555555',
+      description: 'Favorite item 1',
+      price: '45 000 грн',
+      image: '/images/Picture.png',
+      quantity: 2,
+    },
+    {
+      id: 4,
+      lotNumber: '666666666',
+      description: 'Favorite item 2',
+      price: '67 000 грн',
+      image: '/images/Picture.png',
+      quantity: 2,
+    },
   ];
 
   const initialFavoriteItems = [
+    {
+      id: 1,
+      lotNumber: '123456789',
+      description: 'Lorem ipsum dolor sit amet',
+      price: '123 456 грн',
+      image: '/images/Picture.png',
+    },
+    {
+      id: 2,
+      lotNumber: '987654321',
+      description: 'Consectetur adipiscing elit',
+      price: '89 000 грн',
+      image: '/images/Picture.png',
+    },
     {
       id: 3,
       lotNumber: '555555555',
@@ -77,8 +108,13 @@ export default async function RootLayout({
     >
       <head>
         <script src="https://kit.fontawesome.com/44ddc9fabc.js" crossOrigin="anonymous" async />
+        <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          rel="stylesheet"
+        />
       </head>
       <body>
+        <PhoneIconModal dictionary={modalForm}/>
         <Header
           lang={params.lang}
           dictionary={header}
@@ -86,7 +122,7 @@ export default async function RootLayout({
           initialFavoriteItems={initialFavoriteItems}
         />
         {children}
-        <Footer lang={params.lang} />
+        <Footer dictionary={footer} />
       </body>
     </html>
   );

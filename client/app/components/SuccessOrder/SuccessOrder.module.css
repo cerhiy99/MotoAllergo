@@ -35,8 +35,11 @@
 
 .priceInfo {
   margin-bottom: 40px;
+  text-align: left;
 }
-
+.priceInfo i{
+  color: red;
+}
 .continueShoppingButton {
   background: rgba(14, 78, 210, 1);
   color: #fff;
@@ -52,4 +55,12 @@
 
 .carImage img {
   width: 40vw;
+}
+@media (max-width: 501px) {
+  .contentWrapper{
+    flex-direction: column;
+  }
+  .carImage img{
+    width: 80vw;
+  }
 }

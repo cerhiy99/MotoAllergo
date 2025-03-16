@@ -48,6 +48,8 @@
   position: relative;
   border-top: 1px solid #FF5C05;
   padding-top: 35px;
+  opacity: 0;
+  transform: translateX(-40px); 
 }
 
 .step svg {
@@ -72,6 +74,7 @@
 .step p:last-of-type {
   font-size: 14px;
   color: #666;
+  text-align: left;
 }
 
 .step::after {

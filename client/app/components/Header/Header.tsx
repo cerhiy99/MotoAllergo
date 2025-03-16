@@ -13,6 +13,7 @@ import Instagram from '../../assets/icons/inst.svg';
 import Heart from '../../assets/icons/heart.svg';
 import Cart from '../../assets/icons/cart.svg';
 import AnimatedInput from './AnimatedInput';
+import ModalForm from '../PhoneIconModal/ModalForm';
 
 type Props = {
   lang: any;
@@ -48,7 +49,7 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
   const [cartItems, setCartItems] = useState<CartItem[]>(initialCartItems);
   const [favoriteItems, setFavoriteItems] = useState<FavoriteItem[]>(initialFavoriteItems);
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
-
+  const [isCallModalOpen, setIsCallModalOpen] = useState(false);
 
   useEffect(() => {
     const savedCart = localStorage.getItem('cartItems');
@@ -135,21 +136,25 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
     }
   };
 
+  const openCallModal = () => {
+    setIsCallModalOpen(true);
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.topBar}>
         <div className={styles.contactInfo}>
           <span className={styles.location}>
             <i className="fa-solid fa-location-dot"></i>
-            м. Львів, вул. Жовківська, 20
+            {dictionary.location}
           </span>
           <span className={styles.workHours}>
             <i className="fa-solid fa-clock"></i>
-            8:00 - 22:00 Пн - Нд
+            {dictionary.workHours}
           </span>
           <a href="tel:+380972439410" className={styles.phone}>
             <i className="fa-solid fa-phone-volume"></i>
-            +38 (097) 243-94-10
+            {dictionary.phoneNumber}
           </a>
         </div>
         <div className={styles.socialWrapper}>
@@ -170,7 +175,7 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
               <Instagram />
             </a>
           </div>
-          <button className={styles.callButton}>
+          <button className={styles.callButton} onClick={openCallModal}>
             <i className="fa-regular fa-bell"></i>
             {dictionary.callBtn || 'Замовити дзвінок'}
           </button>
@@ -183,13 +188,7 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
           </Link>
         </div>
         <form className={styles.searchForm}>
-          {/* <input
-            type="text"
-            placeholder="МОТОРЧИК ПОВІТРОДУВКИ ОБІГРІВАЧА КОНДИЦІОНЕРА КОНДИЦИОНЕРА VW AUDI SKODA SEAT КОМПЛЕКТ"
-            className={styles.searchInput}
-          /> */}
           <AnimatedInput />
-
           <button type="submit" className={styles.searchButton}>
             <i className="fas fa-search"></i>
           </button>
@@ -198,31 +197,31 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
       <nav className={styles.nav}>
         <ul className={styles.navList}>
           <li>
-            <Link href="/about">Про нас</Link>
+            <Link href="/about">{dictionary.about}</Link>
           </li>
           <li>
-            <Link href="/catalog">Каталог</Link>
+            <Link href="/catalog">{dictionary.catalog}</Link>
           </li>
           <li>
-            <Link href="/delivery">Оплата та доставка</Link>
+            <Link href="/delivery">{dictionary.delivery}</Link>
           </li>
           <li>
-            <Link href="/guarantees">Гарантії</Link>
+            <Link href="/guarantees">{dictionary.guarantees}</Link>
           </li>
           <li>
-            <Link href="/news">Новини</Link>
+            <Link href="/news">{dictionary.news}</Link>
           </li>
           <li>
-            <Link href="/partnership">Партнерство</Link>
+            <Link href="/partnership">{dictionary.partnership}</Link>
           </li>
           <li>
-            <Link href="/contacts">Контакти</Link>
+            <Link href="/contacts">{dictionary.contacts}</Link>
           </li>
         </ul>
         <div className={styles.TelWrapper}>
           <a href="tel:+380972439410" className={styles.phone}>
             <i className="fa-solid fa-phone-volume"></i>
-            +38 (097) 243-94-10
+            {dictionary.phoneNumber}
           </a>
         </div>
         <div className={styles.rightSectionButton}>
@@ -288,14 +287,13 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
       </div>
       <div className={`${styles.burger} ${isBurgerOpen ? styles.active : ''}`}>
         <div className={styles.logo}>
-          <Link href="/"><img src="/images/logotype-desctop.svg" alt="logo" /></Link>
+          <Link href="/">
+            <img src="/images/logotype-desctop.svg" alt="logo" />
+          </Link>
           <i className="fa-solid fa-xmark" onClick={toggleBurgerMenu}></i>
         </div>
         <form className={styles.searchForm}>
-          <input
-            type="text"
-            className={styles.searchInput}
-          />
+          <input type="text" className={styles.searchInput} />
           <button type="submit" className={styles.searchButton}>
             <i className="fas fa-search"></i>
           </button>
@@ -306,7 +304,7 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
               <Link href="/about" className={styles.navListElRef}>
                 <div className={styles.burgerElWrapper}>
                   <img src="/images/mobile_header_icon.svg" alt="" />
-                  Про нас
+                  {dictionary.about}
                 </div>
                 <i className="fa-solid fa-chevron-right"></i>
               </Link>
@@ -315,7 +313,7 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
               <Link href="/catalog" className={styles.navListElRef}>
                 <div className={styles.burgerElWrapper}>
                   <img src="/images/mobile_header_icon.svg" alt="" />
-                  Каталог
+                  {dictionary.catalog}
                 </div>
                 <i className="fa-solid fa-chevron-right"></i>
               </Link>
@@ -324,7 +322,7 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
               <Link href="/delivery" className={styles.navListElRef}>
                 <div className={styles.burgerElWrapper}>
                   <img src="/images/mobile_header_icon.svg" alt="" />
-                  Оплата та доставка
+                  {dictionary.delivery}
                 </div>
                 <i className="fa-solid fa-chevron-right"></i>
               </Link>
@@ -333,7 +331,7 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
               <Link href="/guarantees" className={styles.navListElRef}>
                 <div className={styles.burgerElWrapper}>
                   <img src="/images/mobile_header_icon.svg" alt="" />
-                  Гарантії
+                  {dictionary.guarantees}
                 </div>
                 <i className="fa-solid fa-chevron-right"></i>
               </Link>
@@ -342,7 +340,7 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
               <Link href="/news" className={styles.navListElRef}>
                 <div className={styles.burgerElWrapper}>
                   <img src="/images/mobile_header_icon.svg" alt="" />
-                  Новини
+                  {dictionary.news}
                 </div>
                 <i className="fa-solid fa-chevron-right"></i>
               </Link>
@@ -351,7 +349,7 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
               <Link href="/partnership" className={styles.navListElRef}>
                 <div className={styles.burgerElWrapper}>
                   <img src="/images/mobile_header_icon.svg" alt="" />
-                  Партнерство
+                  {dictionary.partnership}
                 </div>
                 <i className="fa-solid fa-chevron-right"></i>
               </Link>
@@ -360,9 +358,8 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
               <Link href="/contacts" className={styles.navListElRef}>
                 <div className={styles.burgerElWrapper}>
                   <img src="/images/mobile_header_icon.svg" alt="" />
-                  Контакти
+                  {dictionary.contacts}
                 </div>
-
                 <i className="fa-solid fa-chevron-right"></i>
               </Link>
             </li>
@@ -370,7 +367,7 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
           <div className={styles.TelWrapper}>
             <a href="tel:+380972439410" className={styles.phone}>
               <i className="fa-solid fa-phone-volume"></i>
-              <span>+38 (097) 243-94-10</span>
+              <span>{dictionary.phoneNumber}</span>
             </a>
           </div>
           <div className={styles.socialIcons}>
@@ -388,16 +385,16 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
       </div>
 
       {isCartOpen && (
-        <div className={styles.cartModal} onClick={(e) => handleOutsideClick(e, 'cart')}>
+        <div className={`${styles.cartModal} ${isCartOpen ? styles.open : ''}`} onClick={(e) => handleOutsideClick(e, 'cart')}>
           <div className={styles.cartModalContent}>
             <div className={styles.cartHeader}>
-              <h3>Ваш кошик ({cartItems.length})</h3>
+              <h3>{dictionary.cartTitle} ({cartItems.length})</h3>
               <button onClick={toggleCart} className={styles.closeButton}>
                 <i className="fa-solid fa-xmark"></i>
               </button>
             </div>
             {cartItems.length === 0 ? (
-              <p>Ваш кошик порожній</p>
+              <p>{dictionary.cartEmpty}</p>
             ) : (
               <>
                 <ul className={styles.cartItems}>
@@ -410,11 +407,9 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
                       />
                       <div className={styles.cartItemDetails}>
                         <p className={styles.cartItemLot}>
-                          Номер лота: {item.lotNumber}
+                          {dictionary.lotNumber}: {item.lotNumber}
                         </p>
-                        <p className={styles.cartItemDescription}>
-                          {item.description}
-                        </p>
+                        <p className={styles.cartItemDescription}>{item.description}</p>
                         <p className={styles.cartItemPrice}>{item.price}</p>
                         <div className={styles.quantityControls}>
                           <button
@@ -424,9 +419,7 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
                             -
                           </button>
                           <span>{item.quantity}</span>
-                          <button onClick={() => updateQuantity(item.id, 1)}>
-                            +
-                          </button>
+                          <button onClick={() => updateQuantity(item.id, 1)}>+</button>
                         </div>
                       </div>
                       <button
@@ -440,10 +433,11 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
                 </ul>
                 <div className={styles.cartFooter}>
                   <p className={styles.totalPrice}>
-                    Загальна сума: {totalPrice.toLocaleString()} грн
+                    {dictionary.cartTotal}: {totalPrice.toLocaleString()}{' '}
+                    {dictionary.currency}
                   </p>
                   <Link href="/cart" onClick={toggleCart} className={styles.checkoutButton}>
-                    Оформити замовлення
+                    {dictionary.cartCheckout}
                   </Link>
                 </div>
               </>
@@ -451,17 +445,18 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
           </div>
         </div>
       )}
+
       {isFavoritesOpen && (
-        <div className={styles.favoritesModal} onClick={(e) => handleOutsideClick(e, 'favorites')}>
+        <div className={`${styles.favoritesModal} ${isFavoritesOpen ? styles.open : ''}`} onClick={(e) => handleOutsideClick(e, 'favorites')}>
           <div className={styles.favoritesModalContent}>
             <div className={styles.favoritesHeader}>
-              <h3>Ваш список бажань ({favoriteItems.length})</h3>
+              <h3>{dictionary.favoritesTitle} ({favoriteItems.length})</h3>
               <button onClick={toggleFavorites} className={styles.closeButton}>
                 <i className="fa-solid fa-xmark"></i>
               </button>
             </div>
             {favoriteItems.length === 0 ? (
-              <p>Ваш список бажань порожній</p>
+              <p>{dictionary.favoritesEmpty}</p>
             ) : (
               <ul className={styles.favoritesItems}>
                 {favoriteItems.map((item) => (
@@ -473,11 +468,9 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
                     />
                     <div className={styles.favoritesItemDetails}>
                       <p className={styles.favoritesItemLot}>
-                        Номер лота: {item.lotNumber}
+                        {dictionary.lotNumber}: {item.lotNumber}
                       </p>
-                      <p className={styles.favoritesItemDescription}>
-                        {item.description}
-                      </p>
+                      <p className={styles.favoritesItemDescription}>{item.description}</p>
                       <p className={styles.favoritesItemPrice}>{item.price}</p>
                     </div>
                     <button
@@ -493,17 +486,18 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
             {favoriteItems.length > 0 && (
               <div className={styles.favoritesFooter}>
                 <Link
-                  href="/favorites"
+                  href="#"
                   onClick={toggleFavorites}
                   className={styles.viewFavoritesButton}
                 >
-                  Переглянути всі
+                  {dictionary.favoritesAddToCart}
                 </Link>
               </div>
             )}
           </div>
         </div>
       )}
+      <ModalForm isOpen={isCallModalOpen} onClose={() => setIsCallModalOpen(false)} />
     </header>
   );
 };
