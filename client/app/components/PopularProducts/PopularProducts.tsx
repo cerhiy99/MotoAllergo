@@ -52,7 +52,7 @@ const PopularProducts: React.FC<PopularProductsProps> = ({ dictionary, products 
 
     const handleMouseEnter = (item: HTMLLIElement) => {
       item.style.transform = 'scale(1.03)';
-      const image = item.querySelector(`.${styles.popularProductsImage}`);
+      const image = item.querySelector(`.${styles.popularProductsImage}`) as HTMLElement;
       if (image) {
         image.style.transform = 'scale(1.05)';
       }
@@ -60,7 +60,7 @@ const PopularProducts: React.FC<PopularProductsProps> = ({ dictionary, products 
 
     const handleMouseLeave = (item: HTMLLIElement) => {
       item.style.transform = 'scale(1)';
-      const image = item.querySelector(`.${styles.popularProductsImage}`);
+      const image = item.querySelector(`.${styles.popularProductsImage}`) as HTMLElement;
       if (image) {
         image.style.transform = 'scale(1)';
       }

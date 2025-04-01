@@ -9,7 +9,8 @@ type Props = {
 };
 
 const page = async ({ params: { lang } }: Props) => {
-  const {paymentDelivery} = await getDictionary(lang);
+  const dictionary: any = await getDictionary(lang);
+  const paymentDelivery = dictionary.paymentDelivery;
 
   return (
     <main>

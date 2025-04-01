@@ -5,12 +5,13 @@ import OfferAgreementContent from "@/app/components/OfferAgreementContent/OfferA
 
 import styles from './PrivacyPolicy.module.css'
 type Props = {
-  params: { lang: Locale };
+  params: any;
 };
 
-export default async function Page({ params }: { params: { lang: string } }) {
-  const { offerAgreement }= await getDictionary(params.lang);
-
+export default async function Page({ params }: { params: any }) {
+  // const { offerAgreement }= await getDictionary(params.lang);
+  const dictionary: any = await getDictionary(params.lang);
+  const offerAgreement = dictionary.offerAgreement;
   return (
     <main>
       <OfferAgreementContent dictionary={ offerAgreement }/>

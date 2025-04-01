@@ -3,10 +3,20 @@
 import { useState } from 'react';
 import styles from './PopularCategories.module.css';
 
-type Props = {
-  dictionary: any;
+// type Props = {
+//   dictionary: any;
+// };
+type CategoryKey = keyof typeof imagePaths;
+type DictionaryType = {
+  span: string;
+  title: string;
+  // category: string[];
+  category: CategoryKey[];
 };
 
+type Props = {
+  dictionary: DictionaryType;
+};
 const imagePaths = {
   wheels: "/images/wheels.png",
   engine: "/images/engine.png",

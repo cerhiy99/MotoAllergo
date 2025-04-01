@@ -64,7 +64,7 @@ const ChooseCategory: React.FC<Props> = ({ dictionary }) => {
 
     const handleMouseEnter = (item: HTMLDivElement) => {
       item.style.transform = 'translateY(-5px)';
-      const imageWrapper = item.querySelector(`.${styles.imageWrapper}`);
+      const imageWrapper = item.querySelector(`.${styles.imageWrapper}`) as HTMLElement;
       if (imageWrapper) {
         imageWrapper.style.transform = 'scale(1.05)';
       }
@@ -72,7 +72,7 @@ const ChooseCategory: React.FC<Props> = ({ dictionary }) => {
 
     const handleMouseLeave = (item: HTMLDivElement) => {
       item.style.transform = 'translateY(0)';
-      const imageWrapper = item.querySelector(`.${styles.imageWrapper}`);
+      const imageWrapper = item.querySelector(`.${styles.imageWrapper}`) as HTMLElement;
       if (imageWrapper) {
         imageWrapper.style.transform = 'scale(1)';
       }

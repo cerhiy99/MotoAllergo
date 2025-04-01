@@ -67,7 +67,7 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
   }, [favoriteItems]);
 
   useEffect(() => {
-    const header = document.querySelector(`.${styles.mobileHeader}`);
+    const header = document.querySelector(`.${styles.mobileHeader}`) as HTMLElement;
     if (header) {
       if (isBurgerOpen) {
         header.style.display = "none";

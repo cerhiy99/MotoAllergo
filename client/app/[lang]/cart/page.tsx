@@ -15,7 +15,9 @@ export async function generateStaticParams() {
 }
 
 export default async function CartPage({ params }: { params: { lang: Locale } }) {
-  const { cart } = await getDictionary(params.lang);
+  const dictionary: any = await getDictionary(params.lang);
+  const cart = dictionary.cart;
+
 
   const cartItems: CartItem[] = [
     {

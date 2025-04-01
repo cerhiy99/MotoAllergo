@@ -8,9 +8,10 @@ type Props = {
   params: { lang: Locale };
 };
 
-export default async function Page({ params }: { params: { lang: string } }) {
-  const { privacyPolicy} = await getDictionary(params.lang);
-
+export default async function Page({ params }: { params: any }) {
+  // const { privacyPolicy} = await getDictionary(params.lang);
+  const dictionary: any = await getDictionary(params.lang);
+  const privacyPolicy = dictionary.privacyPolicy;
   return (
     <main>
       <PrivacyPolicyContent dictionary={privacyPolicy}/>

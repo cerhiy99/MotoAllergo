@@ -5,7 +5,7 @@ import productsData from './products.json';
 
 type Props = {
   params: { lang: Locale };
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: any;///{ [key: string]: string | string[] | undefined }
 };
 
 interface Product {
@@ -24,7 +24,6 @@ const parseQueryParam = (param: string | string[] | undefined, defaultValue: str
 };
 
 export default async function Page({ params, searchParams }: Props) {
-  const dictionary = await getDictionary(params.lang);
 
   const getFilteredProducts = (data: Product[], params: Props['searchParams']) => {
     let filteredProducts = [...data];
@@ -73,7 +72,9 @@ export default async function Page({ params, searchParams }: Props) {
   };
 
   const { products, totalPages } = getFilteredProducts(productsData as Product[], searchParams);
-  const { catalogContent } = await getDictionary(params.lang);
+  const dictionary: any = await getDictionary(params.lang);
+  const catalogContent = dictionary.catalogContent;
+  // const { catalogContent } = await getDictionary(params.lang);
   return (
     <main>
       <CatalogContentClient

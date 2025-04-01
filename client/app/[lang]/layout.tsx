@@ -33,9 +33,13 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { lang: Locale };
 }) {
-  const { header } = await getDictionary(params.lang);
-  const { footer } = await getDictionary(params.lang);
-  const { modalForm } = await getDictionary(params.lang);
+  // const { header } = await getDictionary(params.lang);
+  // const { footer } = await getDictionary(params.lang);
+  // const { modalForm } = await getDictionary(params.lang);
+  const dictionary: any = await getDictionary(params.lang);
+  const modalForm = dictionary.modalForm;
+  const header=dictionary.header;
+  const footer=dictionary.footer;
   const initialCartItems = [
     {
       id: 1,

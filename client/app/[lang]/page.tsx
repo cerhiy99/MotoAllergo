@@ -1,14 +1,13 @@
 import { Locale } from '@/i18n.config';
 import './Home.scss';
-
-import Home from '../components/Home/Home';
+import dynamic from 'next/dynamic';
 import HeroSection from '../components/HeroSection/HeroSection';
-import LogoSlider from '../components/LogoSlider/LogoSlider';
+// import LogoSlider from '../components/LogoSlider/LogoSlider';
 import ChooseCategory from '../components/ChooseCategory/ChooseCategory';
 import HowWeWork from '../components/HowWeWork/HowWeWork';
 import PopularCategories from '../components/PopularCategories/PopularCategories';
 import PopularProducts from '../components/PopularProducts/PopularProducts';
-import AvtoBlog from '../components/AvtoBlog/AvtoBlog';
+// import AvtoBlog from '../components/AvtoBlog/AvtoBlog';
 import PhoneIconModal from '../components/PhoneIconModal/PhoneIconModal';
 import { getDictionary } from '../../lib/dictionary';
 type Props = {
@@ -186,22 +185,22 @@ const products=
     "image": "/images/Picture.png"
   }
 ]
-
+const LogoSlider = dynamic(() => import('../components/LogoSlider/LogoSlider'), {
+  ssr: false, // Disable server-side rendering
+});
+const AvtoBlog = dynamic(() => import('../components/AvtoBlog/AvtoBlog'), { ssr: false });
 export default async function Page({ params }: { params: { lang: Locale } }) {
-  const { categories } = await getDictionary(params.lang);
-  const { news } = await getDictionary(params.lang);
-  const { howWeWork } = await getDictionary(params.lang);
-  const { heroSection } = await getDictionary(params.lang);
-  const { chooseCategory } = await getDictionary(params.lang);
-  const { popularProducts } = await getDictionary(params.lang);
-  return <main>
-    {/* <PhoneIconModal /> */}
-    <HeroSection dictionary={heroSection}/>
-    <LogoSlider />
-    <ChooseCategory dictionary={chooseCategory}/>
-    <HowWeWork dictionary={howWeWork}/>
-    {/* <PopularCategories dictionary={categories} /> */}
-    <PopularProducts products={products} dictionary={popularProducts}/>
-    <AvtoBlog dictionary={news} />
-  </main>;
+  const dictionary = await getDictionary(params.lang);
+  const { news, howWeWork, heroSection, chooseCategory, popularProducts } = dictionary;
+
+  return (
+    <main>
+      <HeroSection dictionary={heroSection} />
+      <LogoSlider />
+      <ChooseCategory dictionary={chooseCategory} />
+      <HowWeWork dictionary={howWeWork} />
+      <PopularProducts products={products} dictionary={popularProducts} />
+      <AvtoBlog dictionary={news} />
+    </main>
+  );
 }

@@ -46,7 +46,7 @@ const NewsContent = ({ dictionary }: Props) => {
 
     const handleMouseEnter = (item: HTMLLIElement) => {
       item.style.transform = 'scale(1.03)';
-      const line = item.querySelector(`.${styles.line}`);
+      const line = item.querySelector(`.${styles.line}`) as HTMLElement;
       if (line) {
         line.style.width = '50%';
       }
@@ -55,7 +55,7 @@ const NewsContent = ({ dictionary }: Props) => {
     const handleMouseLeave = (item: HTMLLIElement) => {
       item.style.transform = 'scale(1)';
       item.style.boxShadow = 'none';
-      const line = item.querySelector(`.${styles.line}`);
+      const line = item.querySelector(`.${styles.line}`)as HTMLElement;
       if (line) {
         line.style.width = '25%';
       }

@@ -17,11 +17,13 @@ type Props = {
 
 const HeroSection = ({ dictionary }: Props) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [activeFilters, setActiveFilters] = useState([0, 3]);
-  const [dropdowns, setDropdowns] = useState({});
-  const [chosenFilters, setChosenFilters] = useState({});
+  // const [activeFilters, setActiveFilters] = useState([0, 3]); //старе
+  // const [dropdowns, setDropdowns] = useState({});
+  // const [chosenFilters, setChosenFilters] = useState({});
   const [images, setImages] = useState<string[]>([]);
-
+  const [dropdowns, setDropdowns] = useState<Record<number, boolean>>({});
+  const [chosenFilters, setChosenFilters] = useState<Record<number, string>>({});
+  const [activeFilters, setActiveFilters] = useState<number[]>([]);
   const desktopImages = [
     "/images/home-hero-image.png",
     "/images/home-hero-image-second.png",
@@ -63,7 +65,7 @@ const HeroSection = ({ dictionary }: Props) => {
       const newState = Object.keys(prev).reduce((acc, key) => {
         acc[key] = false;
         return acc;
-      }, {});
+      }, {} as Record<string, boolean>);
       return { ...newState, [index]: !prev[index] };
     });
   };

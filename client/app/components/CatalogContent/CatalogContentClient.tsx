@@ -14,10 +14,13 @@ interface Product {
   category?: string;
 }
 
-interface CatalogContentClientProps {
-  dictionary: any;
-}
 
+type CatalogContentClientProps = {
+  dictionary: any;
+  products: Product[];
+  totalPages: number;
+  searchParams: any; // Add this line
+};
 const parseQueryParam = (
   param: string | string[] | undefined,
   defaultValue: string[] = []
@@ -99,7 +102,7 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
   useEffect(() => {
     const handleProductMouseEnter = (item: HTMLLIElement) => {
       item.style.transform = 'scale(1.03)';
-      const image = item.querySelector(`.${styles.productsImage}`);
+      const image = item.querySelector(`.${styles.productsImage}`) as HTMLElement;
       if (image) {
         image.style.transform = 'scale(1.05)';
       }
@@ -107,7 +110,7 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
 
     const handleProductMouseLeave = (item: HTMLLIElement) => {
       item.style.transform = 'scale(1)';
-      const image = item.querySelector(`.${styles.productsImage}`);
+      const image = item.querySelector(`.${styles.productsImage}`) as HTMLElement;
       if (image) {
         image.style.transform = 'scale(1)';
       }

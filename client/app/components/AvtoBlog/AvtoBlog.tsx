@@ -5,8 +5,13 @@ import styles from './AvtoBlog.module.css';
 import Link from 'next/link';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
+type DictionaryType = {
+  title: string;
+  news: string[][];
+};
+
 type Props = {
-  dictionary: any;
+  dictionary: DictionaryType;
 };
 
 const AvtoBlog = ({ dictionary }: Props) => {
