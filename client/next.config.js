@@ -5,7 +5,7 @@ const nextConfig = {
   // Приклад: відключення автоматичного підбору Webpack
   webpack5: false,
   images: {
-    domains: ['localhost'],
+    domains: ['localhost','45.94.156.193'],
   },
   webpack(config) {
     config.module.rules.push({

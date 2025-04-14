@@ -5,17 +5,18 @@ import styles from './CartOrder.module.css';
 import Link from 'next/link';
 import SuccessOrderComponent from '../SuccessOrder/SuccessOrder';
 import NavPath from '@/app/components/NavPath/NavPath';
+import { useCartStore } from '@/store/cartStore';
 
 interface CartItem {
-  id: number;
+  id: string; // Змінено на string, щоб відповідати useCartStore
   lotNumber: string;
-  description: string;
+  name: string; // Змінено description на name для відповідності useCartStore
   price: string;
   image: string;
   quantity: number;
 }
 
-export default function ClientCart({ dictionary, cartItems }: { dictionary: any; cartItems: CartItem[] }) {
+export default function CartOrder({ dictionary }: { dictionary: any }) {
   const [isContactCollapsed, setIsContactCollapsed] = useState(false);
   const [isDeliveryCollapsed, setIsDeliveryCollapsed] = useState(true);
   const [fullName, setFullName] = useState('');
@@ -31,6 +32,9 @@ export default function ClientCart({ dictionary, cartItems }: { dictionary: any;
   const [phoneError, setPhoneError] = useState('');
   const [nameError, setNameError] = useState('');
   const [activeSelect, setActiveSelect] = useState<string | null>(null);
+
+  // Отримуємо товари та методи з useCartStore
+  const { cart, removeFromCart } = useCartStore();
 
   const phoneRegex = /^(?:\+?380|0)\d{9}$/;
 
@@ -48,7 +52,7 @@ export default function ClientCart({ dictionary, cartItems }: { dictionary: any;
     const phoneValue = e.target.value;
     setPhone(phoneValue);
     if (!phoneRegex.test(phoneValue)) {
-      setPhoneError('Невірний формат телефону. Введіть номер у форматі +380 або 380 і 9 цифр, або 0 і 9 цифр.');
+      setPhoneError(dictionary.phoneError || 'Невірний формат телефону. Введіть номер у форматі +380 або 380 і 9 цифр, або 0 і 9 цифр.');
     } else {
       setPhoneError('');
     }
@@ -58,7 +62,7 @@ export default function ClientCart({ dictionary, cartItems }: { dictionary: any;
     const nameValue = e.target.value;
     setFullName(nameValue);
     if (nameValue.trim() === '') {
-      setNameError('Будь ласка, введіть ПІБ.');
+      setNameError(dictionary.nameError || 'Будь ласка, введіть ПІБ.');
     } else {
       setNameError('');
     }
@@ -83,10 +87,10 @@ export default function ClientCart({ dictionary, cartItems }: { dictionary: any;
   };
 
   if (isOrderSuccess) {
-    return <SuccessOrderComponent />;
+    return <SuccessOrderComponent dictionary={dictionary.successOrder}/>;
   }
 
-  const totalPrice = cartItems.reduce(
+  const totalPrice = cart.reduce(
     (total, item) =>
       total + parseFloat(item.price.replace(/[^0-9.]/g, '')) * item.quantity,
     0
@@ -431,26 +435,39 @@ export default function ClientCart({ dictionary, cartItems }: { dictionary: any;
         <div className={styles.itemsSection}>
           <h1 className={styles.cartHeader}>{dictionary.itemTitle}</h1>
           <div className={styles.itemsListWrapper}>
-            {cartItems.map((item) => (
-              <div key={item.id} className={styles.cartItem}>
-                <img src={item.image} alt={item.description} className={styles.cartItemImage} />
-                <div className={styles.cartItemDetails}>
-                  <div className={styles.cartItemDetailsTextWrapper}>
-                    <p className={styles.cartItemLot}>
-                      {dictionary.lotNumber}: {item.lotNumber}
-                    </p>
-                    <p className={styles.cartItemDescription}>{item.description}</p>
-                    <p className={styles.cartItemDescription}>
-                      {dictionary.quantityLabel}: {item.quantity}
-                    </p>
+            {cart.length === 0 ? (
+              <p>{dictionary.cartEmpty || 'Кошик порожній'}</p>
+            ) : (
+              cart.map((item) => (
+                <div key={item.id} className={styles.cartItem}>
+                  <Link href={`/catalog/${item.id}`}>
+                    <img
+                      src={`http://45.94.156.193:9085/${item.image}`}
+                      alt={item.name}
+                      className={styles.cartItemImage}
+                    />
+                  </Link>
+                  <div className={styles.cartItemDetails}>
+                    <div className={styles.cartItemDetailsTextWrapper}>
+                      <p className={styles.cartItemLot}>
+                        {dictionary.lotNumber}: {item.lotNumber}
+                      </p>
+                      <p className={styles.cartItemDescription}>{item.name}</p>
+                      <p className={styles.cartItemDescription}>
+                        {dictionary.quantityLabel}: {item.quantity}
+                      </p>
+                    </div>
+                    <p className={styles.cartItemPrice}>{item.price}</p>
                   </div>
-                  <p className={styles.cartItemPrice}>{item.price}</p>
+                  <button
+                    className={styles.removeButton}
+                    onClick={() => removeFromCart(item.id)}
+                  >
+                    <i className="fa-regular fa-trash-can"></i>
+                  </button>
                 </div>
-                <button className={styles.removeButton}>
-                  <i className="fa-regular fa-trash-can"></i>
-                </button>
-              </div>
-            ))}
+              ))
+            )}
           </div>
           <div className={styles.orderTotal}>
             <p className={styles.orderTotalLabel}>{dictionary.orderTotal}:</p>

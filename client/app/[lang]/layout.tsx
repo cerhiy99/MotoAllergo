@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
 import { Locale, i18n } from '@/i18n.config';
-import Header from '../components/Header/Header';
-import Footer from '../components/Footer/Footer';
-import './Home.scss';
 import { Roboto, Montserrat } from 'next/font/google';
 import { getDictionary } from '@/lib/dictionary';
-import PhoneIconModal from '../components/PhoneIconModal/PhoneIconModal';
+import './Home.scss';
+import ClientWrapper from '../components/ClientWrapper/ClientWrapper';
+
 const roboto = Roboto({
   subsets: ['latin', 'cyrillic'],
   weight: ['300', '400', '700'],
@@ -26,6 +25,7 @@ export const metadata: Metadata = {
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
 }
+
 export default async function RootLayout({
   children,
   params,
@@ -33,100 +33,25 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { lang: Locale };
 }) {
-  // const { header } = await getDictionary(params.lang);
-  // const { footer } = await getDictionary(params.lang);
-  // const { modalForm } = await getDictionary(params.lang);
-  const dictionary: any = await getDictionary(params.lang);
-  const modalForm = dictionary.modalForm;
-  const header=dictionary.header;
-  const footer=dictionary.footer;
-  const initialCartItems = [
-    {
-      id: 1,
-      lotNumber: '123456789',
-      description: 'Lorem ipsum dolor sit amet',
-      price: '123 456 грн',
-      image: '/images/Picture.png',
-      quantity: 1,
-    },
-    {
-      id: 2,
-      lotNumber: '987654321',
-      description: 'Consectetur adipiscing elit',
-      price: '89 000 грн',
-      image: '/images/Picture.png',
-      quantity: 2,
-    },
-    {
-      id: 3,
-      lotNumber: '555555555',
-      description: 'Favorite item 1',
-      price: '45 000 грн',
-      image: '/images/Picture.png',
-      quantity: 2,
-    },
-    {
-      id: 4,
-      lotNumber: '666666666',
-      description: 'Favorite item 2',
-      price: '67 000 грн',
-      image: '/images/Picture.png',
-      quantity: 2,
-    },
-  ];
+  const dictionary = await getDictionary(params.lang);
 
-  const initialFavoriteItems = [
-    {
-      id: 1,
-      lotNumber: '123456789',
-      description: 'Lorem ipsum dolor sit amet',
-      price: '123 456 грн',
-      image: '/images/Picture.png',
-    },
-    {
-      id: 2,
-      lotNumber: '987654321',
-      description: 'Consectetur adipiscing elit',
-      price: '89 000 грн',
-      image: '/images/Picture.png',
-    },
-    {
-      id: 3,
-      lotNumber: '555555555',
-      description: 'Favorite item 1',
-      price: '45 000 грн',
-      image: '/images/Picture.png',
-    },
-    {
-      id: 4,
-      lotNumber: '666666666',
-      description: 'Favorite item 2',
-      price: '67 000 грн',
-      image: '/images/Picture.png',
-    },
-  ];
   return (
-    <html
-      lang={params.lang}
-      className={`${roboto.variable} ${montserrat.variable}`}
-    >
+    <html lang={params.lang} className={`${roboto.variable} ${montserrat.variable}`}>
       <head>
-        <script src="https://kit.fontawesome.com/44ddc9fabc.js" crossOrigin="anonymous" async />
+        <script
+          src="https://kit.fontawesome.com/44ddc9fabc.js"
+          crossOrigin="anonymous"
+          async
+        />
         <link
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
           rel="stylesheet"
         />
       </head>
       <body>
-        <PhoneIconModal dictionary={modalForm}/>
-        <Header
-          lang={params.lang}
-          dictionary={header}
-          initialCartItems={initialCartItems}
-          initialFavoriteItems={initialFavoriteItems}
-        />
-        {children}
-        <Footer dictionary={footer} />
+        <ClientWrapper lang={params.lang} dictionary={dictionary}>
+          {children}
+        </ClientWrapper>
       </body>
     </html>
   );

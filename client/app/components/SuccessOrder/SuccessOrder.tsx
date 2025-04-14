@@ -4,22 +4,30 @@ import styles from './SuccessOrder.module.css';
 import Link from 'next/link';
 import NavPath from '@/app/components/NavPath/NavPath';
 
+type Props = {
+  dictionary: any;
+};
 
-export default function SuccessOrderComponent() {
+export default function SuccessOrderComponent({ dictionary }: Props) {
   return (
     <div className={styles.successContainer}>
       <NavPath />
       <div className={styles.contentWrapper}>
         <div className={styles.successContent}>
-          <h1 className={styles.successTitle}><span>Спасибі</span> за покупку!</h1>
-          <p className={styles.orderNumber}>Замовлення №35262</p>
+          <h1 className={styles.successTitle}>
+            <span>{dictionary.thankYou}</span> {dictionary.forPurchase}
+          </h1>
+          <p className={styles.orderNumber}>
+            {dictionary.orderNumber.replace('{number}', '35262')}
+          </p>
           <p className={styles.priceInfo}>
-            У нас в магазині більш 32.000.000
-            запчастин, чекаємо Вас, ще.
-            З <i className="fa-solid fa-heart"></i> MotoAllegro
+            {dictionary.storeInfo.replace('{count}', '32.000.000')} <br />
+            {dictionary.comeBack}
+            <br />
+            {dictionary.withLove} <i className="fa-solid fa-heart"></i> MotoAllegro
           </p>
           <Link href="/catalog" className={styles.continueShoppingButton}>
-            Продовжити покупки
+            {dictionary.continueShopping}
           </Link>
         </div>
         <div className={styles.carImage}>

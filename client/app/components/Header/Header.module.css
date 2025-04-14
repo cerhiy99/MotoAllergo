@@ -237,6 +237,7 @@
 .burger {
   display: none;
 }
+
 .cartWrapper,
 .favoritesWrapper {
   position: relative;
@@ -244,11 +245,13 @@
   align-items: center;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
+
 .favoritesWrapper button:hover,
 .cartWrapper button:hover {
   transform: scale(1.1);
   opacity: 0.9;
 }
+
 .cartCount,
 .favoritesCount {
   position: absolute;
@@ -271,10 +274,12 @@
   align-items: center;
   justify-content: center;
 }
+
 .favoritesWrapper button:hover .favoritesCount,
 .cartWrapper button:hover .cartCount {
   transform: scale(1.2);
 }
+
 .cartModal,
 .favoritesModal {
   position: fixed;
@@ -327,26 +332,31 @@
 .favoritesModal:not(.open) .favoritesModalContent {
   animation: slideUpFadeOut 0.5s ease-in-out forwards;
 }
+
 @keyframes slideDownFadeIn {
   0% {
     transform: translateY(-50px) scale(0.9);
     opacity: 0;
   }
+
   100% {
     transform: translateY(0) scale(1);
     opacity: 1;
   }
 }
+
 @keyframes slideUpFadeOut {
   0% {
     transform: translateY(0) scale(1);
     opacity: 1;
   }
+
   100% {
     transform: translateY(-50px) scale(0.9);
     opacity: 0;
   }
 }
+
 .cartHeader,
 .favoritesHeader {
   display: flex;
@@ -373,13 +383,14 @@
   list-style: none;
   padding: 0;
   margin: 10px 0;
-  
+
   max-height: 50vh;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: rgba(14, 78, 210, 1) rgba(238, 238, 238, 1);
   padding-right: 10px;
 }
+
 .cartItems::-webkit-scrollbar,
 .favoritesItems::-webkit-scrollbar {
   width: 5px;
@@ -396,6 +407,7 @@
   background: rgba(14, 78, 210, 1);
   border-radius: 4px;
 }
+
 .cartItem,
 .favoritesItem {
   display: flex;
@@ -498,6 +510,21 @@
   text-decoration: none;
   font-size: 14px;
 }
+.cartItemDetails p,
+  .favoritesItemDetails p {
+    text-align: start;
+    margin-right: 10px;
+  }
+/*FOR LIST LINK*/
+.cartItemLinkWrapper,
+.favoritesItemLinkWrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
 @media (max-width: 501px) {
 
   .topBar,
@@ -577,6 +604,15 @@
     justify-content: center;
     align-items: center;
     gap: 15px;
+  }
+
+  .cartItemImage,
+  .favoritesItemImage {
+    width: 140px;
+    height: 110px;
+    object-fit: scale-down;
+    margin-right: 10px;
+    border-radius: 20px;
   }
 
   .navListElRef i {

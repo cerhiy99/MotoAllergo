@@ -14,66 +14,39 @@ import Heart from '../../assets/icons/heart.svg';
 import Cart from '../../assets/icons/cart.svg';
 import AnimatedInput from './AnimatedInput';
 import ModalForm from '../PhoneIconModal/ModalForm';
+import { useCartStore } from '@/store/cartStore';
 
 type Props = {
-  lang: any;
+  lang: string;
   dictionary: any;
-  initialCartItems: CartItem[];
-  initialFavoriteItems: FavoriteItem[];
 };
 
-interface CartItem {
-  id: number;
-  lotNumber: string;
-  description: string;
-  price: string;
-  image: string;
-  quantity: number;
-}
-
-interface FavoriteItem {
-  id: number;
-  lotNumber: string;
-  description: string;
-  price: string;
-  image: string;
-}
-
-const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Props) => {
+const Header = ({ lang, dictionary }: Props) => {
   const [isUa, setIsUa] = useState(lang === 'uk');
   const router = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<CartItem[]>(initialCartItems);
-  const [favoriteItems, setFavoriteItems] = useState<FavoriteItem[]>(initialFavoriteItems);
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
 
-  useEffect(() => {
-    const savedCart = localStorage.getItem('cartItems');
-    const savedFavorites = localStorage.getItem('favoriteItems');
-    if (savedCart) setCartItems(JSON.parse(savedCart));
-    if (savedFavorites) setFavoriteItems(JSON.parse(savedFavorites));
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-  }, [cartItems]);
-
-  useEffect(() => {
-    localStorage.setItem('favoriteItems', JSON.stringify(favoriteItems));
-  }, [favoriteItems]);
+  const {
+    cart,
+    wishlist,
+    removeFromCart,
+    removeFromWishlist,
+    updateCartQuantity,
+  } = useCartStore();
 
   useEffect(() => {
     const header = document.querySelector(`.${styles.mobileHeader}`) as HTMLElement;
     if (header) {
       if (isBurgerOpen) {
-        header.style.display = "none";
+        header.style.display = 'none';
       } else {
         if (window.innerWidth <= 501) {
-          header.style.display = "flex";
+          header.style.display = 'flex';
         }
       }
     }
@@ -102,25 +75,11 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
     setIsFavoritesOpen((prev) => !prev);
   };
 
-  const removeFromCart = (id: number) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  const updateQuantity = (id: string, delta: number) => {
+    updateCartQuantity(id, delta);
   };
 
-  const removeFromFavorites = (id: number) => {
-    setFavoriteItems((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  const updateQuantity = (id: number, delta: number) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-          : item
-      )
-    );
-  };
-
-  const totalPrice = cartItems.reduce(
+  const totalPrice = cart.reduce(
     (total, item) =>
       total + parseFloat(item.price.replace(/[^0-9.]/g, '')) * item.quantity,
     0
@@ -239,16 +198,16 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
           <div className={styles.favoritesWrapper}>
             <button onClick={toggleFavorites} aria-label="Favorites">
               <Heart />
-              {favoriteItems.length > 0 && (
-                <span className={styles.favoritesCount}>{favoriteItems.length}</span>
+              {wishlist.length > 0 && (
+                <span className={styles.favoritesCount}>{wishlist.length}</span>
               )}
             </button>
           </div>
           <div className={styles.cartWrapper}>
             <button onClick={toggleCart} aria-label="Cart">
               <Cart />
-              {cartItems.length > 0 && (
-                <span className={styles.cartCount}>{cartItems.length}</span>
+              {cart.length > 0 && (
+                <span className={styles.cartCount}>{cart.length}</span>
               )}
             </button>
           </div>
@@ -270,16 +229,16 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
           <div className={styles.favoritesWrapper}>
             <button onClick={toggleFavorites} aria-label="Favorites">
               <Heart />
-              {favoriteItems.length > 0 && (
-                <span className={styles.favoritesCount}>{favoriteItems.length}</span>
+              {wishlist.length > 0 && (
+                <span className={styles.favoritesCount}>{wishlist.length}</span>
               )}
             </button>
           </div>
           <div className={styles.cartWrapper}>
             <button onClick={toggleCart} aria-label="Cart">
               <Cart />
-              {cartItems.length > 0 && (
-                <span className={styles.cartCount}>{cartItems.length}</span>
+              {cart.length > 0 && (
+                <span className={styles.cartCount}>{cart.length}</span>
               )}
             </button>
           </div>
@@ -385,45 +344,64 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
       </div>
 
       {isCartOpen && (
-        <div className={`${styles.cartModal} ${isCartOpen ? styles.open : ''}`} onClick={(e) => handleOutsideClick(e, 'cart')}>
+        <div
+          className={`${styles.cartModal} ${isCartOpen ? styles.open : ''}`}
+          onClick={(e) => handleOutsideClick(e, 'cart')}
+        >
           <div className={styles.cartModalContent}>
             <div className={styles.cartHeader}>
-              <h3>{dictionary.cartTitle} ({cartItems.length})</h3>
+              <h3>{dictionary.cartTitle} ({cart.length})</h3>
               <button onClick={toggleCart} className={styles.closeButton}>
                 <i className="fa-solid fa-xmark"></i>
               </button>
             </div>
-            {cartItems.length === 0 ? (
+            {cart.length === 0 ? (
               <p>{dictionary.cartEmpty}</p>
             ) : (
               <>
                 <ul className={styles.cartItems}>
-                  {cartItems.map((item) => (
+                  {cart.map((item) => (
                     <li key={item.id} className={styles.cartItem}>
-                      <img
-                        src={item.image}
-                        alt={item.description}
-                        className={styles.cartItemImage}
-                      />
-                      <div className={styles.cartItemDetails}>
-                        <p className={styles.cartItemLot}>
-                          {dictionary.lotNumber}: {item.lotNumber}
-                        </p>
-                        <p className={styles.cartItemDescription}>{item.description}</p>
-                        <p className={styles.cartItemPrice}>{item.price}</p>
-                        <div className={styles.quantityControls}>
-                          <button
-                            onClick={() => updateQuantity(item.id, -1)}
-                            disabled={item.quantity === 1}
-                          >
-                            -
-                          </button>
-                          <span>{item.quantity}</span>
-                          <button onClick={() => updateQuantity(item.id, 1)}>+</button>
+                      <Link href={`/catalog/${item.id}`} onClick={() => setIsCartOpen(false)}>
+                        <div className={styles.cartItemLinkWrapper}>
+                          <img
+                            src={`http://45.94.156.193:9085/${item.image}`}
+                            alt={item.name}
+                            className={styles.cartItemImage}
+                          />
+                          <div className={styles.cartItemDetails}>
+                            <p className={styles.cartItemDescription}>{item.name}</p>
+                            <p className={styles.cartItemPrice}>{item.price}</p>
+                            <div className={styles.quantityControls}>
+                              <button
+                                onClick={(e) => {
+                                  e.preventDefault(); // Запобігаємо переходу
+                                  e.stopPropagation(); // Зупиняємо поширення події
+                                  updateQuantity(item.id, -1); // Зменшуємо кількість
+                                }}
+                                disabled={item.quantity === 1}
+                              >
+                                -
+                              </button>
+                              <span>{item.quantity}</span>
+                              <button
+                                onClick={(e) => {
+                                  e.preventDefault(); // Запобігаємо переходу
+                                  e.stopPropagation(); // Зупиняємо поширення події
+                                  updateQuantity(item.id, 1); // Збільшуємо кількість
+                                }}
+                              >
+                                +
+                              </button>
+                            </div>
+                          </div>
                         </div>
-                      </div>
+                      </Link>
                       <button
-                        onClick={() => removeFromCart(item.id)}
+                        onClick={(e) => {
+                          e.stopPropagation(); // Зупиняємо поширення для кнопки видалення
+                          removeFromCart(item.id);
+                        }}
                         className={styles.removeButton}
                       >
                         <i className="fa-regular fa-trash-can"></i>
@@ -447,34 +425,38 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
       )}
 
       {isFavoritesOpen && (
-        <div className={`${styles.favoritesModal} ${isFavoritesOpen ? styles.open : ''}`} onClick={(e) => handleOutsideClick(e, 'favorites')}>
+        <div
+          className={`${styles.favoritesModal} ${isFavoritesOpen ? styles.open : ''}`}
+          onClick={(e) => handleOutsideClick(e, 'favorites')}
+        >
           <div className={styles.favoritesModalContent}>
             <div className={styles.favoritesHeader}>
-              <h3>{dictionary.favoritesTitle} ({favoriteItems.length})</h3>
+              <h3>{dictionary.favoritesTitle} ({wishlist.length})</h3>
               <button onClick={toggleFavorites} className={styles.closeButton}>
                 <i className="fa-solid fa-xmark"></i>
               </button>
             </div>
-            {favoriteItems.length === 0 ? (
+            {wishlist.length === 0 ? (
               <p>{dictionary.favoritesEmpty}</p>
             ) : (
               <ul className={styles.favoritesItems}>
-                {favoriteItems.map((item) => (
+                {wishlist.map((item) => (
                   <li key={item.id} className={styles.favoritesItem}>
-                    <img
-                      src={item.image}
-                      alt={item.description}
-                      className={styles.favoritesItemImage}
-                    />
-                    <div className={styles.favoritesItemDetails}>
-                      <p className={styles.favoritesItemLot}>
-                        {dictionary.lotNumber}: {item.lotNumber}
-                      </p>
-                      <p className={styles.favoritesItemDescription}>{item.description}</p>
-                      <p className={styles.favoritesItemPrice}>{item.price}</p>
-                    </div>
+                    <Link href={`/catalog/${item.id}`} onClick={() => setIsFavoritesOpen(false)}>
+                      <div className={styles.favoritesItemLinkWrapper}>
+                        <img
+                          src={`http://45.94.156.193:9085/${item.image}`}
+                          alt={item.name}
+                          className={styles.favoritesItemImage}
+                        />
+                        <div className={styles.favoritesItemDetails}>
+                          <p className={styles.favoritesItemDescription}>{item.name}</p>
+                          <p className={styles.favoritesItemPrice}>{item.price}</p>
+                        </div>
+                      </div>
+                    </Link>
                     <button
-                      onClick={() => removeFromFavorites(item.id)}
+                      onClick={() => removeFromWishlist(item.id)}
                       className={styles.removeButton}
                     >
                       <i className="fa-regular fa-trash-can"></i>
@@ -483,7 +465,7 @@ const Header = ({ lang, dictionary, initialCartItems, initialFavoriteItems }: Pr
                 ))}
               </ul>
             )}
-            {favoriteItems.length > 0 && (
+            {wishlist.length > 0 && (
               <div className={styles.favoritesFooter}>
                 <Link
                   href="#"

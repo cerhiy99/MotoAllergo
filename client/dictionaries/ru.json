@@ -481,5 +481,66 @@
     "lotNumberLabel": "Номер лота:",
     "addToCart": "В кошик",
     "loadMoreButton": "Показати ще"
+  },
+  "productContent": {
+    "title": "{name}",
+    "inStock": "В наявності",
+    "price": "{price} грн.",
+    "wishlist": {
+      "add": "Додати до переліку побажань",
+      "remove": "Видалити зі списку бажань",
+      "notificationAdd": "Товар додано до списку бажань",
+      "notificationRemove": "Товар видалено зі списку бажань"
+    },
+    "actions": {
+      "buy": "Купити",
+      "inCart": "У кошику",
+      "oneClick": "Купити в 1-клік",
+      "cartNotification": "Товар додано до кошика"
+    },
+    "infoSections": {
+      "delivery": {
+        "title": "Доставка",
+        "items": [
+          "Доставка: 3-7 робочих днів",
+          "Доставка по Україні: Нова Пошта"
+        ]
+      },
+      "warrantyAndSafety": {
+        "title": "Гарантія та безпека",
+        "guarantee": "Ми гарантуємо: безпеку угоди!",
+        "items": [
+          "Надамо розрахунковий рахунок юридичної особи",
+          "Надамо документи підприємця"
+        ]
+      },
+      "advantages": {
+        "title": "Наші переваги",
+        "items": [
+          "Широкий асортимент",
+          "Найкраща ціна"
+        ]
+      }
+    },
+    "features": {
+      "title": "Оригінальний опис"
+    },
+    "modal": {
+      "title": "Купити в 1-клік",
+      "nameLabel": "Ваше ім'я",
+      "phoneLabel": "Телефон",
+      "required": "*",
+      "phoneError": "Номер телефону має починатися з +380, 380 або 0 і містити 9 цифр після коду",
+      "submitButton": "Відправити"
+    },
+    "successOrder": {
+      "thankYou": "Спасибі",
+      "forPurchase": "за покупку!",
+      "orderNumber": "Замовлення №{number}",
+      "storeInfo": "У нас в магазині більш {count} запчастин",
+      "comeBack": "чекаємо Вас ще.",
+      "withLove": "З",
+      "continueShopping": "Продовжити покупки"
+    }
   }
 }
