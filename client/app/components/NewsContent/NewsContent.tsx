@@ -1,9 +1,7 @@
-'use client';
-
-import { useState, useEffect, useRef } from 'react';
 import styles from './NewsContent.module.css';
 import Link from 'next/link';
 import NavPath from '@/app/components/NavPath/NavPath';
+import { Locale } from '@/i18n.config';
 
 type NewsItem = [string, string];
 type NewsDictionary = {
@@ -15,14 +13,22 @@ type NewsDictionary = {
 
 type Props = {
   dictionary: NewsDictionary;
+  currentNews: {
+    id: number;
+    nameuk: string;
+    nameru: string;
+    descriptionuk: string;
+    descriptionru: string;
+  }[];
+  lang: Locale;
 };
 
-const NewsContent = ({ dictionary }: Props) => {
+const NewsContent = ({ dictionary, currentNews, lang }: Props) => {
   const newsPerPage = 12;
   const newsList = dictionary.news.news;
   const totalPages = Math.ceil(newsList.length / newsPerPage);
 
-  const [currentPage, setCurrentPage] = useState(1);
+  /*const [currentPage, setCurrentPage] = useState(1);
   const [isInitialized, setIsInitialized] = useState(false); 
   const sectionRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<HTMLLIElement[]>([]);
@@ -42,26 +48,26 @@ const NewsContent = ({ dictionary }: Props) => {
           }, index * 150);
         }
       });
-    };
+    };*/
 
-    const handleMouseEnter = (item: HTMLLIElement) => {
-      item.style.transform = 'scale(1.03)';
-      const line = item.querySelector(`.${styles.line}`) as HTMLElement;
-      if (line) {
-        line.style.width = '50%';
-      }
-    };
+  const handleMouseEnter = (item: HTMLLIElement) => {
+    item.style.transform = 'scale(1.03)';
+    const line = item.querySelector(`.${styles.line}`) as HTMLElement;
+    if (line) {
+      line.style.width = '50%';
+    }
+  };
 
-    const handleMouseLeave = (item: HTMLLIElement) => {
-      item.style.transform = 'scale(1)';
-      item.style.boxShadow = 'none';
-      const line = item.querySelector(`.${styles.line}`)as HTMLElement;
-      if (line) {
-        line.style.width = '25%';
-      }
-    };
+  const handleMouseLeave = (item: HTMLLIElement) => {
+    item.style.transform = 'scale(1)';
+    item.style.boxShadow = 'none';
+    const line = item.querySelector(`.${styles.line}`) as HTMLElement;
+    if (line) {
+      line.style.width = '25%';
+    }
+  };
 
-    itemsRef.current.forEach((item) => {
+  /*itemsRef.current.forEach((item) => {
       if (item) {
         item.addEventListener('mouseenter', () => handleMouseEnter(item));
         item.addEventListener('mouseleave', () => handleMouseLeave(item));
@@ -117,48 +123,27 @@ const NewsContent = ({ dictionary }: Props) => {
   };
 
   const startIndex = (currentPage - 1) * newsPerPage;
-  const currentNews = newsList.slice(startIndex, startIndex + newsPerPage);
+  const currentNews = newsList.slice(startIndex, startIndex + newsPerPage);*/
+
+  console.log(2343, currentNews);
 
   return (
-    <div ref={sectionRef} className={styles.newsWrapper}>
+    <div className={styles.newsWrapper}>
       <NavPath />
       <h1 className={styles.newsTitle}>{dictionary.news.title}</h1>
-      <ul className={`${styles.newsList} ${!isInitialized ? styles.hidden : ''}`}>
-        {currentNews.map(([title, content], index) => (
-          <li key={index} ref={addToRefs} className={styles.newsEl}>
-            <Link href={`/news/${index + 1}`}>
-              <h2>{title}</h2>
+      <ul className={styles.newsList}>
+        {currentNews.map((x) => (
+          <li key={x.id} className={styles.newsEl}>
+            <Link href={`/news/${x.id}`}>
+              <h2>{x[`name${lang}`]}</h2>
               <div className={styles.line}></div>
-              <p>{content}</p>
+              <p
+                dangerouslySetInnerHTML={{ __html: x[`description${lang}`] }}
+              ></p>
             </Link>
           </li>
         ))}
       </ul>
-      <div className={styles.pagination}>
-        <button
-          className={`${styles.pageButton} ${currentPage === 1 ? styles.disabled : ''}`}
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          «
-        </button>
-        {[...Array(totalPages)].map((_, i) => (
-          <button
-            key={i}
-            className={`${styles.pageNumber} ${currentPage === i + 1 ? styles.active : ''}`}
-            onClick={() => handlePageChange(i + 1)}
-          >
-            {i + 1}
-          </button>
-        ))}
-        <button
-          className={`${styles.pageButton} ${currentPage === totalPages ? styles.disabled : ''}`}
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          »
-        </button>
-      </div>
     </div>
   );
 };

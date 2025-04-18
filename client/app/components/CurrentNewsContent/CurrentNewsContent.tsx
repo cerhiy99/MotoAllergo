@@ -1,10 +1,8 @@
-'use client';
-
-import { useState } from 'react';
 import styles from './CurrentNewsContent.module.css';
 import { Locale } from '@/i18n.config';
 import Image from 'next/image';
 import NavPath from '@/app/components/NavPath/NavPath';
+import ListImgs from '../listImgs/ListImgs';
 
 type News = {
   title: string;
@@ -14,13 +12,16 @@ type News = {
 };
 
 type NewsDetailProps = {
-  news: News;
+  news: any;
   dictionary: any;
   lang: Locale;
 };
 
-const CurrentNewsContent: React.FC<NewsDetailProps> = ({ news, dictionary, lang }) => {
-
+const CurrentNewsContent: React.FC<NewsDetailProps> = ({
+  news,
+  dictionary,
+  lang,
+}) => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = {
@@ -31,39 +32,27 @@ const CurrentNewsContent: React.FC<NewsDetailProps> = ({ news, dictionary, lang 
     return date.toLocaleDateString('uk-UA', options);
   };
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const additionalImages = news.imagePaths.slice(1);
-  const visibleImages = 3;
-
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex + visibleImages >= additionalImages.length ? 0 : prevIndex + 1
-    );
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? Math.max(0, additionalImages.length - visibleImages) : prevIndex - 1
-    );
-  };
-
   return (
     <div className={styles.newsDetail}>
-      <NavPath />
-
+      {
+        //<NavPath />
+      }
       <div className={styles.firstImgWrapper}>
-        {news.imagePaths.length > 0 && (
+        {news.blogImgs.length > 0 && (
           <img
             className={styles.firstImage}
-            src={news.imagePaths[0]}
+            src={process.env.NEXT_PUBLIC_SERVER + news.blogImgs[0].src}
             alt={`${news.title} - головне фото`}
           />
         )}
       </div>
-      {additionalImages.length > 0 && (
+      <ListImgs news={news} />
+      {/*  {additionalImages.length > 0 && (
         <div className={styles.newsImages}>
-          <button className={`${styles.sliderButton} ${styles.prev}`} onClick={prevSlide}>
+          <button
+            className={`${styles.sliderButton} ${styles.prev}`}
+            onClick={prevSlide}
+          >
             ❮
           </button>
 
@@ -82,19 +71,22 @@ const CurrentNewsContent: React.FC<NewsDetailProps> = ({ news, dictionary, lang 
               ))}
             </div>
           </div>
-          <button className={`${styles.sliderButton} ${styles.next}`} onClick={nextSlide}>
+          <button
+            className={`${styles.sliderButton} ${styles.next}`}
+            onClick={nextSlide}
+          >
             ❯
           </button>
         </div>
-      )}
+      )}*/}
 
-      <h1 className={styles.newsTitle}>{news.title}</h1>
+      <h1 className={styles.newsTitle}>{news[`name${lang}`]}</h1>
       <div className={styles.newsMeta}>
         <i className="fa-regular fa-calendar-days"></i>
         <p>Дата публікації: {formatDate(news.createdAt)}</p>
       </div>
       <div className={styles.newsContent}>
-        <p>{news.content}</p>
+        <p dangerouslySetInnerHTML={{ __html: news[`description${lang}`] }} />
       </div>
     </div>
   );
