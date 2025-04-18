@@ -10,8 +10,8 @@ const generateStaticParams = () => {
 };
 
 const getData = async (id: number) => {
-  const response = await fetch('', { next: { revalidate: 360 } })
-}
+  const response = await fetch('', { next: { revalidate: 360 } });
+};
 
 const page = async ({ params: { lang, id } }: Props) => {
   const blog = await getData(id);
