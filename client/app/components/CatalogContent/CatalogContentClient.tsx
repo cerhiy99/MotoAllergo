@@ -4,22 +4,25 @@ import { useState, useEffect, useRef } from 'react';
 import styles from './CatalogContent.module.css';
 import NavPath from '@/app/components/NavPath/NavPath';
 import { useRouter } from 'next/navigation';
+import { $host } from '@/app/http';
+import { Locale } from '@/i18n.config';
+import Pagination from './Pagination';
 
 interface Product {
   id: number;
-  lotNumber: string;
-  description: string;
-  price: string;
-  image: string;
-  category?: string;
+  nameuk: string;
+  nameru: string;
+  price: number;
+  imgs: {
+    id: number;
+    src: string;
+  }[];
 }
-
 
 type CatalogContentClientProps = {
   dictionary: any;
-  products: Product[];
-  totalPages: number;
   searchParams: any; // Add this line
+  lang: Locale;
 };
 const parseQueryParam = (
   param: string | string[] | undefined,
@@ -61,8 +64,7 @@ const createQueryString = (
 const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
   dictionary,
   searchParams,
-  products,
-  totalPages,
+  lang,
 }) => {
   const router = useRouter();
   const [isUa] = useState<boolean>(true);
@@ -89,20 +91,24 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
   const [selectedSort, setSelectedSort] = useState<string>(
     searchParams.sort || dictionary.sortOptions.popularity
   );
-  const [currentPage, setCurrentPage] = useState<number>(
-    parseInt((searchParams.page as string) || '1', 10)
-  );
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [totalPages, setTotalPages] = useState<number>(1);
   const [favoriteItems, setFavoriteItems] = useState<{
     [key: number]: boolean;
   }>({});
-  const [activeSection, setActiveSection] = useState<'filter' | 'sort' | null>(null);
+  const [activeSection, setActiveSection] = useState<'filter' | 'sort' | null>(
+    null
+  );
   const itemsRef = useRef<HTMLLIElement[]>([]);
   const categoryItemsRef = useRef<HTMLLIElement[]>([]);
 
   useEffect(() => {
     const handleProductMouseEnter = (item: HTMLLIElement) => {
       item.style.transform = 'scale(1.03)';
-      const image = item.querySelector(`.${styles.productsImage}`) as HTMLElement;
+      const image = item.querySelector(
+        `.${styles.productsImage}`
+      ) as HTMLElement;
       if (image) {
         image.style.transform = 'scale(1.05)';
       }
@@ -110,7 +116,9 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
 
     const handleProductMouseLeave = (item: HTMLLIElement) => {
       item.style.transform = 'scale(1)';
-      const image = item.querySelector(`.${styles.productsImage}`) as HTMLElement;
+      const image = item.querySelector(
+        `.${styles.productsImage}`
+      ) as HTMLElement;
       if (image) {
         image.style.transform = 'scale(1)';
       }
@@ -134,29 +142,45 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
 
     itemsRef.current.forEach((item) => {
       if (item) {
-        item.addEventListener('mouseenter', () => handleProductMouseEnter(item));
-        item.addEventListener('mouseleave', () => handleProductMouseLeave(item));
+        item.addEventListener('mouseenter', () =>
+          handleProductMouseEnter(item)
+        );
+        item.addEventListener('mouseleave', () =>
+          handleProductMouseLeave(item)
+        );
       }
     });
 
     categoryItemsRef.current.forEach((item) => {
       if (item) {
-        item.addEventListener('mouseenter', () => handleCategoryMouseEnter(item));
-        item.addEventListener('mouseleave', () => handleCategoryMouseLeave(item));
+        item.addEventListener('mouseenter', () =>
+          handleCategoryMouseEnter(item)
+        );
+        item.addEventListener('mouseleave', () =>
+          handleCategoryMouseLeave(item)
+        );
       }
     });
 
     return () => {
       itemsRef.current.forEach((item) => {
         if (item) {
-          item.removeEventListener('mouseenter', () => handleProductMouseEnter(item));
-          item.removeEventListener('mouseleave', () => handleProductMouseLeave(item));
+          item.removeEventListener('mouseenter', () =>
+            handleProductMouseEnter(item)
+          );
+          item.removeEventListener('mouseleave', () =>
+            handleProductMouseLeave(item)
+          );
         }
       });
       categoryItemsRef.current.forEach((item) => {
         if (item) {
-          item.removeEventListener('mouseenter', () => handleCategoryMouseEnter(item));
-          item.removeEventListener('mouseleave', () => handleCategoryMouseLeave(item));
+          item.removeEventListener('mouseenter', () =>
+            handleCategoryMouseEnter(item)
+          );
+          item.removeEventListener('mouseleave', () =>
+            handleCategoryMouseLeave(item)
+          );
         }
       });
     };
@@ -257,15 +281,6 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
     updateQueryString({ sort: option });
   };
 
-  const handlePageChange = (page: number) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
-      itemsRef.current = [];
-      categoryItemsRef.current = [];
-      updateQueryString({ page: page.toString() });
-    }
-  };
-
   const addToProductRefs = (el: HTMLLIElement) => {
     if (el && !itemsRef.current.includes(el)) {
       itemsRef.current.push(el);
@@ -280,10 +295,30 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
 
   const ITEMS_PER_PAGE = 6;
   const totalCalculatedPages = Math.ceil(products.length / ITEMS_PER_PAGE);
-  const paginatedProducts = products.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  );
+
+  const getProducts = async () => {
+    try {
+      console.log(`product/getListProduct?page=${currentPage}&limit=12`);
+      const res = await $host.get(
+        `product/getListProduct?page=${currentPage}&limit=12`
+      );
+      console.log(res);
+      setProducts(res.data.productList);
+      setTotalPages(res.data.totalPages);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, [currentPage]);
+
+  const [totalItems, setTotalItems] = useState(0);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className={styles.catalog}>
@@ -305,7 +340,9 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
                   </div>
                   <i
                     className={`fa-solid fa-chevron-down ${
-                      activeSection === 'filter' ? styles.rotateChevron : styles.rotateChevronBack
+                      activeSection === 'filter'
+                        ? styles.rotateChevron
+                        : styles.rotateChevronBack
                     }`}
                   ></i>
                 </div>
@@ -323,7 +360,9 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
                   </div>
                   <i
                     className={`fa-solid fa-chevron-down ${
-                      activeSection === 'sort' ? styles.rotateChevron : styles.rotateChevronBack
+                      activeSection === 'sort'
+                        ? styles.rotateChevron
+                        : styles.rotateChevronBack
                     }`}
                   ></i>
                 </div>
@@ -368,7 +407,9 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
                       >
                         <i
                           className={`fa-solid fa-chevron-down ${
-                            dropdowns[index] ? styles.rotateChevron : styles.rotateChevronBack
+                            dropdowns[index]
+                              ? styles.rotateChevron
+                              : styles.rotateChevronBack
                           }`}
                         ></i>
                       </div>
@@ -418,7 +459,9 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
                       name="sort"
                       value="popular"
                       defaultChecked
-                      onChange={() => handleSortSelect(dictionary.sortOptions.popularity)}
+                      onChange={() =>
+                        handleSortSelect(dictionary.sortOptions.popularity)
+                      }
                     />
                     <label htmlFor="popular">{dictionary.sortPopular}</label>
                   </div>
@@ -428,7 +471,9 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
                       id="cheapest"
                       name="sort"
                       value="cheapest"
-                      onChange={() => handleSortSelect(dictionary.sortOptions.priceLowToHigh)}
+                      onChange={() =>
+                        handleSortSelect(dictionary.sortOptions.priceLowToHigh)
+                      }
                     />
                     <label htmlFor="cheapest">{dictionary.sortCheapest}</label>
                   </div>
@@ -438,9 +483,13 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
                       id="expensive"
                       name="sort"
                       value="expensive"
-                      onChange={() => handleSortSelect(dictionary.sortOptions.priceHighToLow)}
+                      onChange={() =>
+                        handleSortSelect(dictionary.sortOptions.priceHighToLow)
+                      }
                     />
-                    <label htmlFor="expensive">{dictionary.sortExpensive}</label>
+                    <label htmlFor="expensive">
+                      {dictionary.sortExpensive}
+                    </label>
                   </div>
                 </div>
                 <div className={styles.filterSection}>
@@ -456,9 +505,14 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
                           onChange={(e) => {
                             const newCategories = e.target.checked
                               ? [...activeCategories, 'used']
-                              : activeCategories.filter((cat) => cat !== 'used');
+                              : activeCategories.filter(
+                                  (cat) => cat !== 'used'
+                                );
                             setActiveCategories(newCategories);
-                            setCheckedCategories((prev) => ({ ...prev, used: e.target.checked }));
+                            setCheckedCategories((prev) => ({
+                              ...prev,
+                              used: e.target.checked,
+                            }));
                             updateQueryString({ categories: newCategories });
                           }}
                         />
@@ -477,7 +531,10 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
                               ? [...activeCategories, 'new']
                               : activeCategories.filter((cat) => cat !== 'new');
                             setActiveCategories(newCategories);
-                            setCheckedCategories((prev) => ({ ...prev, new: e.target.checked }));
+                            setCheckedCategories((prev) => ({
+                              ...prev,
+                              new: e.target.checked,
+                            }));
                             updateQueryString({ categories: newCategories });
                           }}
                         />
@@ -532,7 +589,9 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
                     >
                       <i
                         className={`fa-solid fa-chevron-down ${
-                          dropdowns[index] ? styles.rotateChevron : styles.rotateChevronBack
+                          dropdowns[index]
+                            ? styles.rotateChevron
+                            : styles.rotateChevronBack
                         }`}
                       ></i>
                     </div>
@@ -569,7 +628,9 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
               {dictionary.categoriesTitle}
               <i
                 className={`fa-solid fa-chevron-down ${
-                  isCategoriesOpen ? styles.rotateChevron : styles.rotateChevronBack
+                  isCategoriesOpen
+                    ? styles.rotateChevron
+                    : styles.rotateChevronBack
                 }`}
                 onClick={toggleCategories}
               ></i>
@@ -631,7 +692,9 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
                   {selectedSort}
                   <i
                     className={`fa-solid fa-chevron-down ${
-                      isSortDropdownOpen ? styles.rotateChevron : styles.rotateChevronBack
+                      isSortDropdownOpen
+                        ? styles.rotateChevron
+                        : styles.rotateChevronBack
                     }`}
                   ></i>
                 </button>
@@ -640,7 +703,9 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
                     {sortOptions.map((option) => (
                       <p
                         key={option}
-                        className={`${styles.sortOption} ${selectedSort === option ? styles.activeSort : ''}`}
+                        className={`${styles.sortOption} ${
+                          selectedSort === option ? styles.activeSort : ''
+                        }`}
                         onClick={() => handleSortSelect(option)}
                       >
                         {option}
@@ -651,82 +716,40 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
               </div>
             </div>
           </div>
-          <div className={styles.productsByCategories}>
-            <h2 className={styles.productsByCategoriesTitle}>
-              {dictionary.productsByCategoriesTitle}
-            </h2>
-            <p className={styles.productsByCategoriesPara}>
-              {dictionary.productsByCategoriesPara}
-            </p>
-            <ul className={styles.productsByCategoriesList}>
-              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
-                <img src="/images/Picture.png" alt="" />
-                <p>Webasto</p>
-              </li>
-              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
-                <img src="/images/Picture.png" alt="" />
-                <p>Webasto</p>
-              </li>
-              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
-                <img src="/images/Picture.png" alt="" />
-                <p>Webasto</p>
-              </li>
-              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
-                <img src="/images/Picture.png" alt="" />
-                <p>Webasto</p>
-              </li>
-              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
-                <img src="/images/Picture.png" alt="" />
-                <p>Webasto</p>
-              </li>
-              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
-                <img src="/images/Picture.png" alt="" />
-                <p>Webasto</p>
-              </li>
-              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
-                <img src="/images/Picture.png" alt="" />
-                <p>Webasto</p>
-              </li>
-              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
-                <img src="/images/Picture.png" alt="" />
-                <p>Webasto</p>
-              </li>
-              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
-                <img src="/images/Picture.png" alt="" />
-                <p>Webasto</p>
-              </li>
-              <li ref={addToCategoryRefs} className={styles.productsByCategoriesEl}>
-                <img src="/images/Picture.png" alt="" />
-                <p>Webasto</p>
-              </li>
-            </ul>
-          </div>
+          <br />
           <ul className={styles.productsList}>
-            {paginatedProducts.map((product) => (
+            {products.map((product) => (
               <li
+                onClick={() => router.push(`/${lang}/catalog/${product.id}`)}
                 key={product.id}
                 ref={addToProductRefs}
                 className={styles.productsEL}
               >
                 <div className={styles.productImageWrapper}>
-                  <img
-                    className={styles.productsImage}
-                    src={product.image}
-                    alt=""
-                  />
+                  {product.imgs.length > 0 && (
+                    <img
+                      className={styles.productsImage}
+                      src={process.env.NEXT_PUBLIC_SERVER + product.imgs[0].src}
+                      alt=""
+                    />
+                  )}
                   <i
-                    className={`fa-${favoriteItems[product.id] ? 'solid' : 'regular'} fa-heart ${
+                    className={`fa-${
+                      favoriteItems[product.id] ? 'solid' : 'regular'
+                    } fa-heart ${
                       favoriteItems[product.id] ? styles.active : ''
                     }`}
                     onClick={() => handleFavoriteClick(product.id)}
                   ></i>
                 </div>
                 <p className={styles.productsPara}>
-                  <span>{dictionary.lotNumberLabel}</span> {product.lotNumber}
+                  <span>{dictionary.lotNumberLabel}</span> {product.id}
                 </p>
-                <p className={styles.productsPara}>{product.description}</p>
+
+                <p className={styles.productsPara}>{product[`name${lang}`]}</p>
+
                 <div className={styles.productsPriceWrapper}>
-                  <p className={styles.pricePara}>{product.price}</p>
+                  <p className={styles.pricePara}>{product.price} грн</p>
                   <button className={styles.priceButton}>
                     <i className="fa-solid fa-bag-shopping"></i>
                     {dictionary.addToCart}
@@ -738,29 +761,7 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
         </div>
       </div>
       <div className={styles.pagination}>
-        <button
-          className={`${styles.pageButton} ${currentPage === 1 ? styles.disabled : ''}`}
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          «
-        </button>
-        {[...Array(totalPages)].map((_, i) => (
-          <button
-            key={i}
-            className={`${styles.pageNumber} ${currentPage === i + 1 ? styles.active : ''}`}
-            onClick={() => handlePageChange(i + 1)}
-          >
-            {i + 1}
-          </button>
-        ))}
-        <button
-          className={`${styles.pageButton} ${currentPage === totalPages ? styles.disabled : ''}`}
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          »
-        </button>
+        <Pagination totalPages={totalPages} onPageChange={handlePageChange} />
       </div>
     </div>
   );

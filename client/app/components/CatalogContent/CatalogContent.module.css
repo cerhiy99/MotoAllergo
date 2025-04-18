@@ -10,20 +10,19 @@
   align-items: self-start;
 }
 
-
 .mobileSideBarWrapper {
   display: none;
 }
 
 .filtersWrapper {
-  border: 1px solid #CDD0D1;
+  border: 1px solid #cdd0d1;
   border-radius: 5px;
   padding: 15px 10px;
   min-width: 300px;
 }
 
 .filtersTitleWrapper i {
-  color: #0E4ED2;
+  color: #0e4ed2;
 }
 
 .filterParts {
@@ -55,7 +54,7 @@
   border-radius: 15px;
   padding: 5px 10px;
   position: relative;
-  border: 1px solid #CDD0D1;
+  border: 1px solid #cdd0d1;
 }
 
 .filterElPara {
@@ -77,7 +76,6 @@
   border-right: 2px solid #0e4ed2;
   color: #0e4ed2;
 }
-
 
 .filterElIconWrapper {
   width: 35px;
@@ -127,11 +125,11 @@
 }
 
 .filterElIconWrapper.chosen {
-  border: 2px solid #00CE18;
+  border: 2px solid #00ce18;
 }
 
 .filterElIconWrapper.chosen i {
-  background-color: #00CE18;
+  background-color: #00ce18;
 }
 
 .chosen .filterElPara {
@@ -139,10 +137,9 @@
 }
 
 .chosen .filterElNumber {
-  border-right: 2px solid #00CE18;
+  border-right: 2px solid #00ce18;
   color: #000;
 }
-
 
 .filterElButton.chosen {
   opacity: 1;
@@ -184,12 +181,11 @@
   background: #f5f5f5;
 }
 
-
 .categoriesWrapper {
   width: 100%;
   margin-top: 30px;
   padding: 0 5px 30px 0;
-  border-bottom: 1px solid #E4E7E9;
+  border-bottom: 1px solid #e4e7e9;
 }
 
 .categoriesTitleWrapper {
@@ -228,18 +224,18 @@
   color: #475156;
 }
 
-.categoriesEl input[type="checkbox"] {
+.categoriesEl input[type='checkbox'] {
   width: 20px;
   height: 20px;
   appearance: none;
-  border: 2px solid #E4E7E9;
+  border: 2px solid #e4e7e9;
   border-radius: 1px;
   position: relative;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.categoriesEl input[type="checkbox"]::after {
+.categoriesEl input[type='checkbox']::after {
   content: '✓';
   color: white;
   font-size: 12px;
@@ -250,16 +246,15 @@
   transform: translate(-50%, -50%);
 }
 
-.categoriesEl input[type="checkbox"]:checked {
-  background-color: #0E4ED2;
-  border: 2px solid #0E4ED2;
+.categoriesEl input[type='checkbox']:checked {
+  background-color: #0e4ed2;
+  border: 2px solid #0e4ed2;
   border-radius: 2px;
 }
 
 .categoriesEl:not(:last-child) {
   margin-bottom: 5px;
 }
-
 
 .catalogMainContent {
   flex-grow: 1;
@@ -282,7 +277,7 @@
 }
 
 .activeFiltersWrapper p {
-  color: #797F8B;
+  color: #797f8b;
   white-space: nowrap;
 }
 
@@ -306,7 +301,7 @@
 }
 
 .activeFiltersEl i {
-  color: #929FA5;
+  color: #929fa5;
   cursor: pointer;
 }
 
@@ -384,7 +379,6 @@
   margin-bottom: 20px;
 }
 
-
 .productsByCategories {
   margin-bottom: 50px;
 }
@@ -424,7 +418,6 @@
   transition: transform 0.3s ease;
 }
 
-
 .productsList {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -435,6 +428,7 @@
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .productImageWrapper {
@@ -444,9 +438,10 @@
 
 .productsImage {
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 4px;
   transition: transform 0.3s ease;
+  aspect-ratio: 1;
 }
 
 .productImageWrapper i {
@@ -468,19 +463,19 @@
 }
 
 .productImageWrapper i.active {
-  color: #FF0000;
+  color: #ff0000;
   -webkit-text-stroke: 1.5px white;
 }
 
 .productsPara {
   margin-bottom: 15px;
   font-size: 14px;
-  color: #4A4A4A;
+  color: #4a4a4a;
 }
 
 .productsPara span {
   font-weight: 400;
-  color: #A3A3A3;
+  color: #a3a3a3;
 }
 
 .productsPriceWrapper {
@@ -504,7 +499,7 @@
   align-items: center;
   gap: 5px;
   padding: 8px 12px;
-  background-color: #0E4ED2;
+  background-color: #0e4ed2;
   color: white;
   border: none;
   border-radius: 4px;
@@ -520,7 +515,6 @@
 .priceButton .fa-bag-shopping {
   font-size: 14px;
 }
-
 
 .pagination {
   display: flex;
@@ -541,9 +535,9 @@
   align-items: center;
   width: 40px;
   height: 40px;
-  border: 2px solid #0E4ED2;
+  border: 2px solid #0e4ed2;
   background: none;
-  color: #0E4ED2;
+  color: #0e4ed2;
   font-size: 16px;
   font-weight: bold;
   border-radius: 6px;
@@ -552,7 +546,7 @@
 }
 
 .pageButton.active {
-  background: #0E4ED2;
+  background: #0e4ed2;
   color: white;
   border: none;
 }
@@ -573,9 +567,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid #0E4ED2;
+  border: 2px solid #0e4ed2;
   border-radius: 6px;
-  color: #0E4ED2;
+  color: #0e4ed2;
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
@@ -583,7 +577,7 @@
 }
 
 .pageNumber.active {
-  background: #0E4ED2;
+  background: #0e4ed2;
   color: white;
   border: none;
 }
@@ -639,7 +633,6 @@
   display: inline-block;
 }
 @media (max-width: 501px) {
-
   .catalogContentWrapper {
     flex-direction: column;
   }
@@ -665,7 +658,7 @@
     margin-top: 20px;
   }
 
-  .catalogContentWrapper>* {
+  .catalogContentWrapper > * {
     width: 100%;
   }
 
@@ -678,12 +671,12 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    border: 2px solid #CDD0D1;
+    border: 2px solid #cdd0d1;
     border-radius: 5px;
   }
 
   .filterTabFilter {
-    border-right: 2px solid #CDD0D1;
+    border-right: 2px solid #cdd0d1;
   }
 
   .filterTabFilter,
@@ -696,7 +689,7 @@
     width: 75%;
   }
 
-  .filterTabFilter.active+.filterTabSort {
+  .filterTabFilter.active + .filterTabSort {
     width: 25%;
   }
 
@@ -747,7 +740,7 @@
   }
 
   .filterTabFilterWrapper i {
-    color: #CDD0D1;
+    color: #cdd0d1;
   }
 
   .filterTabFilterWrapperText {
@@ -773,11 +766,11 @@
     margin-top: 15px;
   }
 
-  .filterSection>label {
+  .filterSection > label {
     margin-bottom: 7px;
     font-weight: 400;
     font-size: 12px;
-    color: #AAAEAF;
+    color: #aaaeaf;
   }
 
   .filterSectionSortWrapper {
