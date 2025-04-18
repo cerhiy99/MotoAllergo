@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 import styles from "./Header.module.css";
-const AnimatedInput = () => {
-  const placeholderText =
-    "МОТОРЧИК ПОВІТРОДУВКИ ОБІГРІВАЧА КОНДИЦІОНЕРA VW AUDI SKODA SEAT КОМПЛЕКТ";
-  const [displayText, setDisplayText] = useState("");
+
+type Props = {
+  dictionary: any;
+};
+
+const AnimatedInput: React.FC<Props> = ({ dictionary }: Props) => {
+  const placeholderText:string = dictionary.animatedInput;
+  const [displayText, setDisplayText] = useState('');
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -16,14 +20,18 @@ const AnimatedInput = () => {
       return () => clearTimeout(timeout);
     } else {
       setTimeout(() => {
-        setDisplayText("");
+        setDisplayText('');
         setIndex(0);
       }, 1500);
     }
   }, [index, placeholderText]);
 
   return (
-    <input type="text" placeholder={displayText} className={styles.searchInput} />
+    <input
+      type="text"
+      placeholder={displayText}
+      className={styles.searchInput}
+    />
   );
 };
 

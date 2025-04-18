@@ -37,22 +37,22 @@ const page = async ({ params: { lang } }: Props) => {
                 <div className="info-contacts-text">
                   <p>
                     <span>{contact.phone} </span>
-                    <a href="tel:+380972439410">+38 (097) 243-94-10</a>
+                    <a href="tel:+380994114414">+38 (099) 411-44-14</a>
                   </p>
                   <p>
                     <span>Email: </span>
-                    <a href='mailto:zenoviistankevych77@gmail.com'>zenoviistankevych77@gmail.com</a>
+                    <a href='mailto:carfixinfo4@gmail.com'>carfixinfo4@gmail.com</a>
                   </p>
                 </div>
               </div>
               <div className="socials">
-                <Link href="viber://chat?number=%2B380972439410">
+                <Link href="viber://chat?number=%2B380994114414">
                   <Viber />
                 </Link>
                 <Link href="#">
                   <Telegram />
                 </Link>
-                <Link href="https://wa.me/380972439410">
+                <Link href="https://wa.me/380994114414">
                   <Whatsapp />
                 </Link>
                 <Link href="#">

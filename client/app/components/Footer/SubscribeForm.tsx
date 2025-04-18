@@ -64,7 +64,7 @@ const SubscribeForm: React.FC = () => {
 
   return (
     <div>
-      <h2 className={styles.footerElHeader}>Інформаційний бюлетнь</h2>
+      <h2 className={styles.footerElHeader}>Інформаційний бюлетень</h2>
       <ul className={styles.footerElList}>
         <li>
           <p>

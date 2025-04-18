@@ -1,5 +1,7 @@
 .header {
   width: 100%;
+  position: fixed;
+  z-index: 1000;
 }
 
 .topBar {
@@ -7,9 +9,10 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 7vw;
-  background-color: #0e4ed20d;
+  background-color: #f2f5fc;
   font-size: 12px;
   color: #333;
+  z-index: 1000;
 }
 
 .socialWrapper {
@@ -534,11 +537,16 @@
   }
 
   .mobileHeader {
+    background-color: #ffffff;
     display: flex;
     justify-content: space-between;
     gap: 40px;
     align-items: center;
     padding: 15px;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    border-bottom: 1px solid #0E4ED2;
   }
 
   .logo {
@@ -551,7 +559,10 @@
     display: flex;
     justify-content: center;
   }
-
+  .burger{
+    background-color: #ffffff;
+    border-bottom: 1px solid #0E4ED2;
+  }
   .burger.active {
     display: flex;
     flex-direction: column;
@@ -579,7 +590,7 @@
 
   .burgerContentWrapper {
     padding: 15px;
-    padding-bottom: 40px;
+    padding-bottom: 15px;
     width: 100%;
   }
 

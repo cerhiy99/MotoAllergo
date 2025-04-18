@@ -274,3 +274,9 @@
   }
 
 }
+@media (max-width: 381px) {
+  .lastBlockEl ul{
+    flex-direction: column;
+    gap: 10px;
+  }
+}
