@@ -126,7 +126,7 @@ const Blog = sequelize.define('blog', {
   nameuk: { type: DataTypes.STRING, allowNull: false },
   nameru: { type: DataTypes.STRING, allowNull: false },
   descriptionuk: { type: DataTypes.TEXT, allowNull: false },
-  descriptionru: { type: DataTypes.STRING, allowNull: false },
+  descriptionru: { type: DataTypes.TEXT, allowNull: false },
 });
 
 const BlogImg = sequelize.define('blogImg', {

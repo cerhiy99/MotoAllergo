@@ -3,6 +3,7 @@ const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 const ErrorApi = require('../error/ErrorApi');
 const { Blog, BlogImg } = require('../models/models');
+const striptags = require('striptags');
 
 class BlogController {
   static Add = async (req, resp, next) => {
@@ -51,35 +52,48 @@ class BlogController {
       );
     }
   };
+
   static GetList = async (req, resp, next) => {
     try {
       let { page, limit } = req.query;
 
-      // Значення за замовчуванням
-      page = page || 1;
-      limit = limit || 10;
-
-      // Приводимо до чисел
-      page = parseInt(page);
-      limit = parseInt(limit);
-
+      page = parseInt(page || '1');
+      limit = parseInt(limit || '10');
       const offset = (page - 1) * limit;
 
-      // Отримуємо блоги з зображеннями
       const blogs = await Blog.findAndCountAll({
+        distinct: true, // Ось це головне
         limit,
         offset,
         include: [{ model: BlogImg }],
         order: [['createdAt', 'DESC']],
       });
 
-      return resp.json({ blogs });
+      // Обробка опису
+      const processedBlogs = blogs.rows.map((blog) => {
+        const cleanUk = striptags(blog.descriptionuk || '');
+        const cleanRu = striptags(blog.descriptionru || '');
+
+        return {
+          ...blog.toJSON(),
+          descriptionuk:
+            cleanUk.length > 300 ? cleanUk.slice(0, 300) + '...' : cleanUk,
+          descriptionru:
+            cleanRu.length > 300 ? cleanRu.slice(0, 300) + '...' : cleanRu,
+        };
+      });
+
+      return resp.json({
+        count: blogs.count,
+        rows: processedBlogs,
+      });
     } catch (err) {
       return next(
         ErrorApi.badRequest(err.message || 'Помилка при отриманні блогів')
       );
     }
   };
+
   static GetSelect = async (req, resp, next) => {
     try {
       let { id } = req.query;

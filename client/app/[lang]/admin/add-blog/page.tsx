@@ -1,5 +1,4 @@
 'use client';
-
 import { $authHost } from '@/app/http';
 import { useState, ChangeEvent, FormEvent } from 'react';
 import styles from './AddBlog.module.scss';
@@ -44,21 +43,20 @@ export default function AddBlog() {
           'Content-Type': 'multipart/form-data',
         },
       });
-
-      setMessage(response.data.message || 'Успішно додано');
-      setNameUk('');
-      setNameRu('');
-      setDescriptionUk('');
-      setDescriptionRu('');
-      setImages([]);
+      if (response.status == 200) {
+        setMessage('Успішно додано');
+        setNameUk('');
+        setNameRu('');
+        setDescriptionUk('');
+        setDescriptionRu('');
+        setImages([]);
+      } else setMessage('сталася помилка');
     } catch (error: any) {
-      setMessage(
-        error?.response?.data?.message || 'Сталася помилка при створенні блогу'
-      );
+      setMessage('Сталася помилка при створенні блогу');
     }
   };
 
-  console.log(images);
+  console.log(descriptionuk, descriptionru);
 
   return (
     <div className={styles.container}>
@@ -113,7 +111,7 @@ export default function AddBlog() {
           Додати блог
         </button>
       </form>
-      {message && <p className={styles.message}>{message}</p>}
+      {message != '' && <p className={styles.message}>{message}</p>}
     </div>
   );
 }
