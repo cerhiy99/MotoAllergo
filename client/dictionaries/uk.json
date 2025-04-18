@@ -446,6 +446,18 @@
     "titleHighlight": "Вибір"
   },
   "catalogContent": {
+    "actions": {
+      "buy": "Купити",
+      "inCart": "У кошику",
+      "cartNotification": "Додано до кошика",
+      "cartRemovedNotification": "Видалено з кошика"
+    },
+    "wishlist": {
+      "add": "Додати до списку бажань",
+      "remove": "Видалити зі списку бажань",
+      "notificationAdd": "Додано до списку бажань",
+      "notificationRemove": "Видалено зі списку бажань"
+    },
     "filterTabFilter": "Фільтр",
     "filterTabSort": "Сортування",
     "filterLabel": "Сортування товару:",

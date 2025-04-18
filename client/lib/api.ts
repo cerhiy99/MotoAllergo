@@ -1,7 +1,7 @@
 import { ProductResponse } from '@/types/product';
 
 export async function fetchProduct(id: number): Promise<ProductResponse> {
-  const response = await fetch(`http://45.94.156.193:9085/api/product/getFull/${id}`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER}product/getFull/${id}`, {
     next: { revalidate: 3600 }, // Кешування на 1 годину
   });
 
