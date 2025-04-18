@@ -1,3 +1,0 @@
-# Ignore Prettier-related files
-node_modules/
-package-lock.json

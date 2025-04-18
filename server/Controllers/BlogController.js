@@ -1,0 +1,193 @@
+const path = require('path');
+const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
+const ErrorApi = require('../error/ErrorApi');
+const { Blog, BlogImg } = require('../models/models');
+
+class BlogController {
+  static Add = async (req, resp, next) => {
+    try {
+      const { nameuk, nameru, descriptionuk, descriptionru } = req.body;
+      const files = req.files;
+
+      if (!files || Object.keys(files).length === 0) {
+        return next(ErrorApi.badRequest('Зображення не завантажені'));
+      }
+
+      // Створюємо запис блогу
+      const newBlog = await Blog.create({
+        nameuk,
+        nameru,
+        descriptionuk,
+        descriptionru,
+      });
+
+      const staticDir = path.resolve(__dirname, '../static/blog');
+      if (!fs.existsSync(staticDir)) {
+        fs.mkdirSync(staticDir, { recursive: true });
+      }
+
+      // Перетворюємо об’єкт з файлами у масив
+      const fileArray = Object.values(files);
+
+      for (const file of fileArray) {
+        const imageName = `${uuidv4()}.jpg`;
+        const filePath = path.join(staticDir, imageName);
+
+        // Записуємо файл на диск
+        fs.writeFileSync(filePath, file.data);
+
+        // Створюємо запис у таблиці зображень
+        await BlogImg.create({
+          src: `blog/${imageName}`,
+          blogId: newBlog.id,
+        });
+      }
+
+      return resp.json({ message: 'Блог створено успішно', blog: newBlog });
+    } catch (err) {
+      return next(
+        ErrorApi.badRequest(err.message || 'Помилка при створенні блогу')
+      );
+    }
+  };
+  static GetList = async (req, resp, next) => {
+    try {
+      let { page, limit } = req.query;
+
+      // Значення за замовчуванням
+      page = page || 1;
+      limit = limit || 10;
+
+      // Приводимо до чисел
+      page = parseInt(page);
+      limit = parseInt(limit);
+
+      const offset = (page - 1) * limit;
+
+      // Отримуємо блоги з зображеннями
+      const blogs = await Blog.findAndCountAll({
+        limit,
+        offset,
+        include: [{ model: BlogImg }],
+        order: [['createdAt', 'DESC']],
+      });
+
+      return resp.json({ blogs });
+    } catch (err) {
+      return next(
+        ErrorApi.badRequest(err.message || 'Помилка при отриманні блогів')
+      );
+    }
+  };
+  static GetSelect = async (req, resp, next) => {
+    try {
+      let { id } = req.query;
+      id = parseInt(id);
+      if (isNaN(id)) {
+        return next(ErrorApi.badRequest('Некоректний ID'));
+      }
+
+      const blog = await Blog.findOne({
+        where: { id },
+        include: [{ model: BlogImg }],
+      });
+
+      if (!blog) {
+        return next(ErrorApi.badRequest('Блог не знайдено'));
+      }
+
+      return resp.json({ blog });
+    } catch (err) {
+      return next(
+        ErrorApi.badRequest(err.message || 'Помилка при отриманні блогу')
+      );
+    }
+  };
+
+  static UpdateWithoutImg = async (req, resp, next) => {
+    try {
+      const { id, nameuk, nameru, descriptionuk, descriptionru } = req.body;
+
+      if (!id) {
+        return next(ErrorApi.badRequest('ID обовʼязковий'));
+      }
+
+      const blog = await Blog.findByPk(id);
+
+      if (!blog) {
+        return next(ErrorApi.badRequest('Блог з таким ID не знайдено'));
+      }
+
+      blog.nameuk = nameuk || blog.nameuk;
+      blog.nameru = nameru || blog.nameru;
+      blog.descriptionuk = descriptionuk || blog.descriptionuk;
+      blog.descriptionru = descriptionru || blog.descriptionru;
+
+      await blog.save();
+
+      return resp.json({ message: 'Блог успішно оновлено', blog });
+    } catch (err) {
+      return next(
+        ErrorApi.badRequest(err.message || 'Помилка при оновленні блогу')
+      );
+    }
+  };
+
+  static UpdateBlogImgs = async (req, resp, next) => {
+    try {
+      const { id } = req.body;
+      const files = req.files;
+
+      if (!id) {
+        return next(ErrorApi.badRequest('ID обовʼязковий'));
+      }
+
+      if (!files || Object.keys(files).length === 0) {
+        return next(
+          ErrorApi.badRequest('Немає нових зображень для завантаження')
+        );
+      }
+
+      const blog = await Blog.findByPk(id, { include: BlogImg });
+
+      if (!blog) {
+        return next(ErrorApi.badRequest('Блог з таким ID не знайдено'));
+      }
+
+      const staticDir = path.resolve(__dirname, '../static/blog');
+
+      // Видаляємо старі фото з файлової системи та бази
+      for (const img of blog.blogImgs) {
+        const filePath = path.join(staticDir, path.basename(img.src));
+        if (fs.existsSync(filePath)) {
+          fs.unlinkSync(filePath);
+        }
+        await img.destroy();
+      }
+
+      // Додаємо нові фото
+      const fileArray = Object.values(files);
+
+      for (const file of fileArray) {
+        const imageName = `${uuidv4()}.jpg`;
+        const filePath = path.join(staticDir, imageName);
+
+        fs.writeFileSync(filePath, file.data);
+
+        await BlogImg.create({
+          src: `blog/${imageName}`,
+          blogId: blog.id,
+        });
+      }
+
+      return resp.json({ message: 'Зображення успішно оновлено' });
+    } catch (err) {
+      return next(
+        ErrorApi.badRequest(err.message || 'Помилка при оновленні зображень')
+      );
+    }
+  };
+}
+
+module.exports = BlogController;
