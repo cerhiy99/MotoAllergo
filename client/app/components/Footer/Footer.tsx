@@ -52,7 +52,7 @@ const Footer = ({ dictionary }: Props) => {
             </ul>
           </li>
           <li className={styles.footerEl}>
-            <SubscribeForm />
+            <SubscribeForm dictionary={dictionary.subscribeForm}/>
           </li>
           <li className={styles.footerEl}></li>
         </ul>

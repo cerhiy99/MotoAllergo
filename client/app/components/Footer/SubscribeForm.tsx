@@ -3,29 +3,51 @@
 import { useState, useEffect } from 'react';
 import styles from './Footer.module.css';
 import Link from 'next/link';
-const SubscribeForm: React.FC = () => {
+
+type SubscribeFormProps = {
+  dictionary: {
+    title: string;
+    description: string;
+    termsLink: string;
+    subscribeButton: string;
+    checkboxLabel: string;
+    errors: {
+      emptyEmail: string;
+      invalidEmail: string;
+      termsNotAccepted: string;
+      subscribeFailed: string;
+      genericError: string;
+    };
+    successMessage: string;
+  };
+};
+
+const SubscribeForm: React.FC<SubscribeFormProps> = ({ dictionary }) => {
   const [email, setEmail] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
   const BOT_TOKEN = '';
   const CHAT_ID = '';
+
   const isValidEmail = (email: string): boolean => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailPattern.test(email);
   };
+
   const handleSubscribe = async () => {
     if (!email.trim()) {
-      setError('Please enter your email.');
+      setError(dictionary.errors.emptyEmail);
       return;
     }
 
     if (!isValidEmail(email)) {
-      setError('Please enter a valid email address.');
+      setError(dictionary.errors.invalidEmail);
       return;
     }
 
     if (!isChecked) {
-      setError('You must accept the terms to subscribe.');
+      setError(dictionary.errors.termsNotAccepted);
       return;
     }
 
@@ -50,26 +72,24 @@ const SubscribeForm: React.FC = () => {
       const data = await response.json();
 
       if (data.ok) {
-        alert('Subscription successful!');
+        alert(dictionary.successMessage);
         setEmail('');
         setIsChecked(false);
       } else {
-        setError('Failed to subscribe. Try again.');
+        setError(dictionary.errors.subscribeFailed);
       }
     } catch (error) {
       console.error('Error:', error);
-      setError('An error occurred.');
+      setError(dictionary.errors.genericError);
     }
   };
 
   return (
     <div>
-      <h2 className={styles.footerElHeader}>Інформаційний бюлетень</h2>
+      <h2 className={styles.footerElHeader}>{dictionary.title}</h2>
       <ul className={styles.footerElList}>
         <li>
-          <p>
-            Підпишіться на нашу розсилку, щоб Ви могли першими дізнаватися про новинки та акції на автозапчастини, а також отримувати корисні поради щодо їх вибору та експлуатації!
-          </p>
+          <p>{dictionary.description}</p>
         </li>
         <li>
           <div className={styles.inputContainer}>
@@ -92,16 +112,20 @@ const SubscribeForm: React.FC = () => {
               onChange={(e) => setIsChecked(e.target.checked)}
             />
             <label htmlFor="checkbox" className={styles.checkboxLabel}>
-              Прийняти умови
+              {dictionary.checkboxLabel}
             </label>
           </div>
         </li>
         <li>
           <Link href="/privacy_policy/" target="_blank" className={styles.footerLink}>
-          Прочитайте умови та положення
+            {dictionary.termsLink}
           </Link>
-          <button className={styles.subscribeButton} onClick={handleSubscribe} disabled={!isChecked}>
-            Підписатися
+          <button
+            className={styles.subscribeButton}
+            onClick={handleSubscribe}
+            disabled={!isChecked}
+          >
+            {dictionary.subscribeButton}
           </button>
           {error && <p className={styles.errorMessage}>{error}</p>}
         </li>

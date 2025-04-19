@@ -4,7 +4,7 @@
   },
   "test": "testuk",
   "header": {
-  "animatedInput": "МОТОРЧИК ВОЗДУХОВКИ ОБОГРЕВАТЕЛЯ КОНДИЦИОНЕРA VW AUDI SKODA SEAT КОМПЛЕКТ",
+    "animatedInput": "МОТОРЧИК ВОЗДУХОВКИ ОБОГРЕВАТЕЛЯ КОНДИЦИОНЕРA VW AUDI SKODA SEAT КОМПЛЕКТ",
     "callBtn": "Заказать звонок",
     "location": "г. Мостиска, Львовская обл.",
     "workHours": "09:00 - 21:00 Пн - Пт",
@@ -222,7 +222,22 @@
     "developerName": "«FullStack-Innovations»",
     "developerLink": "https://fullstack-innovation.com/",
     "bottomOfferAgreement": "Договор оферты",
-    "bottomPrivacyPolicy": "Политика конфиденциальности"
+    "bottomPrivacyPolicy": "Политика конфиденциальности",
+    "subscribeForm": {
+      "title": "Информационная рассылка",
+      "description": "Подпишитесь на нашу рассылку, чтобы первыми узнавать о новинках и акциях на автозапчасти, а также получать полезные советы по их выбору и эксплуатации!",
+      "termsLink": "Прочитайте условия и положения",
+      "subscribeButton": "Подписаться",
+      "checkboxLabel": "Принять условия",
+      "errors": {
+        "emptyEmail": "Пожалуйста, введите ваш email.",
+        "invalidEmail": "Пожалуйста, введите действительный email-адрес.",
+        "termsNotAccepted": "Вы должны принять условия, чтобы подписаться.",
+        "subscribeFailed": "Не удалось подписаться. Попробуйте еще раз.",
+        "genericError": "Произошла ошибка."
+      },
+      "successMessage": "Подписка успешна!"
+    }
   },
   "guarantees": {
     "title": "Гарантия",
@@ -474,14 +489,38 @@
     "productsByCategoriesTitle": "Категория категория",
     "productsByCategoriesPara": "Категории группы категория категория",
     "lotNumberLabel": "Номер лота:",
-    "addToCart": "В корзину"
+    "addToCart": "В корзину",
+    "wishlist": {
+      "add": "Добавить в список желаний",
+      "remove": "Удалить из списка желаний",
+      "notificationAdd": "Товар добавлен в список желаний",
+      "notificationRemove": "Товар удален из списка желаний"
+    },
+    "actions": {
+      "buy": "Купить",
+      "inCart": "В корзине",
+      "oneClick": "Купить в 1-клик",
+      "cartNotification": "Товар добавлен в корзину"
+    }
   },
   "popularProducts": {
     "title": "Популярные товары",
     "titleHighlight": "Популярные",
     "lotNumberLabel": "Номер лота:",
     "addToCart": "В корзину",
-    "loadMoreButton": "Показать еще"
+    "loadMoreButton": "Показать еще",
+    "wishlist": {
+      "add": "Добавить в список желаний",
+      "remove": "Удалить из списка желаний",
+      "notificationAdd": "Товар добавлен в список желаний",
+      "notificationRemove": "Товар удален из списка желаний"
+    },
+    "actions": {
+      "buy": "Купить",
+      "inCart": "В корзине",
+      "oneClick": "Купить в 1-клик",
+      "cartNotification": "Товар добавлен в корзину"
+    }
   },
   "productContent": {
     "title": "{name}",

@@ -222,7 +222,22 @@
     "developerName": "«FullStack-Innovations»",
     "developerLink": "https://fullstack-innovation.com/",
     "bottomOfferAgreement": "Договір оферти",
-    "bottomPrivacyPolicy": "Політика Конфіденційності"
+    "bottomPrivacyPolicy": "Політика Конфіденційності",
+    "subscribeForm": {
+      "title": "Інформаційний бюлетень",
+      "description": "Підпишіться на нашу розсилку, щоб Ви могли першими дізнаватися про новинки та акції на автозапчастини, а також отримувати корисні поради щодо їх вибору та експлуатації!",
+      "termsLink": "Прочитайте умови та положення",
+      "subscribeButton": "Підписатися",
+      "checkboxLabel": "Прийняти умови",
+      "errors": {
+        "emptyEmail": "Будь ласка, введіть ваш email.",
+        "invalidEmail": "Будь ласка, введіть дійсну email-адресу.",
+        "termsNotAccepted": "Ви повинні прийняти умови, щоб підписатися.",
+        "subscribeFailed": "Не вдалося підписатися. Спробуйте ще раз.",
+        "genericError": "Виникла помилка."
+      },
+      "successMessage": "Підписка успішна!"
+    }
   },
   "guarantees": {
     "title": "Гарантія",
@@ -493,7 +508,19 @@
     "titleHighlight": "Популярні",
     "lotNumberLabel": "Номер лота:",
     "addToCart": "В кошик",
-    "loadMoreButton": "Показати ще"
+    "loadMoreButton": "Показати ще",
+    "actions": {
+      "buy": "Купити",
+      "inCart": "У кошику",
+      "cartNotification": "Додано до кошика",
+      "cartRemovedNotification": "Видалено з кошика"
+    },
+    "wishlist": {
+      "add": "Додати до списку бажань",
+      "remove": "Видалити зі списку бажань",
+      "notificationAdd": "Додано до списку бажань",
+      "notificationRemove": "Видалено зі списку бажань"
+    }
   },
   "productContent": {
     "title": "{name}",

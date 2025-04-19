@@ -190,7 +190,7 @@ const Header = ({ lang, dictionary }: Props) => {
       </div>
       <div className={styles.mainHeader}>
         <div className={styles.logo}>
-          <Link href="/">
+          <Link href={`/${currentLang}`}>
             <img src="/images/logotype-desctop.svg" alt="logo" />
           </Link>
         </div>
