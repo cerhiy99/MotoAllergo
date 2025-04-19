@@ -8,11 +8,13 @@ import { useCartStore, CartItem, WishlistItem } from '@/store/cartStore';
 
 interface Product {
   id: number;
-  lotNumber: string;
-  description: string;
-  price: string;
-  image: string;
-  category?: string;
+  nameuk: string;
+  nameru: string;
+  price: number;
+  imgs: {
+    id: number;
+    src: string;
+  }[];
 }
 
 type CatalogContentClientProps = {
