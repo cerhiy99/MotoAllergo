@@ -9,7 +9,14 @@ interface ProductImage {
   updatedAt: string;
   productId: number;
 }
-
+type FormattedProduct = {
+  id: number;
+  lotNumber: string;
+  description: string;
+  price: string;
+  image: string;
+  category: string;
+};
 interface Product {
   id: number;
   nameuk: string;
@@ -67,7 +74,7 @@ const getProducts = async (page: string, searchParams: Props['searchParams'], la
         console.error("[DEBUG] getProducts: Не вдалося розпарсити фільтри:", filtersInput, e);
         filters = {};
       }
-    } else if (typeof filtersInput === 'object' && filtersInput !== null) {
+    } else if (filtersInput && !Array.isArray(filtersInput)) {
       filters = filtersInput as Record<string, string>;
     }
 
@@ -170,7 +177,7 @@ export default async function Page({ params, searchParams }: Props) {
         <CatalogContentClient
           dictionary={catalogContent}
           searchParams={searchParams}
-          products={formattedProducts}
+          products={formattedProducts as FormattedProduct[]}
           totalPages={productsData.totalPages}
           lang={lang} // Передаємо lang
         />

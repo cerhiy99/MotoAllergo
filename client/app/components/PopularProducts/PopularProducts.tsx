@@ -30,26 +30,8 @@ interface Product {
   price: string;
   image: string;
 }
-
 interface PopularProductsProps {
-  dictionary: {
-    title: string;
-    titleHighlight: string;
-    lotNumberLabel: string;
-    addToCart: string;
-    loadMoreButton: string;
-    noProductsMessage?: string;
-    wishlist?: {
-      notificationAdd: string;
-      notificationRemove: string;
-    };
-    actions?: {
-      cartNotification: string;
-      cartRemovedNotification: string;
-      inCart: string;
-      buy: string;
-    };
-  };
+  dictionary: any;
   products: Product[];
   lang: Locale;
 }

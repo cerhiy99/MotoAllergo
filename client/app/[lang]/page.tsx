@@ -119,7 +119,7 @@ export default async function Page({ params }: Props) {
       <LogoSlider />
       <ChooseCategory dictionary={chooseCategory} />
       <HowWeWork dictionary={howWeWork} />
-      <PopularProducts products={products} dictionary={popularProducts} />
+      <PopularProducts products={products} dictionary={popularProducts} lang={lang}/>
       <AvtoBlog dictionary={news} />
     </main>
   );

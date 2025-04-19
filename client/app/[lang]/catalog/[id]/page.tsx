@@ -45,13 +45,13 @@ const Page = async ({ params }: Props) => {
             );
             cleanedHtml = cleanedHtml.replace(regex, '');
         });
-        cleanedHtml = cleanedHtml.replace(/<table[^>]*>\s*<tbody>\s*<\/tbody>\s*<\/table>/gis, '');
-        cleanedHtml = cleanedHtml.replace(/<tbody>\s*<\/tbody>/gis, '');
+        cleanedHtml = cleanedHtml.replace(/<table[^>]*>\s*<tbody>\s*<\/tbody>\s*<\/table>/gi, '');
+        cleanedHtml = cleanedHtml.replace(/<tbody>\s*<\/tbody>/gi, '');
 
         return cleanedHtml;
     };
     const removeLinks = (htmlString: string): string => {
-        const linkRegex = /<a[^>]*>(.*?)<\/a>/gis;
+        const linkRegex = /<a[^>]*>(.*?)<\/a>/gi;
         return htmlString.replace(linkRegex, '$1');
     };
     const keywordsToRemoveUk = ['Доставка:', 'Доставка по Україні:', 'Самовивіз:'];

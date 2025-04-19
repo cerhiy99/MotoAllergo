@@ -16,12 +16,20 @@ interface Product {
     src: string;
   }[];
 }
-
+type FormattedProduct = {
+  id: number;
+  lotNumber: string;
+  description: string;
+  price: string;
+  image: string;
+  category: string;
+};
 type CatalogContentClientProps = {
   dictionary: any;
-  products: Product[];
+  products: FormattedProduct[];
   totalPages: number;
   lang: string;
+  searchParams: any;
 };
 
 const parseQueryParam = (
@@ -90,7 +98,7 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
     if (filtersFromUrl) {
       try {
         const parsedFilters = Object.fromEntries(
-          filtersFromUrl.split(',').map((f) => {
+          filtersFromUrl.split(',').map((f):[number, string] => {
             const [key, value] = f.split('=');
             const index = parseInt(key.replace('filter', ''), 10);
             return [index, value];
@@ -125,7 +133,7 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
     if (resetPage) {
       paramsToUpdate.page = '1';
     }
-    const queryString = createQueryString(searchParams, paramsToUpdate);
+    const queryString = createQueryString(new URLSearchParams(searchParams.toString()), paramsToUpdate);
     const newUrl = `/${lang}/catalog${queryString ? `?${queryString}` : ''}`;
     router.push(newUrl, { scroll: false });
   };
@@ -135,7 +143,7 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
     router.push(productUrl);
   };
 
-  const handleWishlistClick = (product: Product) => {
+  const handleWishlistClick = (product: FormattedProduct) => {
     const productId = `${product.id}`;
     const isInWishlist = wishlist.some((item) => item.id === productId);
 
@@ -158,7 +166,7 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
     }, 2000);
   };
 
-  const handleAddToCart = (product: Product) => {
+  const handleAddToCart = (product: FormattedProduct) => {
     const productId = `${product.id}`;
     const isInCart = cart.some((item) => item.id === productId);
 
@@ -201,9 +209,9 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
     setChosenFilters(newChosenFilters);
     setDropdowns((prev) => ({ ...prev, [filterIndex]: false }));
 
-    if (filterIndex === 0) setActiveFilters((prev) => [...new Set([...prev, 1])]);
-    if (filterIndex === 1) setActiveFilters((prev) => [...new Set([...prev, 2])]);
-    if (filterIndex === 3) setActiveFilters((prev) => [...new Set([...prev, 4])]);
+    if (filterIndex === 0) setActiveFilters((prev) => Array.from(new Set([...prev, 1])));
+if (filterIndex === 1) setActiveFilters((prev) => Array.from(new Set([...prev, 2])));
+if (filterIndex === 3) setActiveFilters((prev) => Array.from(new Set([...prev, 4])));
 
     const filtersString = Object.entries(newChosenFilters)
       .map(([key, val]) => `filter${key}=${val}`)
