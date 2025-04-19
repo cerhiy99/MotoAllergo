@@ -460,7 +460,7 @@ const Header = ({ lang, dictionary }: Props) => {
                       >
                         <div className={styles.cartItemLinkWrapper}>
                           <img
-                            src={`http://45.94.156.193:9085/${item.image}`}
+                            src={`${process.env.NEXT_PUBLIC_SERVER}${item.image}`}
                             alt={item.name}
                             className={styles.cartItemImage}
                           />
@@ -551,7 +551,7 @@ const Header = ({ lang, dictionary }: Props) => {
                     >
                       <div className={styles.favoritesItemLinkWrapper}>
                         <img
-                          src={`http://45.94.156.193:9085/${item.image}`}
+                          src={`${process.env.NEXT_PUBLIC_SERVER}${item.image}`}
                           alt={item.name}
                           className={styles.favoritesItemImage}
                         />

@@ -107,7 +107,7 @@ const PopularProducts: React.FC<PopularProductsProps> = ({ dictionary, products:
         description: lang === 'uk' ? product.nameuk : product.nameru,
         price: `${product.price} грн.`,
         image: product.imgs?.[0]?.src
-          ? `${process.env.NEXT_PUBLIC_SERVER}${product.imgs[0].src}`
+          ? `${product.imgs[0].src}`
           : 'https://placehold.co/300x300/eee/ccc?text=Немає+фото',
       }));
 
@@ -295,7 +295,7 @@ const PopularProducts: React.FC<PopularProductsProps> = ({ dictionary, products:
                   <div className={styles.productImageWrapper}>
                     <img
                       className={styles.popularProductsImage}
-                      src={product.image}
+                      src={`${process.env.NEXT_PUBLIC_SERVER}${product.image}`}
                       alt={product.description}
                     />
                     <div

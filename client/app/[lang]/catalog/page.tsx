@@ -160,7 +160,7 @@ export default async function Page({ params, searchParams }: Props) {
       description: lang === 'uk' ? product.nameuk : product.nameru,
       price: `${product.price} грн.`,
       image: product.imgs?.[0]?.src
-        ? `${process.env.NEXT_PUBLIC_SERVER}${product.imgs[0].src}`
+        ? `${product.imgs[0].src}`
         : 'https://placehold.co/300x300/eee/ccc?text=Немає+фото',
       category: product.category || 'Без категорії',
     }));

@@ -565,7 +565,7 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
                     <div className={styles.productImageWrapper}>
                       <img
                         className={styles.productsImage}
-                        src={product.image || 'https://placehold.co/300x300/eee/ccc?text=Немає+фото'}
+                        src={`${process.env.NEXT_PUBLIC_SERVER}${product.image}` || 'https://placehold.co/300x300/eee/ccc?text=Немає+фото'}
                         alt={product.description}
                         onError={(e) => { const target = e.target as HTMLImageElement; target.onerror = null; target.src = 'https://placehold.co/300x300/eee/ccc?text=Помилка'; }}
                       />
@@ -590,7 +590,7 @@ const CatalogContentClient: React.FC<CatalogContentClientProps> = ({
                         </svg>
                       </div>
                     </div>
-                    <p className={styles.productsPara}><span>{dictionary.lotNumberLabel}</span> {product.lotNumber}</p>
+                    {/* <p className={styles.productsPara}><span>{dictionary.lotNumberLabel}</span> {product.lotNumber}</p> */}
                     <p className={styles.productsPara} title={product.description}>
                       {product.description.length > 100 ? `${product.description.substring(0, 97)}...` : product.description}
                     </p>
