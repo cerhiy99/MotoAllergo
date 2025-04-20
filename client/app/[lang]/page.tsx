@@ -10,10 +10,15 @@ import PhoneIconModal from '../components/PhoneIconModal/PhoneIconModal';
 import { getDictionary } from '../../lib/dictionary';
 
 // Динамічне завантаження компонентів без SSR
-const LogoSlider = dynamic(() => import('../components/LogoSlider/LogoSlider'), {
+const LogoSlider = dynamic(
+  () => import('../components/LogoSlider/LogoSlider'),
+  {
+    ssr: false,
+  }
+);
+const AvtoBlog = dynamic(() => import('../components/AvtoBlog/AvtoBlog'), {
   ssr: false,
 });
-const AvtoBlog = dynamic(() => import('../components/AvtoBlog/AvtoBlog'), { ssr: false });
 
 // Інтерфейс для зображення продукту (з вашого прикладу)
 interface ProductImage {
@@ -54,7 +59,10 @@ async function fetchPopularProducts(lang: Locale): Promise<Product[]> {
   try {
     const apiUrl = `${process.env.NEXT_PUBLIC_API_SERVER}product/getListProduct`;
 
-    console.log('[DEBUG] fetchPopularProducts: Формований URL для API запиту:', apiUrl);
+    console.log(
+      '[DEBUG] fetchPopularProducts: Формований URL для API запиту:',
+      apiUrl
+    );
 
     const res = await fetch(apiUrl, {
       method: 'GET',
@@ -65,17 +73,27 @@ async function fetchPopularProducts(lang: Locale): Promise<Product[]> {
       next: { revalidate: 3600 * 6 }, // Revalidate кожні 6 годин, як у вашому прикладі
     });
 
-    console.log(`[DEBUG] fetchPopularProducts: Статус відповіді API: ${res.status} ${res.statusText}`);
+    console.log(
+      `[DEBUG] fetchPopularProducts: Статус відповіді API: ${res.status} ${res.statusText}`
+    );
 
     if (!res.ok) {
       let errorBody = 'Не вдалося прочитати тіло помилки';
       try {
         errorBody = await res.text();
-        console.error('[DEBUG] fetchPopularProducts: Тіло помилки API:', errorBody);
+        console.error(
+          '[DEBUG] fetchPopularProducts: Тіло помилки API:',
+          errorBody
+        );
       } catch (e) {
-        console.error('[DEBUG] fetchPopularProducts: Не вдалося прочитати тіло помилки API:', e);
+        console.error(
+          '[DEBUG] fetchPopularProducts: Не вдалося прочитати тіло помилки API:',
+          e
+        );
       }
-      throw new Error(`Не вдалося отримати продукти: ${res.status} ${res.statusText}. Тіло: ${errorBody}`);
+      throw new Error(
+        `Не вдалося отримати продукти: ${res.status} ${res.statusText}. Тіло: ${errorBody}`
+      );
     }
 
     const data = await res.json();
@@ -83,7 +101,9 @@ async function fetchPopularProducts(lang: Locale): Promise<Product[]> {
 
     // Перевіряємо, чи API повернуло масив продуктів у полі productList
     if (!data || typeof data !== 'object' || !Array.isArray(data.productList)) {
-      console.warn('[DEBUG] fetchPopularProducts: API повернуло успішний статус, але структура даних невірна.');
+      console.warn(
+        '[DEBUG] fetchPopularProducts: API повернуло успішний статус, але структура даних невірна.'
+      );
       return [];
     }
 
@@ -100,7 +120,10 @@ async function fetchPopularProducts(lang: Locale): Promise<Product[]> {
 
     return formattedProducts;
   } catch (error) {
-    console.error('[DEBUG] fetchPopularProducts: Помилка під час завантаження продуктів:', error);
+    console.error(
+      '[DEBUG] fetchPopularProducts: Помилка під час завантаження продуктів:',
+      error
+    );
     return []; // Повертаємо порожній масив у разі помилки
   }
 }
@@ -108,19 +131,24 @@ async function fetchPopularProducts(lang: Locale): Promise<Product[]> {
 export default async function Page({ params }: Props) {
   const { lang } = params;
   const dictionary = await getDictionary(lang);
-  const { news, howWeWork, heroSection, chooseCategory, popularProducts } = dictionary;
+  const { news, howWeWork, heroSection, chooseCategory, popularProducts } =
+    dictionary;
 
   // Отримання продуктів з API
   const products = await fetchPopularProducts(lang);
 
   return (
     <main>
-      <HeroSection dictionary={heroSection} />
-      <LogoSlider />
+      <HeroSection dictionary={heroSection} lang={lang} />
+      <LogoSlider lang={lang} />
       <ChooseCategory dictionary={chooseCategory} />
       <HowWeWork dictionary={howWeWork} />
-      <PopularProducts products={products} dictionary={popularProducts} lang={lang}/>
-      <AvtoBlog dictionary={news} />
+      <PopularProducts
+        products={products}
+        dictionary={popularProducts}
+        lang={lang}
+      />
+      <AvtoBlog lang={lang} dictionary={news} />
     </main>
   );
 }

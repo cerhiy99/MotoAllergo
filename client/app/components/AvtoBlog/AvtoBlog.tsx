@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from 'react';
 import styles from './AvtoBlog.module.css';
 import Link from 'next/link';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { Locale } from '@/i18n.config';
+import { $host } from '@/app/http';
 
 type DictionaryType = {
   title: string;
@@ -12,9 +14,10 @@ type DictionaryType = {
 
 type Props = {
   dictionary: DictionaryType;
+  lang: Locale;
 };
 
-const AvtoBlog = ({ dictionary }: Props) => {
+const AvtoBlog = ({ dictionary, lang }: Props) => {
   const [isUa, setIsUa] = useState(true);
   const [startIndex, setStartIndex] = useState(0);
   const [direction, setDirection] = useState('right');
@@ -24,9 +27,6 @@ const AvtoBlog = ({ dictionary }: Props) => {
   const itemsRef = useRef<HTMLLIElement[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   let newsPerPage = window.innerWidth > 501 ? 3 : 1;
-
-
-
 
   useEffect(() => {
     itemsRef.current.forEach((item) => {
@@ -71,7 +71,7 @@ const AvtoBlog = ({ dictionary }: Props) => {
   }, []);
 
   const nextNews = () => {
-    if (startIndex + newsPerPage < dictionary.news.length) {
+    if (startIndex + newsPerPage < blogs.length) {
       setDirection('right');
       setStartIndex(startIndex + newsPerPage);
     }
@@ -100,38 +100,59 @@ const AvtoBlog = ({ dictionary }: Props) => {
         };
   };
 
+  const [blogs, setBlogs] = useState([]);
 
+  const getNews = async () => {
+    const res = await $host.get(
+      process.env.NEXT_PUBLIC_API_SERVER + 'blog/getList?limit=30'
+    );
+    setBlogs(res.data.rows);
+  };
 
+  useEffect(() => {
+    getNews();
+  }, []);
 
   return (
     <div ref={sectionRef} className={styles.avtoBlogWrapper}>
       <h1 className={styles.avtoBlogTitle}>{dictionary.title}</h1>
       <div className={styles.navigationIcons}>
         <i
-          className={`fa-solid fa-chevron-left ${startIndex === 0 ? styles.disabled : ''}`}
+          className={`fa-solid fa-chevron-left ${
+            startIndex === 0 ? styles.disabled : ''
+          }`}
           onClick={prevNews}
         ></i>
         <i
-          className={`fa-solid fa-chevron-right ${(startIndex + newsPerPage >= dictionary.news.length) ? styles.disabled : ''}`}
+          className={`fa-solid fa-chevron-right ${
+            startIndex + newsPerPage >= dictionary.news.length
+              ? styles.disabled
+              : ''
+          }`}
           onClick={nextNews}
         ></i>
       </div>
       <TransitionGroup component="ul" className={styles.avtoBlogList}>
-        {dictionary.news.slice(startIndex, startIndex + newsPerPage).map((item, index) => (
-          <CSSTransition
-            key={startIndex + index}
-            timeout={{ enter: 500, exit: 0 }}
-            classNames={getTransitionClasses()}
-          >
-            <li ref={(el) => (itemsRef.current[index] = el!)} className={styles.avtoBlogEl}>
-              <Link href={`/news/${startIndex + index + 1}`}>
-                <h2>{item[0]}</h2>
-                <div className={styles.line}></div>
-                <p>{item[1]}</p>
-              </Link>
-            </li>
-          </CSSTransition>
-        ))}
+        {blogs
+          .slice(startIndex, startIndex + newsPerPage)
+          .map((x: any, index: number) => (
+            <CSSTransition
+              key={x.id}
+              timeout={{ enter: 500, exit: 0 }}
+              classNames={getTransitionClasses()}
+            >
+              <li
+                ref={(el) => (itemsRef.current[index] = el!)}
+                className={styles.avtoBlogEl}
+              >
+                <Link href={`/${lang}/select-news/${x.id}`}>
+                  <h2>{lang == 'ru' ? x.nameru : x.nameuk}</h2>
+                  <div className={styles.line}></div>
+                  <p>{lang == 'ru' ? x.descriptionru : x.descriptionuk}</p>
+                </Link>
+              </li>
+            </CSSTransition>
+          ))}
       </TransitionGroup>
     </div>
   );

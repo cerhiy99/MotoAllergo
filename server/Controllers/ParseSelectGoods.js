@@ -4,6 +4,10 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
+const $browser = require('./utils/http');
+const { Product, ProductLink } = require('../models/models');
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 class ParseSelectGoods {
   // Метод для збереження картинок
@@ -175,6 +179,51 @@ class ParseSelectGoods {
     await browser.close();
     return html;
   }
+
+  static parseCod = async (url) => {
+    try {
+      await sleep(2000); // Затримка для обережного парсингу
+      const res = await $browser.get(url);
+      const $ = cheerio.load(res.data);
+
+      // Спроба 1: атрибут data-url
+      const codAttr = $('.name-product__article').attr('data-url');
+
+      // Спроба 2: з тексту span
+      const codText = $('.name-product__article .name-product__number')
+        .text()
+        .trim();
+
+      console.log(codAttr, codText);
+
+      const finalCod = codAttr || codText || null;
+
+      if (!finalCod || finalCod === '') return null;
+
+      return finalCod;
+    } catch (err) {
+      console.error('❌ Помилка при парсингу коду товару:', url, err.message);
+      return null;
+    }
+  };
+
+  static ParseAllCod = async () => {
+    try {
+      const products = await Product.findAll({
+        attributes: ['id', 'productLinkId'],
+        include: [{ model: ProductLink }],
+      });
+      for (let i = 0; i < 2; i++) {
+        console.log(products[i].product_link.link);
+        const cod = await this.parseCod(
+          `https://restauto.com.ua/ua${products[i].product_link.link}`
+        );
+        console.log(3434, cod);
+      }
+    } catch (err) {
+      console.log('❌ Помилка при парсингу коду всіх товарів');
+    }
+  };
 }
 
 module.exports = ParseSelectGoods;

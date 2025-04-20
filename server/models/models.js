@@ -17,6 +17,7 @@ const Product = sequelize.define('product', {
   featuresru: { type: DataTypes.TEXT, allowNull: false },
   descriptionuk: { type: DataTypes.TEXT, allowNull: false, defaultValue: '' },
   descriptionru: { type: DataTypes.TEXT, allowNull: false, defaultValue: '' },
+  cod: { type: DataTypes.STRING, allowNull: null, defaultValue: null }, //щойно добавив тут
 });
 
 const Imgs = sequelize.define('img', {

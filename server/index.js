@@ -11,6 +11,7 @@ const ParseController = require('./Controllers/Parse.js');
 const ParseCarBrands = require('./Controllers/ParseCarBrands.js');
 const ParseCarModel = require('./Controllers/ParseCarModel.js');
 const ParseDetailsInfo = require('./Controllers/ParseDetailsInfo.js');
+const ParseSelectGoods = require('./Controllers/ParseSelectGoods.js');
 //const Scheduler = require('.//ScheControllersduler.js');
 
 const app = express(router);
@@ -55,5 +56,6 @@ const start = async () => {
 );*/
 
 //ParseDetailsInfo.GetAllDetailInfoWithAllModel();
+//ParseSelectGoods.ParseAllCod();
 
 start();
