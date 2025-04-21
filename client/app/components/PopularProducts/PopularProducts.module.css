@@ -41,7 +41,19 @@
   border-radius: 4px;
   aspect-ratio: 1/0.75;
 }
+.heart {
+  fill: #646464;
+  transition: fill 0.3s ease;
+}
 
+.heartActive {
+  fill: #FF0000;
+  transition: fill 0.3s ease;
+}
+
+.wishlist:hover .heart {
+  fill: #FF0000;
+}
 .productImageWrapper i {
   position: absolute;
   top: 15px;
@@ -61,6 +73,11 @@
   font-size: 14px;
   color: #4A4A4A;
   text-align: left;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .popularProductsPara span {
@@ -218,9 +235,10 @@
     justify-content: center;
   }
 
-  .popularProductsEL {
+  .popularProductsEL a{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
   }
 
   .popularProductsImage {
@@ -234,9 +252,9 @@
     margin-top: 5px;
   }
 
-  .popularProductsPriceWrapper {
+  /* .popularProductsPriceWrapper {
     gap: 5px;
-  }
+  } */
 
   .pricePara {
     font-size: 10px;
@@ -244,11 +262,13 @@
 
   .priceButton {
     font-size: 11px;
-    padding: 5px 15px;
-    background-color: #0E4ED2;
-    color: #fff;
-    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    background-color: #0e4ed2;
+    color: white;
     border: none;
+    border-radius: 20px;
     cursor: pointer;
   }
 

@@ -25,6 +25,20 @@
   color: #0e4ed2;
 }
 
+.heart {
+  fill: #646464;
+  transition: fill 0.3s ease;
+}
+
+.heartActive {
+  fill: #FF0000;
+  transition: fill 0.3s ease;
+}
+
+.wishlist:hover .heart {
+  fill: #FF0000;
+}
+
 .filterParts {
   margin-top: 15px;
   display: flex;
@@ -471,6 +485,11 @@
   margin-bottom: 15px;
   font-size: 14px;
   color: #4a4a4a;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .productsPara span {
@@ -581,6 +600,7 @@
   color: white;
   border: none;
 }
+
 .fa-chevron-down {
   display: inline-block;
   transform: rotateX(0deg);
@@ -599,9 +619,11 @@
   0% {
     transform: rotateX(0deg);
   }
+
   50% {
     transform: rotateX(90deg);
   }
+
   100% {
     transform: rotateX(180deg);
   }
@@ -611,9 +633,11 @@
   0% {
     transform: rotateX(180deg);
   }
+
   50% {
     transform: rotateX(90deg);
   }
+
   100% {
     transform: rotateX(0deg);
   }
@@ -632,6 +656,7 @@
 .sortedByDropdown button .fa-chevron-down {
   display: inline-block;
 }
+
 .wishlist {
   position: absolute;
   top: 10px;
@@ -693,6 +718,7 @@
   background-color: #6c757d;
   cursor: not-allowed;
 }
+
 @media (max-width: 501px) {
   .catalogContentWrapper {
     flex-direction: column;
@@ -719,7 +745,7 @@
     margin-top: 20px;
   }
 
-  .catalogContentWrapper > * {
+  .catalogContentWrapper>* {
     width: 100%;
   }
 
@@ -750,16 +776,24 @@
     width: 75%;
   }
 
-  .filterTabFilter.active + .filterTabSort {
+  .filterTabFilter.active+.filterTabSort {
     width: 25%;
-  }
 
+  }
+  .filterTabFilter.active+.filterTabSort span {
+    display: none;
+    
+    
+  }
   .filterTabSort.active {
     width: 75%;
   }
 
   .filterTab:has(.filterTabSort.active) .filterTabFilter:not(.active) {
     width: 25%;
+  }
+  .filterTab:has(.filterTabSort.active) .filterTabFilter:not(.active) span {
+    display: none;
   }
 
   .filterEl {
@@ -797,7 +831,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 15px;
+    padding: 15px 10px;
   }
 
   .filterTabFilterWrapper i {
@@ -808,11 +842,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 5px;
   }
 
   .filterTabFilterWrapperText span {
-    display: none;
+    color: #cdd0d1;
+    font-weight: 500;
   }
 
   .filterPartsSort {
@@ -827,7 +862,7 @@
     margin-top: 15px;
   }
 
-  .filterSection > label {
+  .filterSection>label {
     margin-bottom: 7px;
     font-weight: 400;
     font-size: 12px;

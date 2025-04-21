@@ -27,11 +27,10 @@ interface CartState {
   addToWishlist: (item: WishlistItem) => void;
   removeFromCart: (id: string) => void;
   removeFromWishlist: (id: string) => void;
-  updateCartQuantity: (id: string, delta: number) => void; // Змінено quantity на delta для відповідності
+  updateCartQuantity: (id: string, delta: number) => void;
   clearCart: () => void;
+  clearWishlist: () => void;
 }
-
-// Перевірка, чи код виконується в браузері
 const isBrowser = typeof window !== 'undefined';
 
 export const useCartStore = create<CartState>()(
@@ -72,6 +71,7 @@ export const useCartStore = create<CartState>()(
         set((state) => ({
           wishlist: state.wishlist.filter((item) => item.id !== id),
         })),
+
       updateCartQuantity: (id, delta) =>
         set((state) => ({
           cart: state.cart.map((item) =>
@@ -83,6 +83,10 @@ export const useCartStore = create<CartState>()(
       clearCart: () =>
         set(() => ({
           cart: [],
+        })),
+      clearWishlist: () =>
+        set(() => ({
+          wishlist: [],
         })),
     }),
     {

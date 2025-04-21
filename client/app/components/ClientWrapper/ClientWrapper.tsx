@@ -30,7 +30,7 @@ export default function ClientWrapper({
         console.log('Header height:', headerElement.offsetHeight);
         setHeaderHeight(headerElement.offsetHeight);
       } else {
-        setHeaderHeight(isMobile ? 60 : 175); // Резервні значення: 60px для мобільного, 40px для десктопу
+        setHeaderHeight(isMobile ? 60 : 120); // Резервні значення: 60px для мобільного, 40px для десктопу
       }
     };
 
@@ -45,13 +45,13 @@ export default function ClientWrapper({
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
+  console.log('Dictionary in ClientWrapper:', dictionary);
   return (
     <>
       <PhoneIconModal dictionary={dictionary.modalForm} />
       <Header lang={lang} dictionary={dictionary.header} />
       <main style={{ paddingTop: `${headerHeight}px` }}>{children}</main>
-      <Footer dictionary={dictionary.footer} />
+      <Footer dictionary={dictionary.footer} lang={lang}/>
     </>
   );
 }

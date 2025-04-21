@@ -1,7 +1,7 @@
 .sectionProduct {
     margin: 0 auto;
     width: 100%;
-    padding: 20px 7vw 45px;
+    padding: 10px 7vw 45px;
     margin-bottom: 10px;
     font-family: var(--font-roboto);
     color: black;
@@ -30,8 +30,11 @@
 
 .header {
     margin-bottom: 30px;
+    
 }
-
+.header h1 {
+    text-align: start;
+}
 .title {
     font-weight: 400;
     font-size: 24px;
@@ -260,7 +263,19 @@
     font-size: 1.2rem;
     padding: 0 10px;
 }
-
+.heart {
+    fill: #646464;
+    transition: fill 0.3s ease;
+  }
+  
+  .heartActive {
+    fill: #FF0000;
+    transition: fill 0.3s ease;
+  }
+  
+  .wishlist:hover .heart {
+    fill: #FF0000;
+  }
 /* Перевизначення .buyButton всередині .productSummary .actions */
 .productSummary .actions .buyButton {
     background-color: rgba(14, 78, 210, 1);
@@ -582,6 +597,7 @@
 
 .modalProductName {
     font-size: 16px;
+    text-align: start;
     /* font-weight: bold; */
     /* margin-bottom: 20px; */
 }

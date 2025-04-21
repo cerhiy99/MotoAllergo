@@ -1,28 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Locale } from '@/i18n.config';
 import styles from './Footer.module.css';
 import Link from 'next/link';
 
-type SubscribeFormProps = {
-  dictionary: {
-    title: string;
-    description: string;
-    termsLink: string;
-    subscribeButton: string;
-    checkboxLabel: string;
-    errors: {
-      emptyEmail: string;
-      invalidEmail: string;
-      termsNotAccepted: string;
-      subscribeFailed: string;
-      genericError: string;
-    };
-    successMessage: string;
-  };
-};
+interface SubscribeFormProps {
+  dictionary: any;
+  lang: string; // Додаємо lang
+}
 
-const SubscribeForm: React.FC<SubscribeFormProps> = ({ dictionary }) => {
+const SubscribeForm: React.FC<SubscribeFormProps> = ({ dictionary, lang }) => {
   const [email, setEmail] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -117,7 +105,7 @@ const SubscribeForm: React.FC<SubscribeFormProps> = ({ dictionary }) => {
           </div>
         </li>
         <li>
-          <Link href="/privacy_policy/" target="_blank" className={styles.footerLink}>
+          <Link href={`/${lang}/privacy_policy`} target="_blank" className={styles.footerLink}>
             {dictionary.termsLink}
           </Link>
           <button

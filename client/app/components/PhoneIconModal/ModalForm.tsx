@@ -6,7 +6,8 @@ import styles from './PhoneIconModal.module.css';
 interface ModalFormProps {
   isOpen: boolean;
   onClose: () => void;
-  dictionary?:any;
+  dictionary:any;
+
 }
 
 const ModalForm = ({ isOpen, onClose, dictionary }: ModalFormProps) => {
@@ -23,7 +24,7 @@ const ModalForm = ({ isOpen, onClose, dictionary }: ModalFormProps) => {
     const nameValue = e.target.value;
     setName(nameValue);
     if (nameValue.trim() === '') {
-      setNameError(dictionary?.nameError || 'Будь ласка, введіть ваше ім’я.');
+      setNameError(dictionary.dictionary?.nameError || 'Будь ласка, введіть ваше ім’я.');
     } else {
       setNameError('');
     }
@@ -34,7 +35,7 @@ const ModalForm = ({ isOpen, onClose, dictionary }: ModalFormProps) => {
     setPhone(phoneValue);
     if (!phoneRegex.test(phoneValue)) {
       setPhoneError(
-        dictionary?.phoneError ||
+        dictionary.dictionary?.phoneError ||
           'Невірний формат телефону. Введіть номер у форматі +380 або 0 і 9 цифр.'
       );
     } else {
@@ -50,23 +51,22 @@ const ModalForm = ({ isOpen, onClose, dictionary }: ModalFormProps) => {
     const nameValue = formData.get('name');
     const phoneValue = formData.get('phone');
     console.log('Заявка:', { name: nameValue, phone: phoneValue });
-    alert(dictionary?.submitSuccess || 'Заявка надіслана! Перевірте консоль для деталей.');
+    alert(dictionary.dictionary?.submitSuccess || 'Заявка надіслана! Перевірте консоль для деталей.');
     onClose();
     setName('');
     setPhone('');
     setNameError('');
     setPhoneError('');
   };
-
+  console.log('ModalForm dictionary:', dictionary.dictionary);
   if (!isOpen) return null;
-
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <span className={styles.closeIcon} onClick={onClose}>
           <i className="fa-solid fa-times"></i>
         </span>
-        <h2>{dictionary?.title || 'Замовити дзвінок'}</h2>
+        <h2>{dictionary.dictionary.title}</h2>
         <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <i className="fa-regular fa-user"></i>
@@ -75,7 +75,7 @@ const ModalForm = ({ isOpen, onClose, dictionary }: ModalFormProps) => {
               id="name"
               name="name"
               required
-              placeholder={dictionary?.namePlaceholder || "Введіть ваше ім'я"}
+              placeholder={dictionary.dictionary?.namePlaceholder || "Введіть ваше ім'я"}
               value={name}
               onChange={handleNameChange}
             />
@@ -88,7 +88,7 @@ const ModalForm = ({ isOpen, onClose, dictionary }: ModalFormProps) => {
               id="phone"
               name="phone"
               required
-              placeholder={dictionary?.phonePlaceholder || '+380XXXXXXXXX'}
+              placeholder={dictionary.dictionary?.phonePlaceholder || '+380XXXXXXXXX'}
               value={phone}
               onChange={handlePhoneChange}
             />
@@ -99,7 +99,7 @@ const ModalForm = ({ isOpen, onClose, dictionary }: ModalFormProps) => {
             className={styles.submitButton}
             disabled={!isSubmitButtonActive}
           >
-            {dictionary?.submitButton || 'Надіслати заявку'}
+            {dictionary.dictionary?.submitButton || 'Надіслати заявку'}
           </button>
         </form>
       </div>

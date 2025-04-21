@@ -14,7 +14,7 @@ import Heart from '../../assets/icons/heart.svg';
 import Cart from '../../assets/icons/cart.svg';
 import AnimatedInput from './AnimatedInput';
 import ModalForm from '../PhoneIconModal/ModalForm';
-import { useCartStore } from '@/store/cartStore';
+import { useCartStore,WishlistItem,CartItem } from '@/store/cartStore';
 
 type Props = {
   lang: string;
@@ -29,16 +29,46 @@ const Header = ({ lang, dictionary }: Props) => {
   const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
+  const [isFixed, setIsFixed] = useState(false);
 
   const {
     cart,
     wishlist,
+    addToCart,
     removeFromCart,
     removeFromWishlist,
     updateCartQuantity,
+    clearWishlist,
   } = useCartStore();
 
-  // Language-related state and logic
+  const handleAddAllToCart = () => {
+    wishlist.forEach((item: WishlistItem) => {
+      const cartItem: CartItem = {
+        ...item,
+        quantity: 1,
+      };
+      addToCart(cartItem); 
+    });
+    clearWishlist(); 
+    setIsFavoritesOpen(false); 
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const triggerPoint = 25;
+
+      if (scrollY > triggerPoint) {
+        setIsFixed(true);
+      } else {
+        setIsFixed(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const languages = [
     { code: 'uk', name: 'Українська', flag: '🇺🇦' },
     { code: 'ru', name: 'Русский', flag: '🇷🇺' },
@@ -188,85 +218,95 @@ const Header = ({ lang, dictionary }: Props) => {
           </button>
         </div>
       </div>
-      <div className={styles.mainHeader}>
-        <div className={styles.logo}>
-          <Link href={`/${currentLang}`}>
-            <img src="/images/logotype-desctop.svg" alt="logo" />
-          </Link>
+      <div className={`${styles.headerWrapper} ${isFixed ? styles.fixed : ''}`}>
+        <div className={styles.mainHeader}>
+          <div className={styles.logo}>
+            <Link href={`/${currentLang}`}>
+              <img src="/images/logotype-desctop.svg" alt="logo" />
+            </Link>
+          </div>
+          <form className={styles.searchForm}>
+            <AnimatedInput dictionary={dictionary} />
+            <button type="submit" className={styles.searchButton}>
+              <i className="fas fa-search"></i>
+            </button>
+          </form>
         </div>
-        <form className={styles.searchForm}>
-          <AnimatedInput dictionary={dictionary} />
-          <button type="submit" className={styles.searchButton}>
-            <i className="fas fa-search"></i>
-          </button>
-        </form>
+        <nav className={styles.nav}>
+          <ul className={styles.navList}>
+            <li>
+              <Link href={`/${currentLang}/about`}>{dictionary.about}</Link>
+            </li>
+            <li>
+              <Link href={`/${currentLang}/catalog`}>{dictionary.catalog}</Link>
+            </li>
+            <li>
+              <Link href={`/${currentLang}/delivery`}>
+                {dictionary.delivery}
+              </Link>
+            </li>
+            <li>
+              <Link href={`/${currentLang}/guarantees`}>
+                {dictionary.guarantees}
+              </Link>
+            </li>
+            <li>
+              <Link href={`/${currentLang}/news`}>{dictionary.news}</Link>
+            </li>
+            <li>
+              <Link href={`/${currentLang}/partnership`}>
+                {dictionary.partnership}
+              </Link>
+            </li>
+            <li>
+              <Link href={`/${currentLang}/contacts`}>
+                {dictionary.contacts}
+              </Link>
+            </li>
+          </ul>
+          <div className={styles.TelWrapper}>
+            <a href="tel:+380994114414" className={styles.phone}>
+              <i className="fa-solid fa-phone-volume"></i>
+              {dictionary.phoneNumber}
+            </a>
+          </div>
+          <div className={styles.rightSectionButton}>
+            <button
+              className={`${styles.languageToggle} ${
+                currentLang === 'uk' ? styles.uaActive : styles.ruActive
+              }`}
+              onClick={() =>
+                handleLanguageChange(currentLang === 'uk' ? 'ru' : 'uk')
+              }
+              aria-label="Toggle language"
+              disabled={isPending}
+            >
+              <span className={styles.languageText}>UA</span>
+              <span className={styles.languageText}>RU</span>
+            </button>
+          </div>
+          <div className={styles.cartIcons}>
+            <div className={styles.favoritesWrapper}>
+              <button onClick={toggleFavorites} aria-label="Favorites">
+                <Heart />
+                {wishlist.length > 0 && (
+                  <span className={styles.favoritesCount}>
+                    {wishlist.length}
+                  </span>
+                )}
+              </button>
+            </div>
+            <div className={styles.cartWrapper}>
+              <button onClick={toggleCart} aria-label="Cart">
+                <Cart />
+                {cart.length > 0 && (
+                  <span className={styles.cartCount}>{cart.length}</span>
+                )}
+              </button>
+            </div>
+          </div>
+        </nav>
       </div>
-      <nav className={styles.nav}>
-        <ul className={styles.navList}>
-          <li>
-            <Link href={`/${currentLang}/about`}>{dictionary.about}</Link>
-          </li>
-          <li>
-            <Link href={`/${currentLang}/catalog`}>{dictionary.catalog}</Link>
-          </li>
-          <li>
-            <Link href={`/${currentLang}/delivery`}>{dictionary.delivery}</Link>
-          </li>
-          <li>
-            <Link href={`/${currentLang}/guarantees`}>
-              {dictionary.guarantees}
-            </Link>
-          </li>
-          <li>
-            <Link href={`/${currentLang}/news`}>{dictionary.news}</Link>
-          </li>
-          <li>
-            <Link href={`/${currentLang}/partnership`}>
-              {dictionary.partnership}
-            </Link>
-          </li>
-          <li>
-            <Link href={`/${currentLang}/contacts`}>{dictionary.contacts}</Link>
-          </li>
-        </ul>
-        <div className={styles.TelWrapper}>
-          <a href="tel:+380994114414" className={styles.phone}>
-            <i className="fa-solid fa-phone-volume"></i>
-            {dictionary.phoneNumber}
-          </a>
-        </div>
-        <div className={styles.rightSectionButton}>
-          <button
-            className={`${styles.languageToggle} ${currentLang === 'uk' ? styles.uaActive : styles.ruActive}`}
-            onClick={() =>
-              handleLanguageChange(currentLang === 'uk' ? 'ru' : 'uk')
-            }
-            aria-label="Toggle language"
-            disabled={isPending}
-          >
-            <span className={styles.languageText}>UA</span>
-            <span className={styles.languageText}>RU</span>
-          </button>
-        </div>
-        <div className={styles.cartIcons}>
-          <div className={styles.favoritesWrapper}>
-            <button onClick={toggleFavorites} aria-label="Favorites">
-              <Heart />
-              {wishlist.length > 0 && (
-                <span className={styles.favoritesCount}>{wishlist.length}</span>
-              )}
-            </button>
-          </div>
-          <div className={styles.cartWrapper}>
-            <button onClick={toggleCart} aria-label="Cart">
-              <Cart />
-              {cart.length > 0 && (
-                <span className={styles.cartCount}>{cart.length}</span>
-              )}
-            </button>
-          </div>
-        </div>
-      </nav>
       <div className={styles.mobileHeader}>
         <div className={styles.mobileBurger} onClick={toggleBurgerMenu}>
           <img src="/images/burger.svg" alt="burger" />
@@ -303,6 +343,21 @@ const Header = ({ lang, dictionary }: Props) => {
           <Link href="/">
             <img src="/images/logotype-desctop.svg" alt="logo" />
           </Link>
+          <div className={styles.rightSectionButton}>
+            <button
+              className={`${styles.languageToggle} ${
+                currentLang === 'uk' ? styles.uaActive : styles.ruActive
+              }`}
+              onClick={() =>
+                handleLanguageChange(currentLang === 'uk' ? 'ru' : 'uk')
+              }
+              aria-label="Toggle language"
+              disabled={isPending}
+            >
+              <span className={styles.languageText}>UA</span>
+              <span className={styles.languageText}>RU</span>
+            </button>
+          </div>
           <i className="fa-solid fa-xmark" onClick={toggleBurgerMenu}></i>
         </div>
         <form className={styles.searchForm}>
@@ -320,7 +375,7 @@ const Header = ({ lang, dictionary }: Props) => {
                 className={styles.navListElRef}
               >
                 <div className={styles.burgerElWrapper}>
-                  <img src="/images/mobile_header_icon.svg" alt="" />
+                  <img src="/images/mobile_version/header/about.svg" alt="" />
                   {dictionary.about}
                 </div>
                 <i className="fa-solid fa-chevron-right"></i>
@@ -333,7 +388,7 @@ const Header = ({ lang, dictionary }: Props) => {
                 className={styles.navListElRef}
               >
                 <div className={styles.burgerElWrapper}>
-                  <img src="/images/mobile_header_icon.svg" alt="" />
+                  <img src="/images/mobile_version/header/catalog.svg" alt="" />
                   {dictionary.catalog}
                 </div>
                 <i className="fa-solid fa-chevron-right"></i>
@@ -346,7 +401,10 @@ const Header = ({ lang, dictionary }: Props) => {
                 className={styles.navListElRef}
               >
                 <div className={styles.burgerElWrapper}>
-                  <img src="/images/mobile_header_icon.svg" alt="" />
+                  <img
+                    src="/images/mobile_version/header/payAndDelievery.svg"
+                    alt=""
+                  />
                   {dictionary.delivery}
                 </div>
                 <i className="fa-solid fa-chevron-right"></i>
@@ -359,7 +417,10 @@ const Header = ({ lang, dictionary }: Props) => {
                 className={styles.navListElRef}
               >
                 <div className={styles.burgerElWrapper}>
-                  <img src="/images/mobile_header_icon.svg" alt="" />
+                  <img
+                    src="/images/mobile_version/header/guarantee.svg"
+                    alt=""
+                  />
                   {dictionary.guarantees}
                 </div>
                 <i className="fa-solid fa-chevron-right"></i>
@@ -372,7 +433,7 @@ const Header = ({ lang, dictionary }: Props) => {
                 className={styles.navListElRef}
               >
                 <div className={styles.burgerElWrapper}>
-                  <img src="/images/mobile_header_icon.svg" alt="" />
+                  <img src="/images/mobile_version/header/news.svg" alt="" />
                   {dictionary.news}
                 </div>
                 <i className="fa-solid fa-chevron-right"></i>
@@ -385,7 +446,10 @@ const Header = ({ lang, dictionary }: Props) => {
                 className={styles.navListElRef}
               >
                 <div className={styles.burgerElWrapper}>
-                  <img src="/images/mobile_header_icon.svg" alt="" />
+                  <img
+                    src="/images/mobile_version/header/partnership.svg"
+                    alt=""
+                  />
                   {dictionary.partnership}
                 </div>
                 <i className="fa-solid fa-chevron-right"></i>
@@ -398,7 +462,10 @@ const Header = ({ lang, dictionary }: Props) => {
                 className={styles.navListElRef}
               >
                 <div className={styles.burgerElWrapper}>
-                  <img src="/images/mobile_header_icon.svg" alt="" />
+                  <img
+                    src="/images/mobile_version/header/contacts.svg"
+                    alt=""
+                  />
                   {dictionary.contacts}
                 </div>
                 <i className="fa-solid fa-chevron-right"></i>
@@ -455,7 +522,7 @@ const Header = ({ lang, dictionary }: Props) => {
                   {cart.map((item) => (
                     <li key={item.id} className={styles.cartItem}>
                       <Link
-                        href={`/catalog/${item.id}`}
+                        href={`/${currentLang}/catalog/${item.id}`}
                         onClick={() => setIsCartOpen(false)}
                       >
                         <div className={styles.cartItemLinkWrapper}>
@@ -469,7 +536,7 @@ const Header = ({ lang, dictionary }: Props) => {
                               {item.name}
                             </p>
                             <p className={styles.cartItemPrice}>{item.price}</p>
-                            <div className={styles.quantityControls}>
+                            <div className={styles.quantityCounter}>
                               <button
                                 onClick={(e) => {
                                   e.preventDefault();
@@ -477,16 +544,20 @@ const Header = ({ lang, dictionary }: Props) => {
                                   updateQuantity(item.id, -1);
                                 }}
                                 disabled={item.quantity === 1}
+                                className={styles.quantityButton}
                               >
                                 -
                               </button>
-                              <span>{item.quantity}</span>
+                              <span className={styles.quantityValue}>
+                                {item.quantity}
+                              </span>
                               <button
                                 onClick={(e) => {
                                   e.preventDefault();
                                   e.stopPropagation();
                                   updateQuantity(item.id, 1);
                                 }}
+                                className={styles.quantityButton}
                               >
                                 +
                               </button>
@@ -512,7 +583,7 @@ const Header = ({ lang, dictionary }: Props) => {
                     {dictionary.currency}
                   </p>
                   <Link
-                    href="/cart"
+                    href={`/${currentLang}/cart`}
                     onClick={toggleCart}
                     className={styles.checkoutButton}
                   >
@@ -527,7 +598,9 @@ const Header = ({ lang, dictionary }: Props) => {
 
       {isFavoritesOpen && (
         <div
-          className={`${styles.favoritesModal} ${isFavoritesOpen ? styles.open : ''}`}
+          className={`${styles.favoritesModal} ${
+            isFavoritesOpen ? styles.open : ''
+          }`}
           onClick={(e) => handleOutsideClick(e, 'favorites')}
         >
           <div className={styles.favoritesModalContent}>
@@ -546,7 +619,7 @@ const Header = ({ lang, dictionary }: Props) => {
                 {wishlist.map((item) => (
                   <li key={item.id} className={styles.favoritesItem}>
                     <Link
-                      href={`/catalog/${item.id}`}
+                      href={`/${currentLang}/catalog/${item.id}`}
                       onClick={() => setIsFavoritesOpen(false)}
                     >
                       <div className={styles.favoritesItemLinkWrapper}>
@@ -577,13 +650,12 @@ const Header = ({ lang, dictionary }: Props) => {
             )}
             {wishlist.length > 0 && (
               <div className={styles.favoritesFooter}>
-                <Link
-                  href="#"
-                  onClick={toggleFavorites}
+                <button
+                  onClick={handleAddAllToCart}
                   className={styles.viewFavoritesButton}
                 >
                   {dictionary.favoritesAddToCart}
-                </Link>
+                </button>
               </div>
             )}
           </div>
@@ -592,6 +664,7 @@ const Header = ({ lang, dictionary }: Props) => {
       <ModalForm
         isOpen={isCallModalOpen}
         onClose={() => setIsCallModalOpen(false)}
+        dictionary={dictionary.modalForm}
       />
     </header>
   );

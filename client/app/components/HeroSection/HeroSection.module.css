@@ -2,6 +2,7 @@
   height: 41vw;
   position: relative;
   margin: 20px 0;
+  margin-top: 10px;
   display: flex;
   align-items: center;
   overflow: visible;
@@ -61,7 +62,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  gap: 20px;
+  gap: 15px;
 }
 
 .filterEl {
@@ -165,7 +166,15 @@
   opacity: 1;
   transition: opacity 50ms;
 }
+.filterElButton:disabled {
+  background: #9fb8ed; /* Менш насичений колір для неактивної кнопки */
+  cursor: not-allowed; /* Курсор для неактивного стану */
+  opacity: 1;
+}
 
+.filterElButton:hover:not(:disabled) {
+  background: #0e4ed2; /* Темніший відтінок при наведенні, якщо кнопка активна */
+}
 .sliderDots {
   bottom: 20px;
   left: 20px;

@@ -15,8 +15,11 @@ interface CartItem {
   image: string;
   quantity: number;
 }
-
-export default function CartOrder({ dictionary }: { dictionary: any }) {
+interface CartOrderProps {
+  dictionary: any;
+  lang: string; // Додаємо lang
+}
+export default function CartOrder({ dictionary, lang }: CartOrderProps) {
   const [isContactCollapsed, setIsContactCollapsed] = useState(false);
   const [isDeliveryCollapsed, setIsDeliveryCollapsed] = useState(true);
   const [fullName, setFullName] = useState('');
@@ -87,7 +90,7 @@ export default function CartOrder({ dictionary }: { dictionary: any }) {
   };
 
   if (isOrderSuccess) {
-    return <SuccessOrderComponent dictionary={dictionary.successOrder}/>;
+    return <SuccessOrderComponent dictionary={dictionary.successOrder} lang={lang}/>;
   }
 
   const totalPrice = cart.reduce(
@@ -440,9 +443,9 @@ export default function CartOrder({ dictionary }: { dictionary: any }) {
             ) : (
               cart.map((item) => (
                 <div key={item.id} className={styles.cartItem}>
-                  <Link href={`/catalog/${item.id}`}>
+                  <Link href={`/${lang}/catalog/${item.id}`}>
                     <img
-                      src={`http://45.94.156.193:9085/${item.image}`}
+                      src={`${process.env.NEXT_PUBLIC_SERVER}${item.image}`}
                       alt={item.name}
                       className={styles.cartItemImage}
                     />

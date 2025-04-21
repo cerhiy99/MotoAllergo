@@ -12,7 +12,7 @@ export default async function CartPage({ params }: { params: { lang: Locale } })
 
   return (
     <div >
-      <CartOrder dictionary={cart}/>
+      <CartOrder dictionary={cart} lang={params.lang}/>
     </div>
   );
 }

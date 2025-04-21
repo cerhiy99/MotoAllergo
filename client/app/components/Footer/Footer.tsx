@@ -1,13 +1,17 @@
+'use client';
+
 import React from 'react';
 import { Locale } from '@/i18n.config';
 import Link from 'next/link';
 import styles from './Footer.module.css';
-import SubscribeForm from './SubscribeForm'
-type Props = {
-  dictionary: any;
-};
+import SubscribeForm from './SubscribeForm';
 
-const Footer = ({ dictionary }: Props) => {
+interface FooterProps {
+  dictionary: any;
+  lang: string; // Додаємо lang
+}
+
+const Footer = ({ dictionary, lang }: FooterProps) => {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerLine}></div>
@@ -18,19 +22,19 @@ const Footer = ({ dictionary }: Props) => {
             <h2 className={styles.footerElHeader}>{dictionary.companyName}</h2>
             <ul className={styles.footerElList}>
               <li>
-                <a href="/about">{dictionary.about}</a>
+                <Link href={`/${lang}/about`}>{dictionary.about}</Link>
               </li>
               <li>
-                <a href="/catalog">{dictionary.catalog}</a>
+                <Link href={`/${lang}/catalog`}>{dictionary.catalog}</Link>
               </li>
               <li>
-                <a href="/news">{dictionary.news}</a>
+                <Link href={`/${lang}/news`}>{dictionary.news}</Link>
               </li>
               <li>
-                <a href="/partnership">{dictionary.partnership}</a>
+                <Link href={`/${lang}/partnership`}>{dictionary.partnership}</Link>
               </li>
               <li>
-                <a href="/contacts">{dictionary.contacts}</a>
+                <Link href={`/${lang}/contacts`}>{dictionary.contacts}</Link>
               </li>
             </ul>
           </li>
@@ -38,21 +42,21 @@ const Footer = ({ dictionary }: Props) => {
             <h2 className={styles.footerElHeader}>{dictionary.customerService}</h2>
             <ul className={styles.footerElList}>
               <li>
-                <Link href="/offer_agreement/">{dictionary.offerAgreement}</Link>
+                <Link href={`/${lang}/offer_agreement`}>{dictionary.offerAgreement}</Link>
               </li>
               <li>
-                <Link href="/privacy_policy/">{dictionary.privacyPolicy}</Link>
+                <Link href={`/${lang}/privacy_policy`}>{dictionary.privacyPolicy}</Link>
               </li>
               <li>
-                <Link href="/delivery">{dictionary.delivery}</Link>
+                <Link href={`/${lang}/delivery`}>{dictionary.delivery}</Link>
               </li>
               <li>
-                <Link href="/guarantees">{dictionary.guarantees}</Link>
+                <Link href={`/${lang}/guarantees`}>{dictionary.guarantees}</Link>
               </li>
             </ul>
           </li>
           <li className={styles.footerEl}>
-            <SubscribeForm dictionary={dictionary.subscribeForm}/>
+            <SubscribeForm dictionary={dictionary.subscribeForm} lang={lang} />
           </li>
           <li className={styles.footerEl}></li>
         </ul>
@@ -74,12 +78,12 @@ const Footer = ({ dictionary }: Props) => {
           <li className={styles.lastBlockEl}>
             <ul>
               <li>
-                <Link href="/offer_agreement/" target="_blank">
+                <Link href={`/${lang}/offer_agreement`} target="_blank">
                   {dictionary.bottomOfferAgreement}
                 </Link>
               </li>
               <li>
-                <Link href="/privacy_policy/" target="_blank">
+                <Link href={`/${lang}/privacy_policy`} target="_blank">
                   {dictionary.bottomPrivacyPolicy}
                 </Link>
               </li>

@@ -1,7 +1,6 @@
 .header {
   width: 100%;
-  position: fixed;
-  z-index: 1000;
+
 }
 
 .topBar {
@@ -12,7 +11,7 @@
   background-color: #f2f5fc;
   font-size: 12px;
   color: #333;
-  z-index: 1000;
+  z-index: 1;
 }
 
 .socialWrapper {
@@ -78,6 +77,22 @@
   align-items: center;
 }
 
+.headerWrapper {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  transition: all 1s ease;
+  transition: transform 0.3s ease;
+  transform: translateY(50px);
+  top: 0;
+}
+
+.fixed {
+
+  transform: translateY(0);
+  /* з'являється зверху */
+}
+
 .mainHeader {
   display: flex;
   justify-content: space-between;
@@ -86,7 +101,7 @@
   background-color: #ffffff;
   margin: 0 auto;
   gap: 30px;
-
+  width: 100%;
 }
 
 .logo {
@@ -239,6 +254,16 @@
 
 .burger {
   display: none;
+}
+
+.burger .languageToggle{
+  width: 100px;
+  height: 30px;
+}
+
+.burger .languageToggle::before {
+  width: 50px;
+  height: 30px;
 }
 
 .cartWrapper,
@@ -512,12 +537,49 @@
   border-radius: 20px;
   text-decoration: none;
   font-size: 14px;
+  border: none;
 }
+
+.quantityCounter {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  /* border-radius: 25px;
+  border-radius: clamp(25px,40%,50px); */
+  /* border-radius: 50px; */
+  border-radius: 20px;
+  width: fit-content;
+  /* padding: 5px; */
+  width: 90px;
+}
+
+.quantityButton {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px 10px;
+  width: 100%;
+  align-items: center;
+  
+}
+
+.quantityValue {
+  font-size: 1.2rem;
+  padding: 0 10px;
+}
+
+.viewFavoritesButton:hover {
+  /* background: rgba(14, 78, 210, 0.8); */
+  cursor: pointer;
+}
+
 .cartItemDetails p,
-  .favoritesItemDetails p {
-    text-align: start;
-    margin-right: 10px;
-  }
+.favoritesItemDetails p {
+  text-align: start;
+  margin-right: 10px;
+}
+
 /*FOR LIST LINK*/
 .cartItemLinkWrapper,
 .favoritesItemLinkWrapper {
@@ -526,6 +588,12 @@
   width: 100%;
   text-decoration: none;
   color: inherit;
+}
+
+@media (max-width: 1068px) {
+  .headerWrapper {
+    transform: translateY(60px);
+  }
 }
 
 @media (max-width: 501px) {
@@ -559,10 +627,14 @@
     display: flex;
     justify-content: center;
   }
-  .burger{
+
+  .burger {
     background-color: #ffffff;
-    border-bottom: 1px solid #0E4ED2;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
   }
+
   .burger.active {
     display: flex;
     flex-direction: column;
@@ -628,8 +700,6 @@
 
   .navListElRef i {
     padding: 4px 7px;
-    border: 2px solid black;
-    border-radius: 5px;
   }
 
   .TelWrapper a {
@@ -669,7 +739,11 @@
   .favoritesItemDetails {
     margin-right: 5px;
   }
-
+  .cartItemDetails p,
+  .favoritesItemDetails p{
+    font-size: 15px;
+    margin-right: 0;
+  }
   .burger .socialIcons i {
     font-size: 30px;
     color: #0E4ED2;
