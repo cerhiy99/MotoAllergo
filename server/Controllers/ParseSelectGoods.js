@@ -6,6 +6,7 @@ const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 const $browser = require('./utils/http');
 const { Product, ProductLink } = require('../models/models');
+const { Op } = require('sequelize');
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -212,9 +213,14 @@ class ParseSelectGoods {
       const products = await Product.findAll({
         attributes: ['id', 'productLinkId'],
         include: [{ model: ProductLink }],
+        where: {
+          cod: {
+            [Op.is]: null, // Це означає "NULL"
+          },
+        },
       });
       for (let i = 0; i < 2; i++) {
-        console.log(products[i].product_link.link);
+        console.log(4234324, products[i].product_link.link);
         const cod = await this.parseCod(
           `https://restauto.com.ua/ua${products[i].product_link.link}`
         );

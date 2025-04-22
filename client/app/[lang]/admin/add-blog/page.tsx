@@ -56,8 +56,6 @@ export default function AddBlog() {
     }
   };
 
-  console.log(descriptionuk, descriptionru);
-
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Додати новий блог</h1>

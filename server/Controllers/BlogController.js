@@ -4,6 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const ErrorApi = require('../error/ErrorApi');
 const { Blog, BlogImg } = require('../models/models');
 const striptags = require('striptags');
+const he = require('he');
 
 class BlogController {
   static Add = async (req, resp, next) => {
@@ -150,25 +151,28 @@ class BlogController {
 
   static UpdateBlogImgs = async (req, resp, next) => {
     try {
+      console.log(232);
       const { id } = req.body;
+      console.log(2313);
       const files = req.files;
+      console.log(2314);
 
       if (!id) {
         return next(ErrorApi.badRequest('ID обовʼязковий'));
       }
-
+      console.log(233);
       if (!files || Object.keys(files).length === 0) {
         return next(
           ErrorApi.badRequest('Немає нових зображень для завантаження')
         );
       }
+      console.log(234);
 
-      const blog = await Blog.findByPk(id, { include: BlogImg });
+      const blog = await Blog.findByPk(parseInt(id), { include: BlogImg });
 
       if (!blog) {
         return next(ErrorApi.badRequest('Блог з таким ID не знайдено'));
       }
-
       const staticDir = path.resolve(__dirname, '../static/blog');
 
       // Видаляємо старі фото з файлової системи та бази
