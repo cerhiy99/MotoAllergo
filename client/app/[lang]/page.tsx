@@ -141,7 +141,7 @@ export default async function Page({ params }: Props) {
     <main>
       <HeroSection dictionary={heroSection} lang={lang} />
       <LogoSlider lang={lang} />
-      <ChooseCategory dictionary={chooseCategory} />
+      <ChooseCategory lang={lang} dictionary={chooseCategory} />
       <HowWeWork dictionary={howWeWork} />
       <PopularProducts
         products={products}

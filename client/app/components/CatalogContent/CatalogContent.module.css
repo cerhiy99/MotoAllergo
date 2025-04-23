@@ -31,12 +31,12 @@
 }
 
 .heartActive {
-  fill: #FF0000;
+  fill: #ff0000;
   transition: fill 0.3s ease;
 }
 
 .wishlist:hover .heart {
-  fill: #FF0000;
+  fill: #ff0000;
 }
 
 .filterParts {
@@ -178,6 +178,8 @@
   transition: opacity 0.3s ease;
   z-index: 20;
   transform: translateX(-50%) translateY(0);
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 .dropdownMenu.active {
@@ -672,7 +674,7 @@
 
 .wishlistIconActive {
   margin-right: 5px;
-  fill: #FF0000;
+  fill: #ff0000;
 }
 
 .notification {
@@ -745,7 +747,7 @@
     margin-top: 20px;
   }
 
-  .catalogContentWrapper>* {
+  .catalogContentWrapper > * {
     width: 100%;
   }
 
@@ -776,14 +778,11 @@
     width: 75%;
   }
 
-  .filterTabFilter.active+.filterTabSort {
+  .filterTabFilter.active + .filterTabSort {
     width: 25%;
-
   }
-  .filterTabFilter.active+.filterTabSort span {
+  .filterTabFilter.active + .filterTabSort span {
     display: none;
-    
-    
   }
   .filterTabSort.active {
     width: 75%;
@@ -862,7 +861,7 @@
     margin-top: 15px;
   }
 
-  .filterSection>label {
+  .filterSection > label {
     margin-bottom: 7px;
     font-weight: 400;
     font-size: 12px;

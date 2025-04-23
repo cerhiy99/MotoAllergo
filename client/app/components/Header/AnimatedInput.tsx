@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import styles from "./Header.module.css";
+import { useState, useEffect } from 'react';
+import styles from './Header.module.css';
 
 type Props = {
   dictionary: any;
 };
 
 const AnimatedInput: React.FC<Props> = ({ dictionary }: Props) => {
-  const placeholderText:string = dictionary.animatedInput;
+  const placeholderText: string = dictionary.animatedInput;
   const [displayText, setDisplayText] = useState('');
   const [index, setIndex] = useState(0);
 
@@ -29,6 +29,8 @@ const AnimatedInput: React.FC<Props> = ({ dictionary }: Props) => {
   return (
     <input
       type="text"
+      name="search"
+      id="search"
       placeholder={displayText}
       className={styles.searchInput}
     />

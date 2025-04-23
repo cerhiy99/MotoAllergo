@@ -7,10 +7,6 @@ type Props = {
   params: { lang: Locale; id: string };
 };
 
-const generateStaticParams = () => {
-  return [{ id: '1' }, { id: '2' }];
-};
-
 const getData = async (id: string) => {
   let res = await fetch(
     process.env.NEXT_PUBLIC_API_SERVER + `blog/getSelect?id=${id}`,
@@ -40,4 +36,3 @@ const page = async ({ params: { lang, id } }: Props) => {
 };
 
 export default page;
-export { generateStaticParams };

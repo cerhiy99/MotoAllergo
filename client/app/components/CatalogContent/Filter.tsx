@@ -22,15 +22,12 @@ const parseQueryParam = (
 const Filter = ({ dictionary, searchParams, lang }: Props) => {
   const router = useRouter();
 
-  const sortOptions: string[] = useMemo(
-    () => [
-      dictionary.sortOptions.popularity,
-      dictionary.sortOptions.priceLowToHigh,
-      dictionary.sortOptions.priceHighToLow,
-      dictionary.sortOptions.newest,
-    ],
-    [dictionary.sortOptions]
-  );
+  const sortOptions = [
+    { id: 'popularity', title: dictionary.sortOptions.popularity },
+    { id: 'priceLowToHigh', title: dictionary.sortOptions.priceLowToHigh },
+    { id: 'priceHighToLow', title: dictionary.sortOptions.priceHighToLow },
+    { id: 'newest', title: dictionary.sortOptions.newest },
+  ];
 
   const [activeSection, setActiveSection] = useState<'filter' | 'sort' | null>(
     null
@@ -43,16 +40,57 @@ const Filter = ({ dictionary, searchParams, lang }: Props) => {
   }>({});
 
   const [activeFilters, setActiveFilters] = useState<number[]>([0, 2]);
-  const [dropdowns, setDropdowns] = useState<{ [key: number]: boolean }>({});
+  const [dropdowns, setDropdowns] = useState<{ [key: number]: boolean }>({
+    0: false,
+  });
   const [isCategoriesOpen, setIsCategoriesOpen] = useState<boolean>(true);
 
   const updateUrl = (newParams: {
     [key: string]: string | string[] | null | undefined;
   }) => {
-    const currentParams = new URLSearchParams(searchParams); // ReadonlyURLSearchParams → URLSearchParams
-    const queryString = createQueryString(currentParams, newParams);
+    const updatedParams = { ...newParams };
+
+    if ('brand' in newParams) {
+      updatedParams.model = '';
+    }
+
+    if ('categories' in newParams) {
+      updatedParams.typeDetail = '';
+    }
+
+    const currentParams = new URLSearchParams(searchParams);
+    const queryString = createQueryString(currentParams, updatedParams);
     const newUrl = `/${lang}/catalog/1${queryString ? `?${queryString}` : ''}`;
     router.push(newUrl, { scroll: false });
+  };
+
+  const createQueryString = (
+    currentParams: URLSearchParams,
+    newParams: { [key: string]: string | string[] | null | undefined }
+  ): string => {
+    const params = new URLSearchParams(currentParams);
+
+    Object.entries(newParams).forEach(([key, value]) => {
+      if (value === null || value === undefined || value === '') {
+        params.delete(key);
+      } else if (Array.isArray(value)) {
+        if (value.length > 0) {
+          // Створюємо параметр без кодування
+          params.set(key, value.join(','));
+        } else {
+          params.delete(key);
+        }
+      } else {
+        // Звичайне значення
+        params.set(key, value);
+      }
+    });
+
+    // Переконаймося, що немає подвійного кодування
+    let queryString = params.toString();
+    queryString = queryString.replace(/%2C/g, ','); // Виправляємо можливі закодовані коми на звичайні
+
+    return queryString;
   };
 
   const handleFilterSectionClick = () => {
@@ -71,7 +109,6 @@ const Filter = ({ dictionary, searchParams, lang }: Props) => {
   const [isSortDropdownOpen, setIsSortDropdownOpen] = useState<boolean>(false);
 
   const handleFilterClick = (index: number): void => {
-    if (!activeFilters.includes(index)) return;
     setDropdowns((prev) => {
       const newState = Object.keys(prev).reduce(
         (acc, key) => {
@@ -84,59 +121,34 @@ const Filter = ({ dictionary, searchParams, lang }: Props) => {
     });
   };
 
-  const createQueryString = (
-    currentParams: URLSearchParams,
-    newParams: { [key: string]: string | string[] | null | undefined }
-  ): string => {
-    const params = new URLSearchParams(currentParams);
-    Object.entries(newParams).forEach(([key, value]) => {
-      if (value === null || value === undefined || value === '') {
-        params.delete(key);
-      } else if (Array.isArray(value)) {
-        if (value.length > 0) {
-          params.set(key, value.join(','));
-        } else {
-          params.delete(key);
-        }
-      } else {
-        params.set(key, value);
-      }
-    });
-    return params.toString();
-  };
-
-  const handleItemClick = (
-    filterIndex: number,
-    key: string,
-    value: string
-  ): void => {
-    const newChosenFilters = { ...chosenFilters, [filterIndex]: value };
-    setChosenFilters(newChosenFilters);
-    setDropdowns((prev) => ({ ...prev, [filterIndex]: false }));
-
-    if (filterIndex === 0)
-      setActiveFilters((prev) => Array.from(new Set([...prev, 1])));
-    if (filterIndex === 1)
-      setActiveFilters((prev) => Array.from(new Set([...prev, 2])));
-    if (filterIndex === 3)
-      setActiveFilters((prev) => Array.from(new Set([...prev, 4])));
-
-    const filtersString = Object.entries(newChosenFilters)
-      .map(([key, val]) => `${key}=${val}`)
-      .join(',');
-
-    updateUrl({ filters: filtersString || null });
-  };
-
   const toggleCategories = (): void => {
     setIsCategoriesOpen((prev) => !prev);
   };
 
-  const handleCategoryClick = (category: string): void => {
-    const newCategories = activeCategories.includes(category)
-      ? activeCategories.filter((cat) => cat !== category)
-      : [...activeCategories, category];
-    updateUrl({ categories: newCategories.length > 0 ? newCategories : null });
+  const handleCategoryClick = (category: number | string): void => {
+    const categies = searchParams.categories;
+
+    // Якщо категорії вже існують
+    if (categies) {
+      let listCategories = categies.split(','); // Отримуємо масив категорій
+
+      // Перевіряємо, чи категорія вже в списку
+      if (listCategories.includes(category.toString())) {
+        // Видаляємо категорію, якщо вона є в списку
+        listCategories = listCategories.filter(
+          (x: string) => x !== category.toString()
+        );
+      } else {
+        // Додаємо категорію, якщо її нема в списку
+        listCategories.push(category.toString());
+      }
+
+      // Оновлюємо URL з новим списком категорій
+      updateUrl({ categories: listCategories.join(',') });
+    } else {
+      // Якщо категорії немає в searchParams, додаємо поточну категорію
+      updateUrl({ categories: category.toString() });
+    }
   };
 
   const handleSortSelect = (option: string): void => {
@@ -164,7 +176,39 @@ const Filter = ({ dictionary, searchParams, lang }: Props) => {
     getCategory();
   }, []);
 
-  console.log(brands, category);
+  const [models, setModels] = useState<{ id: number; name: string }[]>([]);
+  const [typeDetail, setTypeDetail] = useState<{ id: number; name: string }[]>(
+    []
+  );
+
+  const getModels = async (brandId: string) => {
+    try {
+      const res = await $host.get(`product/getModels?brandId=${brandId}`);
+      setModels(res.data.models);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getTypeDetail = async (categoryId: string) => {
+    try {
+      const res = await $host.get(
+        `product/getTypeDetail?categoryTypeDelailId=${categoryId}&lang=${lang}`
+      );
+      setTypeDetail(res.data.res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    if (searchParams.brand) {
+      getModels(searchParams.brand);
+    } else setModels([]);
+    if (searchParams.categories) {
+      getTypeDetail(searchParams.categories.split(',')[0]);
+    } else setTypeDetail([]);
+  }, [searchParams]);
 
   return (
     <div className={styles.sidebarWrapper}>
@@ -216,19 +260,23 @@ const Filter = ({ dictionary, searchParams, lang }: Props) => {
             <ul className={styles.filterList}>
               {[
                 { id: 'brand', title: dictionary.filter1, arr: brands },
-                { id: 'model', title: dictionary.filter2, arr: [] },
-                { id: 'category', title: dictionary.filter4, arr: category },
-                { id: 'typeDetail', title: dictionary.filter5, arr: [] },
+                { id: 'model', title: dictionary.filter2, arr: models },
+                { id: 'categories', title: dictionary.filter4, arr: category },
+                {
+                  id: 'typeDetail',
+                  title: dictionary.filter5,
+                  arr: typeDetail,
+                },
               ].map((x, index) => (
                 <li
-                  key={index}
+                  key={x.id}
                   className={`${styles.filterEl} ${
-                    activeFilters.includes(index) ? styles.active : ''
+                    x.arr.length > 0 ? styles.active : ''
                   } ${chosenFilters[index] ? styles.chosen : ''}`}
                 >
                   <p
                     className={`${styles.filterElPara} ${
-                      chosenFilters[index] ? styles.chosen : ''
+                      x.arr.length > 0 ? styles.chosen : ''
                     }`}
                     onClick={() => handleFilterClick(index)}
                     style={{
@@ -239,18 +287,25 @@ const Filter = ({ dictionary, searchParams, lang }: Props) => {
                   >
                     <span
                       className={`${styles.filterElNumber} ${
-                        activeFilters.includes(index) ? styles.active : ''
+                        x.arr.length > 0 ? styles.active : ''
                       } ${chosenFilters[index] ? styles.chosen : ''}`}
                     >
                       {index + 1}
                     </span>
-                    {x.arr.find((item: any) => item.id === chosenFilters[index])
-                      ?.name || x.title}
+                    {(() => {
+                      const matched = x.arr.find(
+                        (arrItem) =>
+                          searchParams[x.id]
+                            ?.split(',')
+                            .some((item: string) => +item === arrItem.id)
+                      );
+                      return matched ? matched.name : x.title;
+                    })()}
                   </p>
                   <div
                     className={`${styles.filterElIconWrapper} ${
-                      activeFilters.includes(index) ? styles.active : ''
-                    } ${chosenFilters[index] ? styles.chosen : ''}`}
+                      x.arr.length > 0 ? styles.active : ''
+                    } ${searchParams[x.id] ? styles.chosen : ''}`}
                     onClick={() => handleFilterClick(index)}
                     style={{
                       cursor: activeFilters.includes(index)
@@ -269,14 +324,19 @@ const Filter = ({ dictionary, searchParams, lang }: Props) => {
                   {dropdowns[index] && (
                     <ul
                       className={`${styles.dropdownMenu} ${
-                        dropdowns[index] ? styles.active : ''
+                        x.arr.length > 0 ? styles.active : ''
                       }`}
                     >
-                      {x.arr.map((item: any) => (
+                      {x.arr.map((item: any, i) => (
                         <li
                           key={item.id}
                           className={styles.dropdownItem}
-                          onClick={() => handleItemClick(index, x.id, item.id)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            updateUrl({ [x.id]: item.id });
+                            setDropdowns({});
+                          }}
                         >
                           {item.name}
                         </li>
@@ -292,43 +352,29 @@ const Filter = ({ dictionary, searchParams, lang }: Props) => {
           <form className={styles.filterPartsSort} action="#">
             <div className={styles.filterSection}>
               <label>{dictionary.filterLabel}</label>
-              {sortOptions.map((option) => (
-                <div key={option} className={styles.filterSectionEl}>
+              {sortOptions.map((option: any) => (
+                <div
+                  key={option.id}
+                  onClick={() => {
+                    updateUrl({ sort: option.id });
+                    setSelectedSort(option.title);
+                  }}
+                  className={styles.filterSectionEl}
+                >
                   <input
                     type="radio"
-                    id={`mobile-sort-${option.replace(/\s+/g, '-')}`}
+                    id={`mobile-sort-${option.title.replace(/\s+/g, '-')}`}
                     name="mobile-sort"
                     value={option}
-                    checked={selectedSort === option}
-                    onChange={() => handleSortSelect(option)}
+                    checked={option.id === searchParams.sort}
                   />
-                  <label htmlFor={`mobile-sort-${option.replace(/\s+/g, '-')}`}>
-                    {option}
+                  <label
+                    htmlFor={`mobile-sort-${option.title.replace(/\s+/g, '-')}`}
+                  >
+                    {option.title}
                   </label>
                 </div>
               ))}
-            </div>
-            <div className={styles.filterSection}>
-              <label>{dictionary.conditionLabel}</label>
-              <div className={styles.filterSectionSortWrapper}>
-                {['used', 'new'].map((condition) => (
-                  <div key={condition} className={styles.filterSectionEl}>
-                    <input
-                      type="checkbox"
-                      id={`mobile-condition-${condition}`}
-                      name="mobile-condition"
-                      value={condition}
-                      checked={activeCategories.includes(condition)}
-                      onChange={() => handleCategoryClick(condition)}
-                    />
-                    <label htmlFor={`mobile-condition-${condition}`}>
-                      {condition === 'used'
-                        ? dictionary.conditionUsed
-                        : dictionary.conditionNew}
-                    </label>
-                  </div>
-                ))}
-              </div>
             </div>
           </form>
         )}
@@ -339,19 +385,19 @@ const Filter = ({ dictionary, searchParams, lang }: Props) => {
           <ul className={styles.filterList}>
             {[
               { id: 'brand', title: dictionary.filter1, arr: brands },
-              { id: 'model', title: dictionary.filter2, arr: [] },
-              { id: 'category', title: dictionary.filter4, arr: category },
-              { id: 'typeDetail', title: dictionary.filter5, arr: [] },
+              { id: 'model', title: dictionary.filter2, arr: models },
+              { id: 'categories', title: dictionary.filter4, arr: category },
+              { id: 'typeDetail', title: dictionary.filter5, arr: typeDetail },
             ].map((x, index) => (
               <li
                 key={x.id}
                 className={`${styles.filterEl} ${
-                  activeFilters.includes(index) ? styles.active : ''
+                  x.arr.length > 0 ? styles.active : ''
                 } ${chosenFilters[index] ? styles.chosen : ''}`}
               >
                 <p
                   className={`${styles.filterElPara} ${
-                    chosenFilters[index] ? styles.chosen : ''
+                    x.arr.length > 0 ? styles.chosen : ''
                   }`}
                   onClick={() => handleFilterClick(index)}
                   style={{
@@ -362,18 +408,25 @@ const Filter = ({ dictionary, searchParams, lang }: Props) => {
                 >
                   <span
                     className={`${styles.filterElNumber} ${
-                      activeFilters.includes(index) ? styles.active : ''
+                      x.arr.length > 0 ? styles.active : ''
                     } ${chosenFilters[index] ? styles.chosen : ''}`}
                   >
                     {index + 1}
                   </span>
-                  {x.arr.find((item: any) => item.id === chosenFilters[index])
-                    ?.name || x.title}{' '}
+                  {(() => {
+                    const matched = x.arr.find(
+                      (arrItem) =>
+                        searchParams[x.id]
+                          ?.split(',')
+                          .some((item: string) => +item === arrItem.id)
+                    );
+                    return matched ? matched.name : x.title;
+                  })()}
                 </p>
                 <div
                   className={`${styles.filterElIconWrapper} ${
-                    activeFilters.includes(index) ? styles.active : ''
-                  } ${chosenFilters[index] ? styles.chosen : ''}`}
+                    x.arr.length > 0 ? styles.active : ''
+                  } ${searchParams[x.id] ? styles.chosen : ''}`}
                   onClick={() => handleFilterClick(index)}
                   style={{
                     cursor: activeFilters.includes(index)
@@ -392,14 +445,19 @@ const Filter = ({ dictionary, searchParams, lang }: Props) => {
                 {dropdowns[index] && (
                   <ul
                     className={`${styles.dropdownMenu} ${
-                      dropdowns[index] ? styles.active : ''
+                      x.arr.length > 0 ? styles.active : ''
                     }`}
                   >
                     {x.arr.map((item: any, i) => (
                       <li
                         key={item.id}
                         className={styles.dropdownItem}
-                        onClick={() => handleItemClick(index, x.id, item.id)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          updateUrl({ [x.id]: item.id });
+                          setDropdowns({});
+                        }}
                       >
                         {item.name}
                       </li>
@@ -427,31 +485,28 @@ const Filter = ({ dictionary, searchParams, lang }: Props) => {
         </div>
         {isCategoriesOpen && (
           <ul className={styles.categoriesList}>
-            {[
-              'Категорія 1',
-              'Категорія 2',
-              'Категорія 3',
-              'Категорія 4',
-              'Категорія 5',
-              'Категорія 6',
-              'Категорія 7',
-              'Категорія 8',
-              'Категорія 9',
-              'Категорія 10',
-            ].map((category) => (
+            {category.map((category) => (
               <li
-                key={category}
+                key={category.id}
                 className={styles.categoriesEl}
-                onClick={() => handleCategoryClick(category)}
+                onClick={() => handleCategoryClick(category.id)}
                 style={{ cursor: 'pointer' }}
               >
                 <input
                   type="checkbox"
                   readOnly
-                  checked={activeCategories.includes(category)}
+                  checked={
+                    searchParams.categories
+                      ? searchParams.categories
+                          .split(',')
+                          .some(
+                            (item: string) => item === category.id.toString()
+                          )
+                      : false
+                  }
                   tabIndex={-1}
                 />
-                {category}
+                {category.name}
               </li>
             ))}
           </ul>

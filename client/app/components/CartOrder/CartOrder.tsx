@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './CartOrder.module.css';
 import Link from 'next/link';
 import SuccessOrderComponent from '../SuccessOrder/SuccessOrder';
 import NavPath from '@/app/components/NavPath/NavPath';
 import { useCartStore } from '@/store/cartStore';
+import axios from 'axios';
 
 interface CartItem {
   id: string; // Змінено на string, щоб відповідати useCartStore
@@ -41,21 +42,17 @@ export default function CartOrder({ dictionary, lang }: CartOrderProps) {
 
   const phoneRegex = /^(?:\+?380|0)\d{9}$/;
 
-  const isContinueButtonActive = fullName.trim() !== '' && phone.trim() !== '' && !phoneError && !nameError;
-
-  const isCheckoutButtonActive =
-    country !== '' &&
-    paymentMethod !== '' &&
-    paymentSize !== '' &&
-    deliveryMethod !== '' &&
-    city !== '' &&
-    branch !== '';
+  const isContinueButtonActive =
+    fullName.trim() !== '' && phone.trim() !== '' && !phoneError && !nameError;
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const phoneValue = e.target.value;
     setPhone(phoneValue);
     if (!phoneRegex.test(phoneValue)) {
-      setPhoneError(dictionary.phoneError || 'Невірний формат телефону. Введіть номер у форматі +380 або 380 і 9 цифр, або 0 і 9 цифр.');
+      setPhoneError(
+        dictionary.phoneError ||
+          'Невірний формат телефону. Введіть номер у форматі +380 або 380 і 9 цифр, або 0 і 9 цифр.'
+      );
     } else {
       setPhoneError('');
     }
@@ -83,21 +80,200 @@ export default function CartOrder({ dictionary, lang }: CartOrderProps) {
     setIsDeliveryCollapsed(true);
   };
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (isCheckoutButtonActive) {
-      setIsOrderSuccess(true);
+      const cityName = selectCity.Description;
+      const warehouseName = selectedWarehouse?.Description;
+      const tgToken = process.env.NEXT_PUBLIC_TG_TOKEN;
+      const chatId = process.env.NEXT_PUBLIC_CHAT_ID;
+      const message = `Привіт!🙌
+Хтось залишив Вам одне нове замовлення🤑
+
+💆‍♂️ПІБ: ${fullName}
+📲Телефон: ${phone}
+📧Email: ${email}
+Тип оплати: ${paymentSize}
+🚚 Доставка:
+Населений пункт: ${cityName}
+Відділення: ${warehouseName}
+${cart
+  .map(
+    (x) => `
+🏪 Кількість товару: ${x.quantity}
+
+🔗 Посилання на товар: ${process.env.NEXT_PUBLIC_URL}/ul/select-goods/${x.id}
+💳 Сума: ${parseFloat(x.price) * x.quantity} грн
+
+----------------------------------------`
+  )
+  .join('\n')}
+      
+
+Загальна сума: ${totalPrice} грн`;
+
+      try {
+        await axios.post(`https://api.telegram.org/bot${tgToken}/sendMessage`, {
+          chat_id: chatId,
+          text: message,
+          parse_mode: 'HTML',
+        });
+
+        setIsOrderSuccess(true);
+      } catch (error) {
+        console.error(
+          '❌ Не вдалося надіслати повідомлення в Telegram:',
+          error
+        );
+      }
     }
   };
-
-  if (isOrderSuccess) {
-    return <SuccessOrderComponent dictionary={dictionary.successOrder} lang={lang}/>;
-  }
 
   const totalPrice = cart.reduce(
     (total, item) =>
       total + parseFloat(item.price.replace(/[^0-9.]/g, '')) * item.quantity,
     0
   );
+
+  const [allCities, setAllCities] = useState([]);
+  const [filteredCities, setFilteredCities] = useState([]);
+  const [query, setQuery] = useState('');
+  const [selectCity, setSelectCity] = useState<
+    undefined | { Ref: string; Description: string }
+  >(undefined);
+
+  useEffect(() => {
+    const getCities = async () => {
+      try {
+        const res = await axios.post('https://api.novaposhta.ua/v2.0/json/', {
+          apiKey: process.env.NEXT_PUBLIC_NP_API_KEY,
+          modelName: 'Address',
+          calledMethod: 'getCities',
+        });
+        console.log(res);
+
+        setAllCities(res.data.data);
+      } catch (e) {
+        console.error('Помилка завантаження міст:', e);
+      }
+    };
+
+    getCities();
+  }, []);
+
+  useEffect(() => {
+    if (selectCity !== undefined) {
+      setFilteredCities([]);
+      return;
+    }
+
+    try {
+      const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // екранування для RegExp
+      const startsWithRegex = new RegExp(`^${escapedQuery}`, 'i');
+      const containsRegex = new RegExp(escapedQuery, 'i');
+
+      const startsWith = allCities.filter(
+        (city: any) =>
+          startsWithRegex.test(city.Description) ||
+          startsWithRegex.test(city.DescriptionRu)
+      );
+
+      const contains = allCities.filter(
+        (city: any) =>
+          !startsWithRegex.test(city.Description) &&
+          !startsWithRegex.test(city.DescriptionRu) &&
+          (containsRegex.test(city.Description) ||
+            containsRegex.test(city.DescriptionRu))
+      );
+
+      // Уникнути дублів
+      const uniqueCities: any = Array.from(
+        new Map(
+          [...startsWith, ...contains].map((city: any) => [city.Ref, city])
+        ).values()
+      );
+
+      setFilteredCities(uniqueCities);
+    } catch (e) {
+      setFilteredCities([]);
+    }
+  }, [query, allCities, selectCity]);
+
+  const [warehouseQuery, setWarehouseQuery] = useState('');
+  const [filteredWarehouses, setFilteredWarehouses] = useState([]);
+  const [selectedWarehouse, setSelectedWarehouse] = useState<
+    undefined | { Description: string }
+  >(undefined);
+
+  useEffect(() => {
+    if (selectCity === undefined || !selectCity?.Ref) return;
+
+    const fetchWarehouses = async () => {
+      try {
+        const res = await axios.post('https://api.novaposhta.ua/v2.0/json/', {
+          apiKey: process.env.NEXT_PUBLIC_NP_API_KEY,
+          modelName: 'Address',
+          calledMethod: 'getWarehouses',
+          methodProperties: {
+            CityRef: selectCity.Ref,
+          },
+        });
+
+        setWarehouses(res.data.data);
+      } catch (error) {
+        console.error('Помилка при завантаженні відділень:', error);
+      }
+    };
+
+    fetchWarehouses();
+  }, [selectCity]);
+
+  const [warehouses, setWarehouses] = useState([]);
+
+  useEffect(() => {
+    if (selectedWarehouse !== undefined) {
+      setFilteredWarehouses([]);
+      return;
+    }
+    if (!warehouseQuery) {
+      setFilteredWarehouses(warehouses); // по замовчуванню обмежуємо
+      return;
+    }
+
+    try {
+      const escapedQuery = warehouseQuery.replace(
+        /[.*+?^${}()|[\]\\]/g,
+        '\\$&'
+      );
+      const startsWithRegex = new RegExp(`^${escapedQuery}`, 'i');
+      const containsRegex = new RegExp(escapedQuery, 'i');
+
+      const startsWith = warehouses.filter((w: any) =>
+        startsWithRegex.test(w.Description)
+      );
+
+      const contains = warehouses.filter(
+        (w: any) =>
+          !startsWithRegex.test(w.Description) &&
+          containsRegex.test(w.Description)
+      );
+
+      setFilteredWarehouses([...startsWith, ...contains].slice(0, 10));
+    } catch (e) {
+      setFilteredWarehouses([]);
+    }
+  }, [warehouseQuery, warehouses]);
+
+  const isCheckoutButtonActive =
+    country !== '' &&
+    paymentMethod !== '' &&
+    paymentSize !== '' &&
+    deliveryMethod !== '' &&
+    selectCity !== undefined;
+  selectedWarehouse !== undefined;
+
+  if (isOrderSuccess) {
+    return <SuccessOrderComponent dictionary={dictionary.successOrder} />;
+  }
 
   return (
     <div className={styles.cartPage}>
@@ -106,7 +282,11 @@ export default function CartOrder({ dictionary, lang }: CartOrderProps) {
       <div className={styles.cartContainer}>
         <div className={styles.formSection}>
           <h1 className={styles.cartHeader}>{dictionary.checkoutTitle}</h1>
-          <div className={`${styles.formGroup} ${isContactCollapsed ? styles.collapsed : ''}`}>
+          <div
+            className={`${styles.formGroup} ${
+              isContactCollapsed ? styles.collapsed : ''
+            }`}
+          >
             <h2 className={styles.formHeaderEditButton}>
               1. {dictionary.contactDetails}{' '}
               {isContactCollapsed && (
@@ -123,12 +303,16 @@ export default function CartOrder({ dictionary, lang }: CartOrderProps) {
                     <input
                       type="text"
                       id="fullName"
-                      placeholder={dictionary.fullNamePlaceholder || dictionary.fullName}
+                      placeholder={
+                        dictionary.fullNamePlaceholder || dictionary.fullName
+                      }
                       value={fullName}
                       onChange={handleFullNameChange}
                       required
                     />
-                    {nameError && <span className={styles.errorMessage}>{nameError}</span>}
+                    {nameError && (
+                      <span className={styles.errorMessage}>{nameError}</span>
+                    )}
                   </li>
 
                   <li className={styles.inputWithIcon}>
@@ -141,7 +325,9 @@ export default function CartOrder({ dictionary, lang }: CartOrderProps) {
                       onChange={handlePhoneChange}
                       required
                     />
-                    {phoneError && <span className={styles.errorMessage}>{phoneError}</span>}
+                    {phoneError && (
+                      <span className={styles.errorMessage}>{phoneError}</span>
+                    )}
                   </li>
 
                   <li className={styles.inputWithIcon}>
@@ -169,7 +355,11 @@ export default function CartOrder({ dictionary, lang }: CartOrderProps) {
               )}
             </ul>
           </div>
-          <div className={`${styles.formGroup} ${isDeliveryCollapsed ? styles.collapsed : ''}`}>
+          <div
+            className={`${styles.formGroup} ${
+              isDeliveryCollapsed ? styles.collapsed : ''
+            }`}
+          >
             <h2>2. {dictionary.deliveryAndPayment}</h2>
             {!isDeliveryCollapsed && (
               <>
@@ -177,12 +367,18 @@ export default function CartOrder({ dictionary, lang }: CartOrderProps) {
                 <div className={styles.customSelect}>
                   <div
                     className={styles.selectButton}
-                    onClick={() => setActiveSelect(activeSelect === 'country' ? null : 'country')}
+                    onClick={() =>
+                      setActiveSelect(
+                        activeSelect === 'country' ? null : 'country'
+                      )
+                    }
                   >
                     {country || dictionary.countryOptions.select}
                     <i
                       className={`fa-solid fa-chevron-down ${
-                        activeSelect === 'country' ? styles.rotateChevron : styles.rotateChevronBack
+                        activeSelect === 'country'
+                          ? styles.rotateChevron
+                          : styles.rotateChevronBack
                       }`}
                     ></i>
                   </div>
@@ -210,16 +406,26 @@ export default function CartOrder({ dictionary, lang }: CartOrderProps) {
                   )}
                 </div>
 
-                <label htmlFor="paymentMethod">{dictionary.paymentMethod}</label>
+                <label htmlFor="paymentMethod">
+                  {dictionary.paymentMethod}
+                </label>
                 <div className={styles.customSelect}>
                   <div
                     className={styles.selectButton}
-                    onClick={() => setActiveSelect(activeSelect === 'paymentMethod' ? null : 'paymentMethod')}
+                    onClick={() =>
+                      setActiveSelect(
+                        activeSelect === 'paymentMethod'
+                          ? null
+                          : 'paymentMethod'
+                      )
+                    }
                   >
                     {paymentMethod || dictionary.paymentOptions.select}
                     <i
                       className={`fa-solid fa-chevron-down ${
-                        activeSelect === 'paymentMethod' ? styles.rotateChevron : styles.rotateChevronBack
+                        activeSelect === 'paymentMethod'
+                          ? styles.rotateChevron
+                          : styles.rotateChevronBack
                       }`}
                     ></i>
                   </div>
@@ -251,12 +457,18 @@ export default function CartOrder({ dictionary, lang }: CartOrderProps) {
                 <div className={styles.customSelect}>
                   <div
                     className={styles.selectButton}
-                    onClick={() => setActiveSelect(activeSelect === 'paymentSize' ? null : 'paymentSize')}
+                    onClick={() =>
+                      setActiveSelect(
+                        activeSelect === 'paymentSize' ? null : 'paymentSize'
+                      )
+                    }
                   >
                     {paymentSize || dictionary.paymentSizeOptions.select}
                     <i
                       className={`fa-solid fa-chevron-down ${
-                        activeSelect === 'paymentSize' ? styles.rotateChevron : styles.rotateChevronBack
+                        activeSelect === 'paymentSize'
+                          ? styles.rotateChevron
+                          : styles.rotateChevronBack
                       }`}
                     ></i>
                   </div>
@@ -293,16 +505,26 @@ export default function CartOrder({ dictionary, lang }: CartOrderProps) {
                   )}
                 </div>
 
-                <label htmlFor="deliveryMethod">{dictionary.deliveryMethod}</label>
+                <label htmlFor="deliveryMethod">
+                  {dictionary.deliveryMethod}
+                </label>
                 <div className={styles.customSelect}>
                   <div
                     className={styles.selectButton}
-                    onClick={() => setActiveSelect(activeSelect === 'deliveryMethod' ? null : 'deliveryMethod')}
+                    onClick={() =>
+                      setActiveSelect(
+                        activeSelect === 'deliveryMethod'
+                          ? null
+                          : 'deliveryMethod'
+                      )
+                    }
                   >
                     {deliveryMethod || dictionary.deliveryMethodOptions.select}
                     <i
                       className={`fa-solid fa-chevron-down ${
-                        activeSelect === 'deliveryMethod' ? styles.rotateChevron : styles.rotateChevronBack
+                        activeSelect === 'deliveryMethod'
+                          ? styles.rotateChevron
+                          : styles.rotateChevronBack
                       }`}
                     ></i>
                   </div>
@@ -320,7 +542,9 @@ export default function CartOrder({ dictionary, lang }: CartOrderProps) {
                       <li
                         className={styles.option}
                         onClick={() => {
-                          setDeliveryMethod(dictionary.deliveryMethodOptions.novaPoshta);
+                          setDeliveryMethod(
+                            dictionary.deliveryMethodOptions.novaPoshta
+                          );
                           setActiveSelect(null);
                         }}
                       >
@@ -332,96 +556,80 @@ export default function CartOrder({ dictionary, lang }: CartOrderProps) {
 
                 <label htmlFor="city">{dictionary.city}</label>
                 <div className={styles.customSelect}>
-                  <div
-                    className={styles.selectButton}
-                    onClick={() => setActiveSelect(activeSelect === 'city' ? null : 'city')}
-                  >
-                    {city || dictionary.cityOptions.select}
-                    <i
-                      className={`fa-solid fa-chevron-down ${
-                        activeSelect === 'city' ? styles.rotateChevron : styles.rotateChevronBack
-                      }`}
-                    ></i>
-                  </div>
-                  {activeSelect === 'city' && (
-                    <ul className={styles.selectOptions}>
-                      <li
-                        className={styles.option}
-                        onClick={() => {
-                          setCity('');
-                          setActiveSelect(null);
-                        }}
-                      >
-                        {dictionary.cityOptions.select}
-                      </li>
-                      <li
-                        className={styles.option}
-                        onClick={() => {
-                          setCity(dictionary.cityOptions.kyiv);
-                          setActiveSelect(null);
-                        }}
-                      >
-                        {dictionary.cityOptions.kyiv}
-                      </li>
-                      <li
-                        className={styles.option}
-                        onClick={() => {
-                          setCity(dictionary.cityOptions.lviv);
-                          setActiveSelect(null);
-                        }}
-                      >
-                        {dictionary.cityOptions.lviv}
-                      </li>
-                    </ul>
-                  )}
-                </div>
+                  <div style={{ position: 'relative', width: '100%' }}>
+                    <input
+                      type="text"
+                      value={query}
+                      onChange={(e) => {
+                        setQuery(e.target.value);
+                        setSelectCity(undefined);
+                        setWarehouseQuery('');
+                        setSelectedWarehouse(undefined);
+                      }}
+                      style={{ paddingLeft: '15px' }}
+                      placeholder={dictionary.city}
+                      className="p-2 border w-full"
+                    />
 
-                <label htmlFor="branch">{dictionary.branch}</label>
-                <div className={styles.customSelect}>
-                  <div
-                    className={styles.selectButton}
-                    onClick={() => setActiveSelect(activeSelect === 'branch' ? null : 'branch')}
-                  >
-                    {branch || dictionary.branchOptions.select}
-                    <i
-                      className={`fa-solid fa-chevron-down ${
-                        activeSelect === 'branch' ? styles.rotateChevron : styles.rotateChevronBack
-                      }`}
-                    ></i>
+                    {filteredCities.length > 0 && (
+                      <div className={styles.dropdownCities}>
+                        {filteredCities.map((city: any) => (
+                          <div
+                            key={city.Ref}
+                            className={styles.cityItem}
+                            onClick={() => {
+                              setQuery(
+                                lang == 'ru'
+                                  ? city.DescriptionRu
+                                  : city.Description
+                              );
+                              setSelectCity(city);
+                            }}
+                          >
+                            {lang == 'ru'
+                              ? city.DescriptionRu
+                              : city.Description}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                  {activeSelect === 'branch' && (
-                    <ul className={styles.selectOptions}>
-                      <li
-                        className={styles.option}
-                        onClick={() => {
-                          setBranch('');
-                          setActiveSelect(null);
-                        }}
-                      >
-                        {dictionary.branchOptions.select}
-                      </li>
-                      <li
-                        className={styles.option}
-                        onClick={() => {
-                          setBranch('№1');
-                          setActiveSelect(null);
-                        }}
-                      >
-                        №1
-                      </li>
-                      <li
-                        className={styles.option}
-                        onClick={() => {
-                          setBranch('№2');
-                          setActiveSelect(null);
-                        }}
-                      >
-                        №2
-                      </li>
-                    </ul>
-                  )}
                 </div>
+                {selectCity !== undefined && (
+                  <>
+                    <label htmlFor="branch">{dictionary.branch}</label>
+                    <div
+                      style={{ position: 'relative' }}
+                      className={styles.customSelect}
+                    >
+                      <input
+                        type="text"
+                        value={warehouseQuery}
+                        style={{ paddingLeft: '15px' }}
+                        onChange={(e) => {
+                          setWarehouseQuery(e.target.value);
+                          setSelectedWarehouse(undefined);
+                        }}
+                        placeholder="Пошук відділення..."
+                      />
 
+                      <div className={styles.dropdownCities}>
+                        {filteredWarehouses.map((w: any) => (
+                          <div
+                            key={w.Ref}
+                            className={styles.cityItem}
+                            onClick={() => {
+                              setWarehouseQuery(w.Description);
+                              setSelectedWarehouse(w);
+                            }}
+                          >
+                            {w.Description}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                )}
                 <button
                   type="button"
                   onClick={handleCheckout}

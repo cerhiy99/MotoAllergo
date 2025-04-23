@@ -25,13 +25,15 @@ const Footer = ({ dictionary, lang }: FooterProps) => {
                 <Link href={`/${lang}/about`}>{dictionary.about}</Link>
               </li>
               <li>
-                <Link href={`/${lang}/catalog`}>{dictionary.catalog}</Link>
+                <Link href={`/${lang}/catalog/1`}>{dictionary.catalog}</Link>
               </li>
               <li>
-                <Link href={`/${lang}/news`}>{dictionary.news}</Link>
+                <Link href={`/${lang}/news/1`}>{dictionary.news}</Link>
               </li>
               <li>
-                <Link href={`/${lang}/partnership`}>{dictionary.partnership}</Link>
+                <Link href={`/${lang}/partnership`}>
+                  {dictionary.partnership}
+                </Link>
               </li>
               <li>
                 <Link href={`/${lang}/contacts`}>{dictionary.contacts}</Link>
@@ -39,24 +41,32 @@ const Footer = ({ dictionary, lang }: FooterProps) => {
             </ul>
           </li>
           <li className={styles.footerEl}>
-            <h2 className={styles.footerElHeader}>{dictionary.customerService}</h2>
+            <h2 className={styles.footerElHeader}>
+              {dictionary.customerService}
+            </h2>
             <ul className={styles.footerElList}>
               <li>
-                <Link href={`/${lang}/offer_agreement`}>{dictionary.offerAgreement}</Link>
+                <Link href={`/${lang}/offer_agreement`}>
+                  {dictionary.offerAgreement}
+                </Link>
               </li>
               <li>
-                <Link href={`/${lang}/privacy_policy`}>{dictionary.privacyPolicy}</Link>
+                <Link href={`/${lang}/privacy_policy`}>
+                  {dictionary.privacyPolicy}
+                </Link>
               </li>
               <li>
                 <Link href={`/${lang}/delivery`}>{dictionary.delivery}</Link>
               </li>
               <li>
-                <Link href={`/${lang}/guarantees`}>{dictionary.guarantees}</Link>
+                <Link href={`/${lang}/guarantees`}>
+                  {dictionary.guarantees}
+                </Link>
               </li>
             </ul>
           </li>
           <li className={styles.footerEl}>
-            <SubscribeForm dictionary={dictionary.subscribeForm} lang={lang} />
+            <SubscribeForm dictionary={dictionary.subscribeForm} />
           </li>
           <li className={styles.footerEl}></li>
         </ul>

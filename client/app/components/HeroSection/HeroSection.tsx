@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import styles from './HeroSection.module.css';
 import { $host } from '@/app/http';
 import { Locale } from '@/i18n.config';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   dictionary: {
@@ -19,6 +20,7 @@ type Props = {
 };
 
 const HeroSection = ({ dictionary, lang }: Props) => {
+  const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
   // const [activeFilters, setActiveFilters] = useState([0, 3]); //старе
   // const [dropdowns, setDropdowns] = useState({});
@@ -122,7 +124,9 @@ const HeroSection = ({ dictionary, lang }: Props) => {
     { id: 2, nameuk: 'Заглушка 2', nameru: 'Заглушка 2' },
     { id: 3, nameuk: 'Заглушка 3', nameru: 'Заглушка 3' },
   ];
-  const isFormValid = Object.values(chosenFilters).every((value) => value !== 0);
+  const isFormValid = Object.values(chosenFilters).every(
+    (value) => value !== 0
+  );
   const getStartDropdownFilters = async () => {
     try {
       const brands = await $host.get('product/getBrands');
@@ -161,6 +165,19 @@ const HeroSection = ({ dictionary, lang }: Props) => {
     getStartDropdownFilters();
   }, []);
 
+  const sumbit = () => {
+    console.log(
+      `/${lang}/catalog/1?brand=${chosenFilters[0]}&model=${chosenFilters['1']}&categories=${chosenFilters['2']}&typeDetail=${chosenFilters['3']}`
+    );
+    if (isFormValid)
+      router.push(
+        `/${lang}/catalog/1?brand=${chosenFilters[0]}&model=${chosenFilters['1']}&categories=${chosenFilters['2']}&typeDetail=${chosenFilters['3']}`
+      );
+  };
+  console.log(
+    `/${lang}/catalog/1?brand=${chosenFilters[0]}&model=${chosenFilters['1']}&categories=${chosenFilters['2']}&typeDetail=${chosenFilters['3']}`
+  );
+
   return (
     <div className={styles.heroSection}>
       <div className={styles.imageContainer}>
@@ -171,51 +188,47 @@ const HeroSection = ({ dictionary, lang }: Props) => {
         />
       </div>
       <div className={styles.heroWrapper}>
-        <form
-          className={styles.filterParts}
-          action={`/${lang}/catalog/1?${(chosenFilters['0'] == 0 ? '' : `brand=${chosenFilters['0']}&`) +
-            (chosenFilters['1'] == 0 ? '' : `model=${chosenFilters['1']}&`) +
-            (chosenFilters['2'] == 0
-              ? ''
-              : `categoryTypeDetail=${chosenFilters['2']}&`) +
-            (chosenFilters['3'] == 0 ? '' : `typeDetail=${chosenFilters['3']}`)
-            }`}
-        >
+        <form className={styles.filterParts} onSubmit={sumbit}>
           <h1 className={styles.heroSectionTitle}>{dictionary.title}</h1>
           <ul className={styles.filterList}>
             {filterLabels.map((text, index) => (
               <li
                 key={index}
-                className={`${styles.filterEl} ${activeFilters.includes(index) ? styles.active : ''
-                  } ${chosenFilters[index] ? styles.chosen : ''}`}
+                className={`${styles.filterEl} ${
+                  activeFilters.includes(index) ? styles.active : ''
+                } ${chosenFilters[index] ? styles.chosen : ''}`}
               >
                 <p
-                  className={`${styles.filterElPara} ${chosenFilters[index] ? styles.chosen : ''
-                    }`}
+                  className={`${styles.filterElPara} ${
+                    chosenFilters[index] ? styles.chosen : ''
+                  }`}
                   onClick={() => handleFilterClick(index)}
                 >
                   <span
-                    className={`${styles.filterElNumber} ${activeFilters.includes(index) ? styles.active : ''
-                      } ${chosenFilters[index] ? styles.chosen : ''}`}
+                    className={`${styles.filterElNumber} ${
+                      activeFilters.includes(index) ? styles.active : ''
+                    } ${chosenFilters[index] ? styles.chosen : ''}`}
                   >
                     {index + 1}
                   </span>
                   {chosenFilters[index] == 0
                     ? text
                     : dropItems[index].find((x) => x.id == chosenFilters[index])
-                      ?.name}
+                        ?.name}
                 </p>
                 <div
-                  className={`${styles.filterElIconWrapper} ${activeFilters.includes(index) ? styles.active : ''
-                    } ${chosenFilters[index] ? styles.chosen : ''}`}
+                  className={`${styles.filterElIconWrapper} ${
+                    activeFilters.includes(index) ? styles.active : ''
+                  } ${chosenFilters[index] ? styles.chosen : ''}`}
                   onClick={() => handleFilterClick(index)}
                 >
                   <i className="fa-solid fa-chevron-down"></i>
                 </div>
                 {dropdowns[index] && (
                   <ul
-                    className={`${styles.dropdownMenu} ${dropdowns[index] ? styles.active : ''
-                      }`}
+                    className={`${styles.dropdownMenu} ${
+                      dropdowns[index] ? styles.active : ''
+                    }`}
                   >
                     {dropItems[index].length > 0 &&
                       dropItems[index].map((item, i) => (
@@ -233,7 +246,9 @@ const HeroSection = ({ dictionary, lang }: Props) => {
             ))}
           </ul>
           <button
-            className={`${styles.filterElButton} ${isFormValid ? styles.chosen : ''}`}
+            className={`${styles.filterElButton} ${
+              isFormValid ? styles.chosen : ''
+            }`}
             // style={{ opacity: Object.keys(chosenFilters).length > 0 ? 0.7 : 1 }}
             //onClick={()=>}
             disabled={!isFormValid}
@@ -246,8 +261,9 @@ const HeroSection = ({ dictionary, lang }: Props) => {
           {images.map((_, index) => (
             <span
               key={index}
-              className={`${styles.dot} ${index === currentSlide ? styles.active : ''
-                }`}
+              className={`${styles.dot} ${
+                index === currentSlide ? styles.active : ''
+              }`}
               onClick={() => handleDotClick(index)}
             ></span>
           ))}

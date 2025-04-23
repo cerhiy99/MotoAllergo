@@ -2,10 +2,10 @@
 import { $authHost } from '@/app/http';
 import { useState, ChangeEvent, FormEvent } from 'react';
 import styles from './AddBlog.module.scss';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import dynamic from 'next/dynamic';
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
-export default function AddBlog() {
+const Page = () => {
   const [nameuk, setNameUk] = useState<string>('');
   const [nameru, setNameRu] = useState<string>('');
   const [descriptionuk, setDescriptionUk] = useState<string>('');
@@ -112,4 +112,6 @@ export default function AddBlog() {
       {message != '' && <p className={styles.message}>{message}</p>}
     </div>
   );
-}
+};
+
+export default Page;

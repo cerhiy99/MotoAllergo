@@ -1,22 +1,34 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Locale } from '@/i18n.config';
 import styles from './Footer.module.css';
 import Link from 'next/link';
 
-interface SubscribeFormProps {
-  dictionary: any;
-  lang: string; // Додаємо lang
-}
+type SubscribeFormProps = {
+  dictionary: {
+    title: string;
+    description: string;
+    termsLink: string;
+    subscribeButton: string;
+    checkboxLabel: string;
+    errors: {
+      emptyEmail: string;
+      invalidEmail: string;
+      termsNotAccepted: string;
+      subscribeFailed: string;
+      genericError: string;
+    };
+    successMessage: string;
+  };
+};
 
-const SubscribeForm: React.FC<SubscribeFormProps> = ({ dictionary, lang }) => {
+const SubscribeForm: React.FC<SubscribeFormProps> = ({ dictionary }) => {
   const [email, setEmail] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const BOT_TOKEN = '';
-  const CHAT_ID = '';
+  const BOT_TOKEN = process.env.NEXT_PUBLIC_TG_TOKEN;
+  const CHAT_ID = process.env.NEXT_PUBLIC_CHAT_ID;
 
   const isValidEmail = (email: string): boolean => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -41,7 +53,11 @@ const SubscribeForm: React.FC<SubscribeFormProps> = ({ dictionary, lang }) => {
 
     setError(null);
 
-    const message = `🎉 *Congratulations!* 🙌\n\nThe following email was subscribed to your newsletter:\n📧 *E-mail:* ${email}`;
+    const message = `
+    Привіт!🙌
+Хтось підписався на інформаційний бюлетень📰
+Ось його електронна пошта:
+📧Email: ${email}`;
     const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 
     try {
@@ -105,7 +121,11 @@ const SubscribeForm: React.FC<SubscribeFormProps> = ({ dictionary, lang }) => {
           </div>
         </li>
         <li>
-          <Link href={`/${lang}/privacy_policy`} target="_blank" className={styles.footerLink}>
+          <Link
+            href="/privacy_policy/"
+            target="_blank"
+            className={styles.footerLink}
+          >
             {dictionary.termsLink}
           </Link>
           <button

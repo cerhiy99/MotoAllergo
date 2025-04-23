@@ -169,7 +169,6 @@
   color: red;
   font-size: 12px;
   text-align: left;
-
 }
 
 .continueButton:disabled,
@@ -294,6 +293,28 @@
 .rotateChevronBack {
   animation: flipChevronBack 0.25s ease-in-out forwards;
 }
+
+/* styles.module.css */
+.dropdownCities {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  width: 100%;
+  overflow-y: auto;
+  z-index: 100;
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+.cityItem {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.cityItem:hover {
+  background: #eee;
+}
+
 @keyframes flipChevron {
   0% {
     transform: rotateX(0deg);
@@ -340,7 +361,6 @@
 
   .cartItem {
     padding-bottom: 15px;
-
   }
 
   .editButton i {

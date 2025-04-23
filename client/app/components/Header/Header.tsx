@@ -14,7 +14,7 @@ import Heart from '../../assets/icons/heart.svg';
 import Cart from '../../assets/icons/cart.svg';
 import AnimatedInput from './AnimatedInput';
 import ModalForm from '../PhoneIconModal/ModalForm';
-import { useCartStore,WishlistItem,CartItem } from '@/store/cartStore';
+import { useCartStore, WishlistItem, CartItem } from '@/store/cartStore';
 
 type Props = {
   lang: string;
@@ -47,10 +47,10 @@ const Header = ({ lang, dictionary }: Props) => {
         ...item,
         quantity: 1,
       };
-      addToCart(cartItem); 
+      addToCart(cartItem);
     });
-    clearWishlist(); 
-    setIsFavoritesOpen(false); 
+    clearWishlist();
+    setIsFavoritesOpen(false);
   };
 
   useEffect(() => {
@@ -99,7 +99,9 @@ const Header = ({ lang, dictionary }: Props) => {
   };
 
   const handleLanguageChange = (langCode: string) => {
-    document.cookie = `preferred-locale=${langCode}; path=/; max-age=${60 * 60 * 24 * 30}`; // 30 days
+    document.cookie = `preferred-locale=${langCode}; path=/; max-age=${
+      60 * 60 * 24 * 30
+    }`; // 30 days
     const newPath = getNewPath(langCode);
     startTransition(() => {
       router.replace(newPath);
@@ -159,6 +161,13 @@ const Header = ({ lang, dictionary }: Props) => {
 
   const openCallModal = () => {
     setIsCallModalOpen(true);
+  };
+
+  const sumbit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const search = formData.get('search');
+    router.push(`/${lang}/catalog/1?search=${search}`);
   };
 
   return (
@@ -225,7 +234,7 @@ const Header = ({ lang, dictionary }: Props) => {
               <img src="/images/logotype-desctop.svg" alt="logo" />
             </Link>
           </div>
-          <form className={styles.searchForm}>
+          <form onSubmit={sumbit} className={styles.searchForm}>
             <AnimatedInput dictionary={dictionary} />
             <button type="submit" className={styles.searchButton}>
               <i className="fas fa-search"></i>
@@ -238,7 +247,9 @@ const Header = ({ lang, dictionary }: Props) => {
               <Link href={`/${currentLang}/about`}>{dictionary.about}</Link>
             </li>
             <li>
-              <Link href={`/${currentLang}/catalog`}>{dictionary.catalog}</Link>
+              <Link href={`/${currentLang}/catalog/1`}>
+                {dictionary.catalog}
+              </Link>
             </li>
             <li>
               <Link href={`/${currentLang}/delivery`}>
@@ -251,7 +262,7 @@ const Header = ({ lang, dictionary }: Props) => {
               </Link>
             </li>
             <li>
-              <Link href={`/${currentLang}/news`}>{dictionary.news}</Link>
+              <Link href={`/${currentLang}/news/1`}>{dictionary.news}</Link>
             </li>
             <li>
               <Link href={`/${currentLang}/partnership`}>

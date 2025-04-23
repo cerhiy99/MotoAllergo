@@ -6,13 +6,17 @@ export async function generateStaticParams() {
   return [{ lang: 'uk' }, { lang: 'ru' }];
 }
 
-export default async function CartPage({ params }: { params: { lang: Locale } }) {
+export default async function CartPage({
+  params,
+}: {
+  params: { lang: Locale };
+}) {
   const dictionary: any = await getDictionary(params.lang);
   const cart = dictionary.cart;
 
   return (
-    <div >
-      <CartOrder dictionary={cart} lang={params.lang}/>
+    <div>
+      <CartOrder dictionary={cart} lang={params.lang} />
     </div>
   );
 }

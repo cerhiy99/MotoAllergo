@@ -6,10 +6,10 @@ import NavPath from '@/app/components/NavPath/NavPath';
 
 type Props = {
   dictionary: any;
-  lang: string;
 };
 
-export default function SuccessOrderComponent({ dictionary,lang}: Props) {
+export default function SuccessOrderComponent({ dictionary }: Props) {
+  console.log(dictionary);
   return (
     <div className={styles.successContainer}>
       <NavPath />
@@ -22,12 +22,13 @@ export default function SuccessOrderComponent({ dictionary,lang}: Props) {
             {dictionary.orderNumber.replace('{number}', '35262')}
           </p>
           <p className={styles.priceInfo}>
-            {/* {dictionary.storeInfo.replace('{count}', '32.000.000')} <br /> */}
+            {dictionary.storeInfo.replace('{count}', '32.000.000')} <br />
             {dictionary.comeBack}
             <br />
-            {dictionary.withLove} <i className="fa-solid fa-heart"></i> Car Fix Info
+            {dictionary.withLove} <i className="fa-solid fa-heart"></i>{' '}
+            MotoAllegro
           </p>
-          <Link href={`/${lang}/catalog`} className={styles.continueShoppingButton}>
+          <Link href="/catalog" className={styles.continueShoppingButton}>
             {dictionary.continueShopping}
           </Link>
         </div>
